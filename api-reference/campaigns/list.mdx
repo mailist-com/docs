@@ -1,0 +1,117 @@
+---
+title: 'List campaigns'
+description: 'Retrieve all email campaigns'
+---
+
+## Endpoint
+
+```
+GET /campaigns
+```
+
+## Query parameters
+
+<ParamField query="page" type="integer" default="1">
+  Page number for pagination
+</ParamField>
+
+<ParamField query="limit" type="integer" default="50">
+  Number of campaigns per page (max 100)
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filter by campaign status: `draft`, `scheduled`, `sending`, `sent`, `paused`
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  Array of campaign objects
+  
+  <Expandable title="Campaign object">
+    <ResponseField name="id" type="string">
+      Unique campaign identifier
+    </ResponseField>
+    
+    <ResponseField name="name" type="string">
+      Campaign name
+    </ResponseField>
+    
+    <ResponseField name="subject" type="string">
+      Email subject line
+    </ResponseField>
+    
+    <ResponseField name="status" type="string">
+      Campaign status: `draft`, `scheduled`, `sending`, `sent`, `paused`
+    </ResponseField>
+    
+    <ResponseField name="created_at" type="string">
+      ISO 8601 timestamp of creation
+    </ResponseField>
+    
+    <ResponseField name="scheduled_at" type="string">
+      ISO 8601 timestamp of scheduled send time
+    </ResponseField>
+    
+    <ResponseField name="sent_at" type="string">
+      ISO 8601 timestamp when campaign was sent
+    </ResponseField>
+    
+    <ResponseField name="stats" type="object">
+      Campaign statistics
+      
+      <Expandable title="Stats object">
+        <ResponseField name="sent" type="integer">
+          Number of emails sent
+        </ResponseField>
+        
+        <ResponseField name="delivered" type="integer">
+          Number of emails delivered
+        </ResponseField>
+        
+        <ResponseField name="opened" type="integer">
+          Number of unique opens
+        </ResponseField>
+        
+        <ResponseField name="clicked" type="integer">
+          Number of unique clicks
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Example request
+
+```bash
+curl https://api.mailist.com/v1/campaigns?status=sent \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Example response
+
+```json
+{
+  "data": [
+    {
+      "id": "camp_abc123",
+      "name": "December Newsletter",
+      "subject": "Year-end updates and special offers",
+      "status": "sent",
+      "created_at": "2025-12-01T10:00:00Z",
+      "sent_at": "2025-12-15T14:00:00Z",
+      "stats": {
+        "sent": 5000,
+        "delivered": 4950,
+        "opened": 2475,
+        "clicked": 742
+      }
+    }
+  ],
+  "meta": {
+    "total": 45,
+    "page": 1,
+    "limit": 50
+  }
+}
+```
