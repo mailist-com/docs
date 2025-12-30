@@ -12,10 +12,9 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Dashboard",
+          "anchor": "Portal",
           "icon": "grid-2",
-          "hidden": true,
-          "href": "https://app.mailist.com"
+          "href": "https://app.mailist.pl"
         },
         {
           "anchor": "Support",
@@ -28,6 +27,7 @@
     "tabs": [
       {
         "tab": "Guides",
+        "hidden": true,
         "groups": [
           {
             "group": "Getting started",
