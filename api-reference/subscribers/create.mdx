@@ -1,0 +1,92 @@
+---
+title: 'Create subscriber'
+description: 'Add a new subscriber to your mailing list'
+---
+
+## Endpoint
+
+```
+POST /subscribers
+```
+
+## Request body
+
+<ParamField body="email" type="string" required>
+  Subscriber email address
+</ParamField>
+
+<ParamField body="first_name" type="string">
+  Subscriber first name
+</ParamField>
+
+<ParamField body="last_name" type="string">
+  Subscriber last name
+</ParamField>
+
+<ParamField body="list_ids" type="array">
+  Array of mailing list IDs to subscribe to
+</ParamField>
+
+<ParamField body="custom_fields" type="object">
+  Custom field values as key-value pairs
+</ParamField>
+
+<ParamField body="tags" type="array">
+  Array of tags to assign to subscriber
+</ParamField>
+
+<ParamField body="double_opt_in" type="boolean" default="true">
+  Send confirmation email before activating subscription
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="object">
+  <ResponseField name="id" type="string">
+    Unique subscriber identifier
+  </ResponseField>
+  
+  <ResponseField name="email" type="string">
+    Subscriber email address
+  </ResponseField>
+  
+  <ResponseField name="status" type="string">
+    Subscriber status: `pending` (if double opt-in) or `active`
+  </ResponseField>
+  
+  <ResponseField name="subscribed_at" type="string">
+    ISO 8601 timestamp of subscription
+  </ResponseField>
+</ResponseField>
+
+## Example request
+
+```bash
+curl -X POST https://api.mailist.com/v1/subscribers \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "jane@example.com",
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "list_ids": ["list_456def"],
+    "custom_fields": {
+      "company": "Tech Corp"
+    },
+    "tags": ["new-user"],
+    "double_opt_in": false
+  }'
+```
+
+## Example response
+
+```json
+{
+  "data": {
+    "id": "sub_xyz789",
+    "email": "jane@example.com",
+    "status": "active",
+    "subscribed_at": "2025-12-30T09:00:00Z"
+  }
+}
+```
