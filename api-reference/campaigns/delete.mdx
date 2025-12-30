@@ -1,0 +1,31 @@
+---
+title: 'Delete campaign'
+description: 'Delete a campaign'
+---
+
+## Endpoint
+
+```
+DELETE /campaigns/{id}
+```
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  Campaign ID
+</ParamField>
+
+## Response
+
+Returns a `204 No Content` status code on success with no response body.
+
+## Example request
+
+```bash
+curl -X DELETE https://api.mailist.com/v1/campaigns/camp_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+<Note>
+  Only campaigns with status `draft` can be deleted. Sent campaigns cannot be removed but can be archived.
+</Note>
