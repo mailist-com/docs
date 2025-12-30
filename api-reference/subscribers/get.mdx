@@ -1,0 +1,84 @@
+---
+title: 'Get subscriber'
+description: 'Retrieve a single subscriber by ID or email'
+---
+
+## Endpoint
+
+```
+GET /subscribers/{id}
+```
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  Subscriber ID or email address
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="object">
+  <ResponseField name="id" type="string">
+    Unique subscriber identifier
+  </ResponseField>
+  
+  <ResponseField name="email" type="string">
+    Subscriber email address
+  </ResponseField>
+  
+  <ResponseField name="first_name" type="string">
+    Subscriber first name
+  </ResponseField>
+  
+  <ResponseField name="last_name" type="string">
+    Subscriber last name
+  </ResponseField>
+  
+  <ResponseField name="status" type="string">
+    Subscriber status: `active`, `unsubscribed`, `bounced`
+  </ResponseField>
+  
+  <ResponseField name="subscribed_at" type="string">
+    ISO 8601 timestamp of subscription
+  </ResponseField>
+  
+  <ResponseField name="lists" type="array">
+    Array of mailing list IDs the subscriber belongs to
+  </ResponseField>
+  
+  <ResponseField name="custom_fields" type="object">
+    Custom field values
+  </ResponseField>
+  
+  <ResponseField name="tags" type="array">
+    Array of tags assigned to subscriber
+  </ResponseField>
+</ResponseField>
+
+## Example request
+
+```bash
+curl https://api.mailist.com/v1/subscribers/sub_123abc \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Example response
+
+```json
+{
+  "data": {
+    "id": "sub_123abc",
+    "email": "john@example.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "status": "active",
+    "subscribed_at": "2025-01-15T10:30:00Z",
+    "lists": ["list_456def", "list_789ghi"],
+    "custom_fields": {
+      "company": "Acme Inc",
+      "role": "Developer"
+    },
+    "tags": ["premium", "engaged"]
+  }
+}
+```
