@@ -127,9 +127,10 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mailist",
-      "github": "https://github.com/mailist-com",
       "linkedin": "https://linkedin.com/company/110314301"
     }
+  },
+  "appearance": {
+    "default": "system"
   }
 }
