@@ -1,0 +1,77 @@
+---
+title: 'Update subscriber'
+description: 'Update subscriber information'
+---
+
+## Endpoint
+
+```
+PATCH /subscribers/{id}
+```
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  Subscriber ID or email address
+</ParamField>
+
+## Request body
+
+<ParamField body="email" type="string">
+  New email address
+</ParamField>
+
+<ParamField body="first_name" type="string">
+  Subscriber first name
+</ParamField>
+
+<ParamField body="last_name" type="string">
+  Subscriber last name
+</ParamField>
+
+<ParamField body="custom_fields" type="object">
+  Custom field values to update
+</ParamField>
+
+<ParamField body="tags" type="array">
+  Replace existing tags with new array
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="object">
+  Updated subscriber object with all fields
+</ResponseField>
+
+## Example request
+
+```bash
+curl -X PATCH https://api.mailist.com/v1/subscribers/sub_123abc \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "first_name": "Jonathan",
+    "custom_fields": {
+      "role": "Senior Developer"
+    }
+  }'
+```
+
+## Example response
+
+```json
+{
+  "data": {
+    "id": "sub_123abc",
+    "email": "john@example.com",
+    "first_name": "Jonathan",
+    "last_name": "Doe",
+    "status": "active",
+    "subscribed_at": "2025-01-15T10:30:00Z",
+    "custom_fields": {
+      "company": "Acme Inc",
+      "role": "Senior Developer"
+    }
+  }
+}
+```
