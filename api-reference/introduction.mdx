@@ -1,33 +1,68 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'REST API documentation for Mailist email marketing platform'
 ---
-
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
 
 ## Welcome
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+Mailist API allows you to integrate email marketing capabilities into your applications. You can manage subscribers, campaigns, templates, and track email performance programmatically.
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## Base URL
+
+```
+https://api.mailist.com/v1
+```
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API endpoints require authentication using API keys. Include your API key in the request header:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+You can generate API keys from your Mailist dashboard under Settings > API Keys.
+
+## Rate limiting
+
+API requests are limited to 1000 requests per hour per API key. Rate limit information is included in response headers:
+
+- `X-RateLimit-Limit`: Maximum requests per hour
+- `X-RateLimit-Remaining`: Remaining requests in current window
+- `X-RateLimit-Reset`: Time when the rate limit resets (Unix timestamp)
+
+## Response format
+
+All responses are returned in JSON format. Successful responses include a `data` object, while errors include an `error` object with details.
+
+### Success response
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
+{
+  "data": {
+    "id": "sub_123",
+    "email": "user@example.com"
   }
-]
+}
 ```
+
+### Error response
+
+```json
+{
+  "error": {
+    "code": "invalid_request",
+    "message": "Email address is required"
+  }
+}
+```
+
+## HTTP status codes
+
+- `200` - Success
+- `201` - Created
+- `400` - Bad request
+- `401` - Unauthorized
+- `404` - Not found
+- `429` - Rate limit exceeded
+- `500` - Server error
