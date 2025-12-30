@@ -1,0 +1,218 @@
+---
+title: 'Triggery automatyzacji'
+description: 'Pełna lista triggerów do uruchamiania automatycznych workflow w Mailist.'
+---
+
+# Triggery automatyzacji
+
+Trigger to zdarzenie, które uruchamia workflow. Dowiedz się, kiedy i jak używać każdego triggera.
+
+## Triggery związane z kontaktami
+
+<AccordionGroup>
+  <Accordion title="CONTACT_CREATED" icon="user-plus">
+    **Opis:** Nowy kontakt został dodany do listy
+
+    **Użycie:**
+    - Welcome series
+    - Onboarding nowych subskrybentów
+    - Wysyłka lead magnetu
+
+    **Przykład:**
+    ```yaml
+    Trigger: CONTACT_CREATED
+    Action: Wyślij ebook powitalny
+    ```
+  </Accordion>
+
+  <Accordion title="TAG_ADDED" icon="tag">
+    **Opis:** Do kontaktu dodano tag
+
+    **Użycie:**
+    - Segmentacja automatyczna
+    - Różne flow dla różnych tagów
+    - Lead scoring
+
+    **Przykład:**
+    ```yaml
+    Trigger: TAG_ADDED "VIP"
+    Action: Wyślij ofertę premium
+    ```
+  </Accordion>
+
+  <Accordion title="FIELD_CHANGED" icon="pen-to-square">
+    **Opis:** Zmieniono wartość pola kontaktu
+
+    **Użycie:**
+    - Reakcja na zmianę statusu
+    - Update preferencji
+    - Zmiana planu
+
+    **Przykład:**
+    ```yaml
+    Trigger: FIELD_CHANGED "plan" → "enterprise"
+    Action: Przypisz account managera
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Triggery związane z kampaniami
+
+<AccordionGroup>
+  <Accordion title="EMAIL_OPENED" icon="envelope-open">
+    **Opis:** Kontakt otworzył konkretną kampanię
+
+    **Użycie:**
+    - Follow-up po otwarciu
+    - Segmentacja engaged users
+    - Scoring zaangażowania
+
+    **Przykład:**
+    ```yaml
+    Trigger: EMAIL_OPENED "Webinar invitation"
+    Wait: 2 godziny
+    Action: Wyślij przypomnienie o zapisie
+    ```
+  </Accordion>
+
+  <Accordion title="EMAIL_CLICKED" icon="mouse-pointer">
+    **Opis:** Kliknięto link w emailu
+
+    **Użycie:**
+    - Wysoki intent - gotowość do zakupu
+    - Zainteresowanie konkretnym tematem
+    - Retargeting
+
+    **Przykład:**
+    ```yaml
+    Trigger: EMAIL_CLICKED url zawiera "/pricing"
+    Action: Wyślij case study + ofertę
+    ```
+  </Accordion>
+
+  <Accordion title="EMAIL_BOUNCED" icon="triangle-exclamation">
+    **Opis:** Email nie został dostarczony (bounce)
+
+    **Użycie:**
+    - Czyszczenie bazy
+    - Próba alternatywnego kontaktu
+    - Aktualizacja statusu
+
+    **Przykład:**
+    ```yaml
+    Trigger: EMAIL_BOUNCED (hard bounce)
+    Action: Oznacz jako "Invalid" + End workflow
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Triggery czasowe
+
+<AccordionGroup>
+  <Accordion title="DATE_BASED" icon="calendar">
+    **Opis:** Trigger uruchamia się w określonym dniu
+
+    **Użycie:**
+    - Urodziny
+    - Rocznice subskrypcji
+    - Końcowa data trialu
+
+    **Przykład:**
+    ```yaml
+    Trigger: DATE_BASED field="birthday"
+    Offset: -7 dni (tydzień przed urodzinami)
+    Action: Wyślij kod rabatowy
+    ```
+  </Accordion>
+
+  <Accordion title="INACTIVITY" icon="moon">
+    **Opis:** Brak aktywności przez określony czas
+
+    **Użycie:**
+    - Re-engagement campaigns
+    - Win-back nieaktywnych
+    - Reminder dla abandoned actions
+
+    **Przykład:**
+    ```yaml
+    Trigger: INACTIVITY 90 dni (0 otwarć)
+    Action: Wyślij "Tęsknimy za Tobą" email
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Triggery Custom (API)
+
+<Accordion title="CUSTOM_EVENT" icon="code">
+  **Opis:** Własne zdarzenie wysłane przez API
+
+  **Użycie:**
+  - Integracja z własną aplikacją
+  - E-commerce events (zakup, abandoned cart)
+  - Zachowania in-app
+
+  **Przykład:**
+  ```javascript
+  // W Twojej aplikacji
+  fetch('https://api.mailist.com/v1/events', {
+    method: 'POST',
+    body: JSON.stringify({
+      email: 'jan@example.com',
+      event: 'cart_abandoned',
+      data: {
+        cartValue: 299.99,
+        items: ['Product A', 'Product B']
+      }
+    })
+  });
+
+  // W Mailist workflow
+  Trigger: CUSTOM_EVENT "cart_abandoned"
+  Condition: cartValue > 200
+  Action: Wyślij kupon -15%
+  ```
+
+  [Dokumentacja API Events →](/api-reference/introduction)
+</Accordion>
+
+## Łączenie triggerów (Advanced)
+
+Użyj wielu warunków:
+
+```yaml
+Workflow: "Hot Lead Detection"
+
+Trigger: EMAIL_CLICKED url="/pricing"
+AND
+Condition: TAG zawiera "Enterprise"
+AND
+Condition: Otworzył >3 kampanie w ostatnich 7 dniach
+
+Action: Powiadomienie do Sales Team + Email z ofertą
+```
+
+## Testowanie triggerów
+
+<Steps>
+  <Step title="Tryb testowy">
+    Aktywuj workflow w trybie test - dotyczy tylko wybranych kontaktów
+  </Step>
+
+  <Step title="Ręczne wyzwalanie">
+    Możesz ręcznie wyzwolić trigger dla testowania:
+
+    ```
+    Kontakt → Więcej → Wyzwól workflow "Welcome Series"
+    ```
+  </Step>
+
+  <Step title="Sprawdź logi">
+    **Automatyzacja** → Workflow → **Historia** - zobacz kto i kiedy przeszedł przez workflow
+  </Step>
+</Steps>
+
+## Następne kroki
+
+<Card title="Welcome Series" href="/guides/automatyzacja/welcome-series">
+  Gotowy workflow powitalny do wdrożenia
+</Card>

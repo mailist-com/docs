@@ -1,0 +1,143 @@
+---
+title: 'Edytor HTML szablonów'
+description: 'Projektuj profesjonalne emaile HTML z personalizacją i responsive design.'
+---
+
+# Edytor HTML szablonów
+
+Twórz piękne, responsywne emaile używając edytora HTML w Mailist.
+
+## Rozpoczęcie pracy
+
+<Steps>
+  <Step title="Nowy szablon">
+    **Szablony** → **+ Nowy szablon** → **Pusty HTML**
+  </Step>
+
+  <Step title="Podstawowa struktura">
+    ```html
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding: 20px;">
+            <table width="600" cellpadding="0" cellspacing="0">
+              <!-- Twoja treść tutaj -->
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
+    ```
+  </Step>
+</Steps>
+
+## Personalizacja
+
+Użyj zmiennych do dynamicznej treści:
+
+```html
+<h1>Witaj, {{firstName}}!</h1>
+<p>Dziękujemy za zakup w {{company}}.</p>
+<p>Twój email to: {{email}}</p>
+
+<!-- Z fallback -->
+<p>Cześć {{firstName|Przyjacielu}},</p>
+```
+
+## Dostępne zmienne
+
+| Zmienna | Opis |
+|:--------|:-----|
+| `{{firstName}}` | Imię kontaktu |
+| `{{lastName}}` | Nazwisko |
+| `{{email}}` | Adres email |
+| `{{company}}` | Nazwa firmy |
+| `{{unsubscribeUrl}}` | Link do wypisania (obowiązkowy!) |
+| `{{preferencesUrl}}` | Preferencje użytkownika |
+
+## Responsive Design
+
+<Warning>
+  **60% emaili otwierane jest na mobile!** Zawsze testuj na telefonie.
+</Warning>
+
+```html
+<!-- Responsive obrazek -->
+<img src="logo.png"
+     alt="Logo"
+     width="200"
+     style="max-width: 100%; height: auto;">
+
+<!-- Responsive przycisk -->
+<table cellpadding="0" cellspacing="0" style="width: 100%;">
+  <tr>
+    <td align="center" style="padding: 20px 0;">
+      <a href="https://example.com"
+         style="display: inline-block; padding: 15px 30px;
+                background: #3b82f6; color: white;
+                text-decoration: none; border-radius: 6px;
+                font-size: 16px;">
+        Kliknij tutaj
+      </a>
+    </td>
+  </tr>
+</table>
+```
+
+## Najlepsze praktyki
+
+<AccordionGroup>
+  <Accordion title="Inline CSS" icon="code">
+    Użyj inline styles zamiast `<style>` tag:
+
+    ```html
+    <!-- ✅ Dobrze -->
+    <p style="color: #333; font-size: 16px;">Treść</p>
+
+    <!-- ❌ Źle (nie wszędzie działa) -->
+    <style>p { color: #333; }</style>
+    <p>Treść</p>
+    ```
+  </Accordion>
+
+  <Accordion title="Tables zamiast div" icon="table">
+    Dla layoutu używaj `<table>` nie `<div>`:
+
+    ```html
+    <!-- ✅ Kompatybilne z wszystkimi klientami -->
+    <table width="600">
+      <tr>
+        <td>Kolumna 1</td>
+        <td>Kolumna 2</td>
+      </tr>
+    </table>
+    ```
+  </Accordion>
+
+  <Accordion title="Alt text dla obrazków" icon="image">
+    ```html
+    <img src="produkt.jpg"
+         alt="Nazwa produktu - opis"
+         width="300"
+         style="max-width: 100%;">
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Personalizacja" href="/guides/szablony/personalizacja">
+    Zaawansowana personalizacja z logiką warunkową
+  </Card>
+  <Card title="Biblioteka szablonów" href="/guides/szablony/biblioteka">
+    Gotowe szablony do wykorzystania
+  </Card>
+</CardGroup>

@@ -1,0 +1,123 @@
+---
+title: 'Tworzenie kampanii'
+description: 'Kompletny przewodnik tworzenia skutecznych kampanii emailowych w Mailist.'
+---
+
+# Tworzenie kampanii emailowej
+
+Kampania emailowa to jednorazowa lub cykliczna wysyłka wiadomości do wybranej listy kontaktów.
+
+## Typy kampanii
+
+<CardGroup cols={2}>
+  <Card title="Jednorazowa wysyłka" icon="paper-plane">
+    Newsletter, promocja, ogłoszenie - wyślij raz
+  </Card>
+  <Card title="Kampania cykliczna" icon="arrows-rotate">
+    Automatyczna wysyłka co tydzień/miesiąc
+  </Card>
+  <Card title="A/B Testing" icon="flask">
+    Testuj 2 wersje i wybierz lepszą
+  </Card>
+  <Card title="Drip Campaign" icon="droplet">
+    Seria emaili z interwałami czasowymi
+  </Card>
+</CardGroup>
+
+## Krok po kroku
+
+<Steps>
+  <Step title="Podstawowe ustawienia">
+    ```yaml
+    Nazwa kampanii: "Newsletter - Styczeń 2025"
+    Temat: "🎯 Nowości stycznia dla Ciebie"
+    Nadawca: "Jan Kowalski"
+    Email: "jan@firma.pl"
+    ```
+  </Step>
+
+  <Step title="Wybór odbiorców">
+    - Cała lista: wszystkie aktywne kontakty
+    - Segment: filtruj według warunków
+    - Import CSV: jednorazowa lista
+  </Step>
+
+  <Step title="Treść emaila">
+    - Wybierz szablon z biblioteki
+    - Lub stwórz nowy w edytorze HTML
+    - Dodaj personalizację: `{{firstName}}`
+  </Step>
+
+  <Step title="Planowanie">
+    - **Wyślij teraz:** w ciągu 5-15 minut
+    - **Zaplanuj:** ustaw datę i godzinę
+    - **Zapisz jako draft:** wyślij później
+  </Step>
+</Steps>
+
+## Najlepsze praktyki
+
+### Temat emaila
+
+<Tabs>
+  <Tab title="✅ Dobre tematy">
+    ```
+    🎯 Nowości stycznia + oferta dla Ciebie
+    {{firstName}}, sprawdź co przygotowaliśmy
+    Ostatnie 24h: -30% na wszystko
+    3 porady, które zmienią Twój marketing
+    ```
+
+    **Dlaczego dobrze:**
+    - Konkretne i wartościowe
+    - Personalizacja
+    - Pilność/ekskluzywność
+    - Maksymalnie 50 znaków (mobile)
+  </Tab>
+
+  <Tab title="❌ Złe tematy">
+    ```
+    Newsletter
+    KLIKNIJ TUTAJ TERAZ!!!
+    100% GRATIS PROMOCJA
+    RE: RE: FW:
+    ```
+
+    **Dlaczego źle:**
+    - Zbyt ogólne
+    - Spamowe słowa (GRATIS, KLIKNIJ)
+    - CAPS LOCK i wiele wykrzykników
+    - Wygląda jak spam
+  </Tab>
+</Tabs>
+
+### CTA (Call To Action)
+
+<Note>
+  **Jeden email = Jeden cel = Jeden główny CTA**
+</Note>
+
+Dobre przyciski CTA:
+```html
+<!-- ✅ Wyraźny i konkretny -->
+<a href="..." style="background: #3b82f6; color: white; padding: 15px 40px;">
+  Pobierz bezpłatny ebook
+</a>
+
+<!-- ❌ Niejasny -->
+<a href="...">Kliknij tutaj</a>
+```
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Planowanie wysyłki" href="/guides/kampanie/planowanie-wysylki">
+    Optymalne czasy wysyłki kampanii
+  </Card>
+  <Card title="A/B Testing" href="/guides/kampanie/ab-testing">
+    Testuj i optymalizuj wyniki
+  </Card>
+  <Card title="Analityka" href="/guides/kampanie/analityka">
+    Mierz skuteczność kampanii
+  </Card>
+</CardGroup>

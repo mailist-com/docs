@@ -1,0 +1,148 @@
+---
+title: 'Domeny i weryfikacja DNS'
+description: 'Zweryfikuj domenę i skonfiguruj SPF, DKIM i DMARC dla lepszego deliverability emaili.'
+---
+
+# Domeny i weryfikacja DNS
+
+Weryfikacja domeny poprawia dostarczalność emaili i zapobiega trafianiu do spamu.
+
+## Dlaczego weryfikować domenę?
+
+<CardGroup cols={2}>
+  <Card title="Lepszy delivery rate" icon="inbox">
+    Zweryfikowane domeny mają +40% lepszy delivery
+  </Card>
+
+  <Card title="Mniej spamu" icon="shield-check">
+    SPF/DKIM chronią przed spoofingiem
+  </Card>
+
+  <Card title="Reputacja nadawcy" icon="star">
+    Buduj pozytywną reputację domeny
+  </Card>
+
+  <Card title="Profesjonalny wizerunek" icon="building">
+    Wysyłaj z własnej domeny, nie @mailist.com
+  </Card>
+</CardGroup>
+
+## Konfiguracja krok po kroku
+
+<Steps>
+  <Step title="Dodaj domenę">
+    **Ustawienia** → **Domeny** → **+ Dodaj domenę**
+
+    ```
+    Domena: twojafirma.pl
+    ```
+  </Step>
+
+  <Step title="Skopiuj rekordy DNS">
+    Mailist wygeneruje 3 rekordy DNS:
+
+    ```
+    1. SPF (TXT record)
+    Host: @
+    Value: v=spf1 include:spf.mailist.com ~all
+
+    2. DKIM (TXT record)
+    Host: mailist._domainkey
+    Value: v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3...
+
+    3. DMARC (TXT record)
+    Host: _dmarc
+    Value: v=DMARC1; p=quarantine; rua=mailto:dmarc@twojafirma.pl
+    ```
+  </Step>
+
+  <Step title="Dodaj do DNS">
+    W panelu swojego dostawcy DNS (np. OVH, nazwa.pl, Cloudflare):
+
+    1. Przejdź do zarządzania strefą DNS
+    2. Dodaj 3 rekordy TXT
+    3. Zapisz zmiany
+    4. Poczekaj 24-48h na propagację
+  </Step>
+
+  <Step title="Zweryfikuj">
+    W Mailist kliknij **Zweryfikuj domenę**
+
+    Status zmieni się na:
+    - ✅ **Zweryfikowana** - gotowe!
+    - ⏳ **Oczekuje** - czekaj na propagację DNS
+    - ❌ **Błąd** - sprawdź konfigurację
+  </Step>
+</Steps>
+
+## SPF, DKIM, DMARC - co to?
+
+<AccordionGroup>
+  <Accordion title="SPF (Sender Policy Framework)" icon="list">
+    **Co to:** Lista serwerów upoważnionych do wysyłki z Twojej domeny
+
+    **Jak działa:**
+    ```
+    v=spf1 include:spf.mailist.com ~all
+    ```
+
+    Oznacza: "Serwery Mailist mogą wysyłać emaile z mojej domeny"
+
+    **Status:** ✅ Wymagany
+  </Accordion>
+
+  <Accordion title="DKIM (DomainKeys Identified Mail)" icon="key">
+    **Co to:** Kryptograficzny podpis emaila
+
+    **Jak działa:**
+    - Mailist podpisuje email kluczem prywatnym
+    - Odbiorcy weryfikują podpis kluczem publicznym (w DNS)
+    - Gwarantuje, że email nie został zmieniony
+
+    **Status:** ✅ Wymagany
+  </Accordion>
+
+  <Accordion title="DMARC (Domain-based Message Authentication)" icon="shield">
+    **Co to:** Polityka co robić z emailami, które nie przeszły SPF/DKIM
+
+    **Opcje:**
+    ```
+    p=none       - Tylko monitoruj
+    p=quarantine - Wrzuć do spamu
+    p=reject     - Odrzuć całkowicie
+    ```
+
+    **Status:** ⬜ Opcjonalny ale zalecany
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Weryfikacja nie przechodzi" icon="triangle-exclamation">
+    **Sprawdź:**
+
+    1. Czy rekordy DNS są poprawne (skopiowałeś całość?)
+    2. Czy minęło 24-48h od dodania (propagacja DNS)
+    3. Użyj narzędzi online do sprawdzenia DNS:
+       - https://mxtoolbox.com/spf.aspx
+       - https://dmarcian.com/dmarc-inspector/
+
+    **Częste błędy:**
+    - Dodałeś rekord na subdomenę zamiast @
+    - Brakujące cudzysłowy w value
+    - Duplikacja rekordów SPF (może być tylko jeden)
+  </Accordion>
+</AccordionGroup>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Zespół" href="/guides/ustawienia/zespol">
+    Zarządzaj dostępem użytkowników
+  </Card>
+
+  <Card title="RODO" href="/guides/ustawienia/rodo">
+    Zgodność z ochroną danych osobowych
+  </Card>
+</CardGroup>

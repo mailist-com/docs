@@ -1,0 +1,112 @@
+---
+title: 'Pola niestandardowe'
+description: 'Twórz własne pola do przechowywania dodatkowych danych o kontaktach w Mailist.'
+---
+
+# Pola niestandardowe (Custom Fields)
+
+Pola niestandardowe pozwalają zbierać i przechowywać dowolne dane o kontaktach poza standardowymi polami (email, imię, nazwisko).
+
+## Standardowe vs Niestandardowe
+
+<Tabs>
+  <Tab title="Standardowe pola">
+    Dostępne domyślnie w każdej liście:
+
+    - Email
+    - Imię (First Name)
+    - Nazwisko (Last Name)
+    - Telefon (Phone)
+    - Firma (Company)
+    - Miasto (City)
+    - Kraj (Country)
+  </Tab>
+
+  <Tab title="Niestandardowe pola">
+    Możesz dodać dowolne, np:
+
+    - Stanowisko
+    - Branża
+    - Budżet
+    - Data urodzenia
+    - Zainteresowania
+    - Status klienta
+    - Źródło pozyskania
+  </Tab>
+</Tabs>
+
+## Typy pól
+
+| Typ | Przykład | Użycie |
+|:----|:---------|:-------|
+| **Text** | "Manager" | Stanowisko, adres |
+| **Number** | 25000 | Wiek, budżet |
+| **Date** | 2025-01-15 | Data urodzenia, subskrypcja do |
+| **Boolean** | true/false | Newsletter opt-in, VIP |
+| **Dropdown** | "Warszawa", "Kraków" | Miasto, kategoria |
+
+## Tworzenie pola
+
+<Steps>
+  <Step title="Ustawienia listy">
+    Lista → **Pola niestandardowe** → **+ Nowe pole**
+  </Step>
+
+  <Step title="Konfiguracja">
+    ```yaml
+    Nazwa: stanowisko
+    Typ: Text
+    Wymagane: Nie
+    Domyślna wartość: -
+    ```
+  </Step>
+
+  <Step title="Użycie w kampanii">
+    ```html
+    Witaj {{firstName}},
+    Jako {{stanowisko}} docenisz nasze narzędzie...
+    ```
+  </Step>
+</Steps>
+
+## Przykłady użycia
+
+<AccordionGroup>
+  <Accordion title="E-commerce" icon="cart-shopping">
+    ```
+    - Last Purchase Date (Data)
+    - Total Spent (Number)
+    - Preferred Category (Dropdown)
+    - VIP Customer (Boolean)
+    ```
+
+    **Kampania:** "Hej {{firstName}}, widzimy że lubisz {{preferredCategory}}..."
+  </Accordion>
+
+  <Accordion title="SaaS" icon="laptop-code">
+    ```
+    - Plan Type (Dropdown: Free, Pro, Enterprise)
+    - Signup Date (Date)
+    - Trial Ends (Date)
+    - Feature Used (Text)
+    ```
+
+    **Kampania:** Upgrade z Free do Pro przed końcem trialu
+  </Accordion>
+
+  <Accordion title="Edukacja" icon="graduation-cap">
+    ```
+    - Course Enrolled (Text)
+    - Progress (Number: 0-100)
+    - Certification Status (Boolean)
+    ```
+
+    **Kampania:** Gratulacje {{firstName}}, ukończyłeś {{progress}}% kursu!
+  </Accordion>
+</AccordionGroup>
+
+## Następne kroki
+
+<Card title="Segmentacja" href="/guides/listy/segmentacja">
+  Użyj pól niestandardowych do zaawansowanej segmentacji
+</Card>

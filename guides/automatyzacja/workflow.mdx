@@ -1,0 +1,779 @@
+---
+title: 'Workflow automatyzacji'
+description: 'Twórz inteligentne workflow marketingowe, które działają 24/7 i reagują na zachowania użytkowników.'
+---
+
+# Workflow automatyzacji
+
+Workflow to zautomatyzowany łańcuch akcji, który wysyła emaile w odpowiedzi na triggery i zachowania użytkowników.
+
+## Czym jest workflow?
+
+**Workflow** = Trigger + Warunki + Akcje
+
+```
+Trigger: CONTACT_CREATED (nowy kontakt)
+  ↓
+Wait: 0 minut
+  ↓
+Action: Wyślij Welcome Email
+  ↓
+Wait: 3 dni
+  ↓
+Condition: Otwarł Welcome Email?
+  ├─ TAK → Wyślij Email #2 (Onboarding)
+  └─ NIE → Wyślij Email #2 (Re-engagement)
+```
+
+## Typy workflow
+
+<CardGroup cols={2}>
+  <Card title="Welcome Series" icon="hand-wave">
+    Seria emaili powitalnych dla nowych kontaktów
+
+    **Trigger:** CONTACT_CREATED
+  </Card>
+
+  <Card title="Drip Campaign" icon="droplet">
+    Edukacyjna seria z określonymi interwałami
+
+    **Trigger:** TAG_ADDED "Lead"
+  </Card>
+
+  <Card title="Abandoned Cart" icon="cart-shopping">
+    Przypomnienie o porzuconym koszyku
+
+    **Trigger:** CUSTOM_EVENT "cart_abandoned"
+  </Card>
+
+  <Card title="Re-engagement" icon="heart">
+    Win-back nieaktywnych kontaktów
+
+    **Trigger:** Brak otwarć przez 90 dni
+  </Card>
+</CardGroup>
+
+## Flow Builder: Wizualny edytor workflow
+
+Mailist oferuje **wizualny Flow Builder** (oparty na @foblex/flow) - intuicyjny edytor drag & drop do tworzenia skomplikowanych automatyzacji bez pisania kodu.
+
+### Interfejs Flow Builder
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 📋 Workflow: "Welcome Series"              [💾 Save] [✕]   │
+├──────────┬──────────────────────────────────────┬───────────┤
+│          │                                      │           │
+│ PALETTE  │         CANVAS (Grid Background)    │ SETTINGS  │
+│          │                                      │           │
+│ Triggers │    ┌─────────────────┐              │ Selected: │
+│ ├─👥 Sub │    │ Subscriber      │              │           │
+│ ├─📧 Open│    │ Joins Group     │              │ 👥 Sub    │
+│ └─📤 Uns │    │ "Newsletter"    │──────┐       │ Joins     │
+│          │    └─────────────────┘      │       │ Group     │
+│ Actions  │                             ▼       │           │
+│ ├─✉️ Send│              ┌─────────────────┐    │ Group:    │
+│ ├─⏰ Wait│              │ Send Email      │    │ [Newsletter]│
+│ └─❓ Cond│              │ "Welcome #1"    │──┐ │           │
+│          │              └─────────────────┘  │ │ [Update]  │
+│          │                                   ▼ │           │
+│ Tools    │                     ┌──────────────┴───┐        │
+│ ├─🔍 Zoom│                     │ Condition        │        │
+│ ├─⊞ Fit  │                     │ Opened email?    │        │
+│ └─⊗ Sel  │                     └─┬─────────────┬──┘        │
+└──────────┴───────────────────────│─────────────│───────────┘
+                                YES│            NO│
+```
+
+**Kluczowe elementy:**
+- **Palette (lewy panel)** - biblioteka dostępnych węzłów
+- **Canvas (środek)** - płótno robocze z grid background
+- **Settings (prawy panel)** - konfiguracja wybranego węzła
+- **Top bar** - nazwa workflow, zapisz, anuluj
+- **Action bar** - zoom, fit to screen, select all
+
+### Tworzenie workflow krok po kroku
+
+<Steps>
+  <Step title="Utwórz nowy workflow">
+    **Automatyzacja** → **+ Nowy workflow**
+
+    Otworzy się Flow Builder z pustym canvas i gridowym tłem.
+  </Step>
+
+  <Step title="Dodaj węzeł Trigger">
+    **Z palety (lewy panel):**
+
+    <Tabs>
+      <Tab title="Subscriber Joins Group">
+        Przeciągnij węzeł **👥 Subscriber Joins Group** na canvas.
+
+        **Konfiguracja (prawy panel):**
+        ```
+        Trigger: Subscriber Joins Group
+        Group: ▼ [Newsletter Subscribers]
+
+        Opis: Wyzwala się gdy kontakt zostaje dodany
+              do wybranej grupy.
+        ```
+
+        **Use case:** Welcome series dla nowych subskrybentów
+      </Tab>
+
+      <Tab title="Email Opened">
+        Przeciągnij węzeł **📧 Email Opened** na canvas.
+
+        **Konfiguracja:**
+        ```
+        Trigger: Email Opened
+        Campaign: ▼ [Welcome Email #1]
+
+        Opis: Wyzwala się gdy kontakt otwiera
+              wybrany email z kampanii.
+        ```
+
+        **Use case:** Follow-up dla engaged users
+      </Tab>
+
+      <Tab title="Unsubscribed">
+        Przeciągnij węzeł **📤 Unsubscribed** na canvas.
+
+        **Konfiguracja:**
+        ```
+        Trigger: Unsubscribed
+
+        Opis: Wyzwala się gdy kontakt wypisuje się
+              z listy mailingowej.
+        ```
+
+        **Use case:** Win-back campaign, feedback survey
+      </Tab>
+    </Tabs>
+
+    <Note>
+      **Plan FREE:** Maksymalnie 1 trigger na workflow.
+      **Plan STANDARD/PRO:** Unlimited triggers (multi-trigger workflows).
+    </Note>
+  </Step>
+
+  <Step title="Połącz z akcją Send Email">
+    **Dodaj węzeł Send Email:**
+
+    1. Przeciągnij **✉️ Send Email** z palety na canvas
+    2. **Połącz węzły:** Kliknij output triggera (kółko na dole) i przeciągnij do input Send Email (kółko na górze)
+
+    **Konfiguracja Send Email:**
+    ```
+    Action: Send Email
+
+    Email Type: ● Szablon  ○ Kampania
+
+    Template: ▼ [Welcome Email - Template #1]
+
+    Subject: Witamy w Mailist!
+
+    Preview: Cześć {{firstName}}, dziękujemy za...
+
+    Personalizacja:
+    - {{firstName}}
+    - {{lastName}}
+    - {{email}}
+    - {{company}}
+    ```
+
+    **Wizualizacja połączenia:**
+    ```
+    ┌─────────────────┐
+    │ Subscriber      │
+    │ Joins Group     │
+    │ "Newsletter"    │
+    └────────┬────────┘
+             │ (connection line)
+             ▼
+    ┌─────────────────┐
+    │ Send Email      │
+    │ "Welcome #1"    │
+    └─────────────────┘
+    ```
+  </Step>
+
+  <Step title="Dodaj Wait (opóźnienie)">
+    **Przeciągnij węzeł ⏰ Wait:**
+
+    ```
+    Action: Wait
+
+    Duration: [3] ▼ [days]
+
+    Opcje:
+    - minutes
+    - hours
+    - days
+    - weeks
+
+    Opis: Kontakt czeka 3 dni przed kolejną akcją.
+    ```
+
+    **Połącz:** Send Email → Wait → (kolejna akcja)
+
+    <Tip>
+      **Best practice:** Odstępy między emailami:
+      - Email #1 → Email #2: 2-3 dni
+      - Email #2 → Email #3: 5-7 dni
+      - Email #3 → Email #4: 10-14 dni
+    </Tip>
+  </Step>
+
+  <Step title="Dodaj Condition (rozgałęzienie)">
+    **Przeciągnij węzeł ❓ Condition:**
+
+    ```
+    Action: Condition (If/Then/Else)
+
+    Condition Type: ▼ [Email Opened]
+
+    Email: ▼ [Welcome #1]
+
+    Timeframe: [7] days (sprawdź ostatnie 7 dni)
+
+    Outputs:
+    ├─ ✅ YES (green) - Otworzył email
+    └─ ❌ NO (red) - Nie otworzył
+    ```
+
+    **Workflow z rozgałęzieniem:**
+    ```
+    ┌─────────────────┐
+    │ Send Email      │
+    │ "Welcome #1"    │
+    └────────┬────────┘
+             │
+             ▼
+    ┌─────────────────┐
+    │ Wait 3 days     │
+    └────────┬────────┘
+             │
+             ▼
+    ┌─────────────────┐
+    │ Condition       │
+    │ Opened email?   │
+    └─┬─────────────┬─┘
+    YES│            NO│
+      │              │
+      ▼              ▼
+    ┌───────┐    ┌───────┐
+    │Email#2│    │Re-eng │
+    └───────┘    └───────┘
+    ```
+
+    **Połącz węzły:**
+    - Condition output "YES" (zielony) → Send Email "Onboarding #2"
+    - Condition output "NO" (czerwony) → Send Email "Re-engagement"
+  </Step>
+
+  <Step title="Zapisz i aktywuj">
+    1. **Edytuj nazwę:** Kliknij tytuł "New Automation" → wpisz "Welcome Series"
+    2. **Zapisz:** Kliknij przycisk **💾 Save** (top right)
+    3. **Aktywuj:** Wróć do listy automatyzacji → **Aktywuj workflow**
+
+    **Status workflow:**
+    - **Draft** - Zapisany, nieaktywny
+    - **Active** - Działa dla nowych triggerów
+    - **Paused** - Wstrzymany (nie wyzwala się)
+  </Step>
+</Steps>
+
+## Dostępne węzły (Palette)
+
+### Triggers (Wyzwalacze)
+
+<Tabs>
+  <Tab title="Subscriber Joins Group">
+    **👥 Subscriber Joins Group**
+
+    **Opis:** Wyzwala się gdy kontakt zostaje dodany do wybranej grupy.
+
+    **Konfiguracja:**
+    - Group: Wybierz grupę z listy
+
+    **Use cases:**
+    - Welcome series dla nowych subskrybentów
+    - Onboarding po zapisaniu się na webinar
+    - Lead nurturing dla nowych leadów
+
+    **Przykład:**
+    ```
+    Grupa: "Newsletter Subscribers"
+    → Automatycznie wyślij Welcome Email #1
+    ```
+  </Tab>
+
+  <Tab title="Email Opened">
+    **📧 Email Opened**
+
+    **Opis:** Wyzwala się gdy kontakt otwiera określony email.
+
+    **Konfiguracja:**
+    - Campaign: Wybierz kampanię/email
+
+    **Use cases:**
+    - Follow-up dla engaged users
+    - Cross-sell po otwarciu produktowego emaila
+    - Re-engagement dla tych, którzy otworzyli po długiej nieaktywności
+
+    **Przykład:**
+    ```
+    Campaign: "Product Launch Email"
+    → Wyślij "Feature Deep Dive" po 2 dniach
+    ```
+  </Tab>
+
+  <Tab title="Unsubscribed">
+    **📤 Unsubscribed**
+
+    **Opis:** Wyzwala się gdy kontakt wypisuje się z listy.
+
+    **Konfiguracja:**
+    - Brak (automatyczne dla wszystkich wypisań)
+
+    **Use cases:**
+    - Win-back campaign (ostatnia szansa)
+    - Feedback survey (dlaczego się wypisałeś?)
+    - Offer alternative (np. newsletter 1x/miesiąc zamiast tygodniowego)
+
+    **Przykład:**
+    ```
+    Unsubscribed
+    → Wyślij "Feedback Survey" (1x)
+    → If no response → End workflow
+    ```
+
+    <Warning>
+      **RODO:** Wypisani użytkownicy **nie mogą** otrzymywać emaili marketingowych. Możesz wysłać **1 email** z prośbą o feedback lub ofertą zmiany preferencji.
+    </Warning>
+  </Tab>
+</Tabs>
+
+### Actions (Akcje)
+
+<Tabs>
+  <Tab title="✉️ Send Email">
+    **Send Email** - Wyślij email do kontaktu
+
+    **Konfiguracja:**
+    ```
+    Email Type:
+    ● Szablon - Użyj gotowego szablonu
+    ○ Kampania - Użyj istniejącej kampanii
+
+    Template/Campaign: ▼ [Wybierz z listy]
+
+    Personalizacja automatyczna:
+    - {{firstName}}
+    - {{lastName}}
+    - {{email}}
+    - {{company}}
+    - Wszystkie pola niestandardowe
+    ```
+
+    **Przykład użycia:**
+    ```
+    Trigger: Subscriber Joins Group
+    → Wait: 0 minutes
+    → Send Email: "Welcome #1"
+    → Wait: 3 days
+    → Send Email: "Welcome #2"
+    ```
+
+    <Note>
+      Mailist automatycznie dodaje link unsubscribe i tracking pixel do każdego emaila.
+    </Note>
+  </Tab>
+
+  <Tab title="⏰ Wait">
+    **Wait** - Opóźnienie przed kolejną akcją
+
+    **Konfiguracja:**
+    ```
+    Duration: [liczba] ▼ [jednostka]
+
+    Jednostki:
+    - minutes (1-1440)
+    - hours (1-168)
+    - days (1-365)
+    - weeks (1-52)
+    ```
+
+    **Typowe zastosowania:**
+    - **0 minutes** - Natychmiastowa akcja
+    - **1 day** - Daj czas na otwarcie pierwszego emaila
+    - **3 days** - Standardowy odstęp między emailami
+    - **7 days** - Tygodniowy follow-up
+    - **30 days** - Miesięczny reminder
+
+    **Przykład:**
+    ```
+    Send Email "Abandoned Cart Reminder #1"
+    → Wait 24 hours
+    → Condition: Completed purchase?
+       ├─ YES → End Workflow
+       └─ NO → Send Email "10% discount code"
+    ```
+  </Tab>
+
+  <Tab title="❓ Condition">
+    **Condition** - Rozgałęzienie If/Then/Else
+
+    **Typy warunków:**
+
+    <AccordionGroup>
+      <Accordion title="Email Opened" icon="envelope-open">
+        ```
+        Condition: Email Opened
+        Email: ▼ [Welcome #1]
+        Timeframe: [7] days
+
+        Outputs:
+        ├─ YES (green) - Otworzył w ciągu 7 dni
+        └─ NO (red) - Nie otworzył
+        ```
+      </Accordion>
+
+      <Accordion title="Link Clicked" icon="mouse-pointer-click">
+        ```
+        Condition: Link Clicked
+        Email: ▼ [Product Launch]
+        URL: https://example.com/product
+        Timeframe: [3] days
+
+        Outputs:
+        ├─ YES - Kliknął link
+        └─ NO - Nie kliknął
+        ```
+      </Accordion>
+
+      <Accordion title="Tag Exists" icon="tag">
+        ```
+        Condition: Has Tag
+        Tag: [VIP Customer]
+
+        Outputs:
+        ├─ YES - Ma tag
+        └─ NO - Nie ma tagu
+        ```
+      </Accordion>
+
+      <Accordion title="Field Value" icon="input-text">
+        ```
+        Condition: Field Value
+        Field: [Total Orders]
+        Operator: > (greater than)
+        Value: 5
+
+        Outputs:
+        ├─ YES - Total Orders > 5
+        └─ NO - Total Orders ≤ 5
+        ```
+      </Accordion>
+    </AccordionGroup>
+
+    **Outputs (kolory):**
+    - **🟢 YES (green)** - Warunek spełniony
+    - **🔴 NO (red)** - Warunek nie spełniony
+    - **🔵 MAYBE (blue)** - Opcjonalna 3-way condition (advanced)
+
+    <Tip>
+      **Nested conditions:** Możesz łączyć wiele warunków tworząc decyzyjne drzewa. Przykład: "Otworzył email?" → YES → "Kliknął CTA?" → YES → "Tag VIP?"
+    </Tip>
+  </Tab>
+</Tabs>
+
+## Dodatkowe węzły (w planach rozwojowych)
+
+<Note>
+  Poniższe węzły są **zakomentowane w kodzie** i będą udostępnione w przyszłych wersjach:
+</Note>
+
+| Węzeł | Status | Planowane |
+|:------|:-------|:----------|
+| **Add Tag** | Commented | Q1 2025 |
+| **Remove Tag** | Commented | Q1 2025 |
+| **Add to Group** | Commented | Q1 2025 |
+| **Remove from Group** | Commented | Q1 2025 |
+| **Update Field** | Planned | Q2 2025 |
+| **Webhook** | Planned | Q2 2025 |
+| **A/B Split** | Planned | Q2 2025 |
+
+## Funkcje Flow Builder
+
+### Nawigacja i zoom
+
+<CardGroup cols={2}>
+  <Card title="🔍 Zoom In/Out" icon="magnifying-glass-plus">
+    **Skróty klawiszowe:**
+    - **Cmd/Ctrl + Plus** - Zoom in
+    - **Cmd/Ctrl + Minus** - Zoom out
+    - **Scroll** - Płynny zoom
+
+    **Action Bar:** Przyciski +/-
+  </Card>
+
+  <Card title="⊞ Fit to Screen" icon="expand">
+    Automatycznie dopasuj widok aby wszystkie węzły były widoczne.
+
+    **Użyj gdy:**
+    - Masz duży workflow (10+ węzłów)
+    - Zgubiłeś się na canvas
+    - Chcesz zobaczyć całość
+
+    **Skrót:** Przycisk "Fit" w Action Bar
+  </Card>
+
+  <Card title="⊗ Select All" icon="object-group">
+    Zaznacz wszystkie węzły i połączenia.
+
+    **Skrót:** Cmd/Ctrl + A
+
+    **Use case:**
+    - Usunięcie całego workflow
+    - Kopiowanie struktury
+  </Card>
+
+  <Card title="🖱️ Pan (przesuwanie)" icon="hand">
+    Przesuwaj canvas przeciągając tło.
+
+    **Metody:**
+    - Kliknij i przeciągnij tło (grid)
+    - Spacebar + przeciągnij (Mac convention)
+    - Środkowy przycisk myszy
+  </Card>
+</CardGroup>
+
+### Zaznaczanie i edycja
+
+<Steps>
+  <Step title="Zaznacz węzeł">
+    **Kliknij węzeł** → Prawy panel pokaże ustawienia
+
+    **Multi-select:**
+    - Cmd/Ctrl + Click - Dodaj do zaznaczenia
+    - Shift + Click - Zaznacz zakres
+  </Step>
+
+  <Step title="Przesuń węzły">
+    **Przeciągnij węzeł** aby zmienić pozycję
+
+    **Multi-move:**
+    - Zaznacz wiele węzłów
+    - Przeciągnij jeden z nich
+    - Wszystkie przesuwają się razem
+  </Step>
+
+  <Step title="Usuń węzły/połączenia">
+    **Zaznacz** → **Delete/Backspace**
+
+    **Usunięcie węzła:**
+    - Usuwa również wszystkie połączenia do/z tego węzła
+
+    **Usunięcie połączenia:**
+    - Kliknij connection line → Delete
+    - Lub kliknij "X" na output węzła
+  </Step>
+
+  <Step title="Reconnect (przepięcie)">
+    **Przeciągnij połączenie** z jednego output do innego input.
+
+    ```
+    Przed:          Po przepięciu:
+    A → B          A → C
+        C              B
+    ```
+
+    **Use case:** Zmiana kolejności akcji bez usuwania węzłów
+  </Step>
+</Steps>
+
+### Grid background i alignment
+
+**Grid:** 20px × 20px grid ułatwia wyrównanie węzłów.
+
+**Visual alignment:**
+```
+┌────┬────┬────┐
+│    │    │    │
+├────┼────┼────┤  ← Grid pomaga w równym rozmieszczeniu
+│ A  │ →  │ B  │
+├────┼────┼────┤
+│    │    │    │
+└────┴────┴────┘
+```
+
+<Tip>
+  **Best practice:** Trzymaj węzły w liniach lub kolumnach dla lepszej czytelności workflow.
+</Tip>
+
+## Zachowywanie i ładowanie workflow
+
+### Format zapisu (flowData)
+
+Mailist zapisuje workflow jako JSON w formacie **IFlowState**:
+
+```json
+{
+  "name": "Welcome Series",
+  "nodes": {
+    "node-abc123": {
+      "id": "node-abc123",
+      "type": "SUBSCRIBER_JOINS_GROUP",
+      "position": { "x": 100, "y": 100 },
+      "outputs": [
+        { "id": "output-1", "name": "default", "color": "blue" }
+      ],
+      "data": {
+        "groupId": "list-456"
+      }
+    },
+    "node-def456": {
+      "id": "node-def456",
+      "type": "SEND_EMAIL",
+      "position": { "x": 100, "y": 250 },
+      "input": "input-1",
+      "outputs": [
+        { "id": "output-2", "name": "default", "color": "blue" }
+      ],
+      "data": {
+        "templateId": "template-789",
+        "subject": "Welcome to Mailist!"
+      }
+    }
+  },
+  "connections": {
+    "conn-1": {
+      "id": "conn-1",
+      "from": "output-1",
+      "to": "input-1"
+    }
+  }
+}
+```
+
+**Pola węzła:**
+- `id` - Unikalny GUID węzła
+- `type` - NodeType enum (SEND_EMAIL, WAIT, CONDITION, etc.)
+- `position` - Pozycja na canvas (x, y)
+- `input` - ID input connection point (dla węzłów z input)
+- `outputs` - Array output connection points (dla węzłów z outputs)
+- `data` - Konfiguracja specyficzna dla typu węzła
+
+**Pola połączenia:**
+- `id` - Unikalny ID połączenia
+- `from` - ID output węzła źródłowego
+- `to` - ID input węzła docelowego
+
+## Przykład: Welcome Series
+
+```yaml
+Workflow: "Onboarding nowych użytkowników"
+
+Trigger: CONTACT_CREATED
+  ↓
+Action: Send Email "Welcome #1: Witamy!"
+  ↓
+Wait: 1 dzień
+  ↓
+Condition: opened_email = "Welcome #1"
+  ├─ YES:
+  │   ↓
+  │   Send Email "Welcome #2: Pierwsze kroki"
+  │   ↓
+  │   Wait: 3 dni
+  │   ↓
+  │   Send Email "Welcome #3: Zaawansowane funkcje"
+  │
+  └─ NO:
+      ↓
+      Send Email "Re-engagement: Czy potrzebujesz pomocy?"
+      ↓
+      Wait: 2 dni
+      ↓
+      Condition: opened_re_engagement
+        ├─ YES → Add Tag "Engaged" → Continue workflow
+        └─ NO → End Workflow
+```
+
+## Najlepsze praktyki
+
+<AccordionGroup>
+  <Accordion title="Testuj na sobie" icon="vial">
+    Zanim aktywujesz workflow dla wszystkich:
+
+    1. Dodaj swój email jako testowy kontakt
+    2. Wyzwól trigger (np. zapisz się na listę)
+    3. Sprawdź czy emaile przychodzą w dobrych odstępach
+    4. Zweryfikuj personalizację i linki
+  </Accordion>
+
+  <Accordion title="Nie spamuj" icon="ban">
+    ```
+    ❌ Źle:
+    Day 1: Email #1
+    Day 2: Email #2
+    Day 3: Email #3
+    Day 4: Email #4
+    → Za dużo, za szybko!
+
+    ✅ Dobrze:
+    Day 1: Email #1
+    Day 3: Email #2
+    Day 7: Email #3
+    Day 14: Email #4
+    → Naturalne odstępy
+    ```
+  </Accordion>
+
+  <Accordion title="Exit condition" icon="door-open">
+    Zawsze daj możliwość wyjścia z workflow:
+
+    ```
+    Condition: tag zawiera "Converted"
+      → End Workflow (cel osiągnięty)
+
+    Condition: opened = 0 AND sent = 5
+      → End Workflow (5 emaili bez reakcji)
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Analityka workflow
+
+Po aktywacji sprawdzaj:
+
+<CardGroup cols={2}>
+  <Card title="Konwersja" icon="chart-line">
+    % kontaktów, które przeszły przez cały workflow
+  </Card>
+
+  <Card title="Drop-off points" icon="arrow-down">
+    W którym miejscu ludzie przestają otwierać
+  </Card>
+
+  <Card title="Czas do konwersji" icon="clock">
+    Ile czasu od triggera do celu
+  </Card>
+
+  <Card title="Najlepsze emaile" icon="star">
+    Które emaile mają najwyższy open/click rate
+  </Card>
+</CardGroup>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Triggery" href="/guides/automatyzacja/triggery">
+    Wszystkie dostępne triggery i jak ich używać
+  </Card>
+
+  <Card title="Welcome Series" href="/guides/automatyzacja/welcome-series">
+    Gotowy workflow powitalny do wdrożenia
+  </Card>
+</CardGroup>

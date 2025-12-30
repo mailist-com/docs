@@ -1,0 +1,734 @@
+---
+title: 'Import kontaktów'
+description: 'Dowiedz się, jak importować kontakty z pliku CSV do Mailist. Mapowanie pól, walidacja i najlepsze praktyki.'
+---
+
+# Import kontaktów z CSV
+
+Szybko przenieś tysiące kontaktów z innych systemów do Mailist używając plików CSV.
+
+## Przygotowanie pliku CSV
+
+### Wymagany format
+
+Plik CSV musi zawierać nagłówki w pierwszym wierszu:
+
+```csv
+email,first_name,last_name,company,phone,city
+jan.kowalski@example.com,Jan,Kowalski,Firma ABC,+48123456789,Warszawa
+anna.nowak@example.com,Anna,Nowak,XYZ Sp. z o.o.,+48987654321,Kraków
+```
+
+<Note>
+  **Wymagane pole:** Tylko `email` jest obowiązkowe. Pozostałe pola są opcjonalne.
+</Note>
+
+### Najlepsze praktyki
+
+<Check>
+  **Przed importem:**
+</Check>
+
+- Usuń duplikaty emaili
+- Zweryfikuj format adresów (@ i domena)
+- Użyj kodowania **UTF-8** (obsługa polskich znaków)
+- Zapisz jako `.csv` nie `.xlsx`
+- Maksymalny rozmiar: 50 MB (około 500,000 kontaktów)
+
+## Proces importu
+
+Mailist oferuje **4-etapowy wizard importu** z drag & drop, automatycznym wykrywaniem separatorów i podglądem danych.
+
+<Steps>
+  <Step title="Krok 1: Prześlij plik CSV">
+    Przejdź do **Kontakty** → **Import CSV**
+
+    **Metody przesyłania:**
+
+    <Tabs>
+      <Tab title="Drag & Drop (zalecane)">
+        ```
+        ┌─────────────────────────────────┐
+        │  📁 Przeciągnij plik CSV tutaj  │
+        │                                 │
+        │     lub kliknij aby wybrać      │
+        └─────────────────────────────────┘
+        ```
+
+        - Najprostsza metoda
+        - Obsługa plików do 50 MB
+        - Automatyczna walidacja formatu
+      </Tab>
+
+      <Tab title="Wybór pliku">
+        1. Kliknij **Wybierz plik**
+        2. Przejdź do lokalizacji pliku CSV
+        3. Wybierz plik i kliknij **Otwórz**
+
+        **Obsługiwane formaty:**
+        - `.csv` - CSV (Comma-Separated Values)
+        - Automatyczne wykrywanie separatora: `,` `;` `\t`
+      </Tab>
+    </Tabs>
+
+    <Note>
+      System automatycznie wykryje separator analizując nagłówki. Obsługuje przecinek (`,`), średnik (`;`) i tabulację (`\t`).
+    </Note>
+  </Step>
+
+  <Step title="Krok 2: Mapuj kolumny">
+    Mailist wyświetla **podgląd pierwszych 5 wierszy** i pozwala dopasować kolumny CSV do pól kontaktów.
+
+    **Automatyczne dopasowanie:**
+
+    System próbuje automatycznie znaleźć kolumny na podstawie nazw:
+
+    | Twoja kolumna w CSV | Auto-wykrycie |
+    |:---------------------|:--------------|
+    | email, e-mail, mail, adres email | → **Email** ✅ |
+    | first_name, imię, imie, name | → Imię |
+    | last_name, nazwisko, surname | → Nazwisko |
+    | company, firma, organization | → Firma |
+    | phone, telefon, tel | → Telefon |
+
+    **Ręczne dopasowanie:**
+
+    Dla każdego pola standardowego Mailist wybierz odpowiednią kolumnę z CSV:
+
+    ```
+    [Email Address *]     ▼ [email        ] ← WYMAGANE
+    [First Name]          ▼ [first_name   ]
+    [Last Name]           ▼ [last_name    ]
+    [Company]             ▼ [company      ]
+    [Phone]               ▼ [phone        ]
+    ```
+
+    **Pola niestandardowe:**
+
+    Możesz utworzyć nowe pola dla danych specyficznych dla Twojej branży:
+    - Stanowisko (custom: position)
+    - Branża (custom: industry)
+    - Budżet (custom: budget)
+    - Data ostatniej aktywności (custom: last_activity)
+
+    <Warning>
+      **Email jest polem obowiązkowym!** Import nie rozpocznie się bez zmapowania kolumny z emailem.
+    </Warning>
+  </Step>
+
+  <Step title="Krok 3: Konfiguruj opcje importu">
+    **3.1 Wybierz docelową listę:**
+
+    ```
+    Importuj kontakty do listy: ▼ [Newsletter Subscribers]
+    ```
+
+    **3.2 Obsługa duplikatów:**
+
+    <Tabs>
+      <Tab title="Aktualizuj istniejące">
+        ☑ **Aktualizuj dane istniejących kontaktów**
+
+        Jeśli email już istnieje w liście:
+        - **Nadpisz** dane nowymi wartościami z CSV
+        - Zachowaj historię kampanii i otwarć
+        - Przydatne przy aktualizacji bazy
+
+        **Przykład:**
+        ```
+        Istniejący: jan@example.com (Firma: ABC)
+        Import CSV: jan@example.com (Firma: XYZ Corp)
+        Wynik: jan@example.com (Firma: XYZ Corp) ← zaktualizowane
+        ```
+      </Tab>
+
+      <Tab title="Pomiń duplikaty">
+        ☐ Aktualizuj dane istniejących kontaktów
+
+        Jeśli email już istnieje:
+        - **Zachowaj** istniejące dane
+        - Zignoruj wiersz z CSV
+        - Bezpieczniejsze, nie nadpisuje danych
+
+        **Przykład:**
+        ```
+        Istniejący: jan@example.com (Firma: ABC, zapisany 01.01.2025)
+        Import CSV: jan@example.com (Firma: XYZ)
+        Wynik: jan@example.com (Firma: ABC) ← bez zmian
+        ```
+      </Tab>
+    </Tabs>
+
+    **3.3 Automatyczny welcome email (opcjonalnie):**
+
+    <AccordionGroup>
+      <Accordion title="Użyj gotowego szablonu" icon="file-lines">
+        ```
+        ☑ Wyślij email powitalny po imporcie
+
+        Typ emaila: ● Szablon  ○ Własny
+
+        Wybierz szablon: ▼ [Welcome Email (Onboarding)]
+        ```
+
+        **Kiedy używać:**
+        - Importujesz nowych subskrybentów z innego systemu
+        - Chcesz przywitać użytkowników profesjonalnym emailem
+        - Masz gotowy szablon welcome email
+
+        **Mailist automatycznie:**
+        - Wysyła email do każdego zaimportowanego kontaktu
+        - Personalizuje `{{firstName}}`, `{{lastName}}` etc.
+        - Dodaje unsubscribe link
+      </Accordion>
+
+      <Accordion title="Napisz własny email" icon="pen-to-square">
+        ```
+        ☑ Wyślij email powitalny po imporcie
+
+        Typ emaila: ○ Szablon  ● Własny
+
+        Temat: [Witamy w newsletterze Mailist!          ]
+
+        Treść:
+        ┌─────────────────────────────────────────────┐
+        │ Cześć {{firstName}},                        │
+        │                                             │
+        │ Dziękujemy za dołączenie do naszego         │
+        │ newslettera! Będziemy wysyłać Ci...         │
+        └─────────────────────────────────────────────┘
+        ```
+
+        **Możesz użyć zmiennych:**
+        - `{{firstName}}` - Imię
+        - `{{lastName}}` - Nazwisko
+        - `{{email}}` - Email
+        - `{{company}}` - Firma
+        - Dowolne pola niestandardowe
+      </Accordion>
+    </AccordionGroup>
+
+    **3.4 Tagowanie:**
+
+    Automatycznie dodaj tagi do zaimportowanych kontaktów:
+
+    ```
+    Tagi: [imported] [newsletter-2025] [+ Dodaj tag]
+    ```
+
+    **Przykłady użycia tagów:**
+    - `imported` - wszystkie importy (domyślnie dodany)
+    - `webinar-2025-01` - uczestnicy konkretnego webinaru
+    - `conference-attendees` - lista z wydarzenia
+    - `migration-mailchimp` - importy z innego systemu
+
+    <Tip>
+      Tagi ułatwiają segmentację. Możesz później wysłać kampanię tylko do kontaktów z tagiem `webinar-2025-01`.
+    </Tip>
+  </Step>
+
+  <Step title="Krok 4: Uruchom import">
+    Kliknij **Rozpocznij import**
+
+    **Proces przetwarzania:**
+
+    ```
+    ⏳ Importowanie...
+
+    ┌───────────────────────────────────┐
+    │ ████████████████░░░░░░░░  62%    │
+    └───────────────────────────────────┘
+
+    Przetworzono: 1,234 / 2,000 rekordów
+    Szacowany czas: ~45 sekund
+    ```
+
+    **Po zakończeniu:**
+    - Otrzymasz **powiadomienie email** z raportem
+    - Raport zawiera szczegóły: sukces/błędy/duplikaty
+    - Możesz pobrać **raport błędów CSV** jeśli wystąpiły problemy
+  </Step>
+</Steps>
+
+## Po imporcie
+
+### Raport importu
+
+Po zakończeniu importu Mailist wyświetla szczegółowy raport:
+
+<Tabs>
+  <Tab title="Sukces (100%)">
+    ```
+    ✅ Import zakończony pomyślnie!
+
+    ┌─────────────────────────────────────┐
+    │ Całkowita liczba rekordów:    2,000 │
+    │ ✅ Zaimportowane pomyślnie:   2,000 │
+    │ 🔄 Zduplikowane kontakty:         0 │
+    │ ❌ Błędne rekordy:                0 │
+    │ ⏱️  Czas przetwarzania:    2min 15s │
+    └─────────────────────────────────────┘
+
+    Wszystkie kontakty zostały dodane do listy "Newsletter Subscribers".
+    ```
+
+    **Następne kroki:**
+    - [Zobacz listę kontaktów](/contacts)
+    - [Wyślij pierwszą kampanię](/campaigns/create)
+  </Tab>
+
+  <Tab title="Częściowy sukces">
+    ```
+    ⚠️ Import zakończony z ostrzeżeniami
+
+    ┌─────────────────────────────────────┐
+    │ Całkowita liczba rekordów:    2,000 │
+    │ ✅ Zaimportowane pomyślnie:   1,883 │
+    │ 🔄 Zduplikowane kontakty:        89 │
+    │ ❌ Błędne rekordy:               28 │
+    │ ⏱️  Czas przetwarzania:    2min 18s │
+    └─────────────────────────────────────┘
+
+    Duplikaty: Pominięte (ustawienie: nie aktualizuj)
+    Błędy: Nieprawidłowy format email, puste pole wymagane
+    ```
+
+    **Akcje:**
+    - [📥 Pobierz raport błędów (CSV)](#raport-bledow)
+    - Napraw błędne rekordy i zaimportuj ponownie
+  </Tab>
+
+  <Tab title="Wiele błędów">
+    ```
+    ❌ Import zakończony z poważnymi błędami
+
+    ┌─────────────────────────────────────┐
+    │ Całkowita liczba rekordów:    2,000 │
+    │ ✅ Zaimportowane pomyślnie:   1,234 │
+    │ 🔄 Zduplikowane kontakty:        45 │
+    │ ❌ Błędne rekordy:              721 │
+    │ ⏱️  Czas przetwarzania:    1min 52s │
+    └─────────────────────────────────────┘
+
+    ⚠️ 36% rekordów odrzuconych! Sprawdź raport błędów.
+    ```
+
+    **Najprawdopodobniejsze przyczyny:**
+    - Źle zmapowane kolumny
+    - Plik CSV z innym separatorem
+    - Kodowanie inne niż UTF-8
+  </Tab>
+</Tabs>
+
+### Raport błędów
+
+Jeśli import wykrył błędy, możesz pobrać szczegółowy raport CSV:
+
+**Kliknij:** **Pobierz raport błędów** → `import-errors.csv`
+
+**Zawartość pliku:**
+```csv
+Row,Email,Error,Field
+12,invalid-email,Invalid email format: missing @ character,email
+45,,Required field is empty,email
+89,jan@example,Invalid email format: missing domain extension,email
+123,duplicate@example.com,Email already exists in list (skipped),email
+234,blocked@spam.com,Email is on global blocklist (bounced previously),email
+```
+
+**Kolumny:**
+- `Row` - Numer wiersza w oryginalnym CSV (1-indexed)
+- `Email` - Adres email który spowodował błąd
+- `Error` - Opis błędu w języku angielskim
+- `Field` - Pole które spowodowało błąd (email, firstName, etc.)
+
+**Typowe błędy:**
+
+<AccordionGroup>
+  <Accordion title="Invalid email format" icon="at">
+    **Przyczyny:**
+    - Brak znaku `@`
+    - Brak domeny (np. `jan@`)
+    - Brak rozszerzenia domeny (np. `jan@example`)
+    - Nieprawidłowe znaki (spacje, polskie znaki w domenie)
+
+    **Rozwiązanie:**
+    ```csv
+    # ❌ Źle
+    jan.kowalski
+    jan@
+    jan@example
+    jan kowalski@example.com
+
+    # ✅ Dobrze
+    jan.kowalski@example.com
+    jan@example.pl
+    jan.kowalski@firma.com.pl
+    ```
+  </Accordion>
+
+  <Accordion title="Required field is empty" icon="circle-exclamation">
+    **Przyczyny:**
+    - Pusty email w wierszu CSV
+    - Kolumna email nie została zmapowana
+    - Wartość `null` lub tylko spacje
+
+    **Rozwiązanie:**
+    - Usuń wiersze bez emaila z CSV
+    - Lub uzupełnij brakujące emaile
+  </Accordion>
+
+  <Accordion title="Email already exists (duplicate)" icon="copy">
+    **To nie jest błąd!** System po prostu pominął duplikat zgodnie z ustawieniem.
+
+    Jeśli chcesz **aktualizować** duplikaty:
+    1. Uruchom import ponownie
+    2. Zaznacz ☑ **Aktualizuj dane istniejących kontaktów**
+  </Accordion>
+
+  <Accordion title="Email is on blocklist" icon="ban">
+    **Przyczyny:**
+    - Email wcześniej bounced (hard bounce)
+    - Kontakt zgłosił spam
+    - Email jest na globalnej czarnej liście Mailist
+
+    **Rozwiązanie:**
+    - **Nie importuj** tych adresów (high risk)
+    - Jeśli jesteś pewien że email jest OK, usuń go z blocklist:
+      **Ustawienia** → **Blacklist** → Znajdź email → **Usuń**
+  </Accordion>
+</AccordionGroup>
+
+### Weryfikacja po imporcie
+
+<Steps>
+  <Step title="Sprawdź liczbę kontaktów">
+    **Listy** → **[Twoja lista]**
+
+    Liczba kontaktów powinna wzrosnąć o liczbę zaimportowanych:
+
+    ```
+    Newsletter Subscribers
+    ┌────────────────────────────────┐
+    │ 👥 2,000 kontaktów  (+1,883)  │
+    │ ✅ Active: 1,883               │
+    │ ⏳ Pending: 0                  │
+    │ 🚫 Unsubscribed: 0             │
+    └────────────────────────────────┘
+    ```
+  </Step>
+
+  <Step title="Zweryfikuj dane losowych kontaktów">
+    Otwórz 5-10 losowych kontaktów i sprawdź:
+
+    - ✅ Email jest poprawny
+    - ✅ Imię i nazwisko są poprawnie zmapowane
+    - ✅ Pola niestandardowe zawierają właściwe dane
+    - ✅ Tagi są przypisane (`imported`, `newsletter-2025`)
+
+    **Kontakty** → Kliknij email → **Podgląd**
+  </Step>
+
+  <Step title="Wyślij testową kampanię">
+    Przed masową wysyłką przetestuj:
+
+    1. **Segmentacja:** Utwórz segment "Test Import"
+       - Filtr: Tag zawiera `imported`
+       - Limit: 10-20 kontaktów
+
+    2. **Wyślij kampanię testową:**
+       - Sprawdź czy personalizacja działa: `{{firstName}}`
+       - Sprawdź czy linki są poprawne
+       - Sprawdź czy email wygląda dobrze
+
+    3. **Monitoruj wyniki:**
+       - Open rate powinien być >15%
+       - Bounce rate powinien być <2%
+       - Jeśli bounce rate >5% → problem z jakością danych
+  </Step>
+</Steps>
+
+## Częste problemy
+
+<AccordionGroup>
+  <Accordion title="Polskie znaki wyświetlają się źle" icon="font">
+    **Rozwiązanie:** Zapisz CSV w kodowaniu UTF-8
+
+    **Excel:**
+    1. Zapisz jako → CSV UTF-8 (rozdzielany przecinkami)
+    2. Jeśli nie ma tej opcji, użyj Google Sheets
+
+    **Google Sheets:**
+    1. Plik → Pobierz → Wartości rozdzielane przecinkami (.csv)
+    2. Automatycznie używa UTF-8
+  </Accordion>
+
+  <Accordion title="Zbyt wiele błędnych emaili" icon="triangle-exclamation">
+    Jeśli >10% emaili jest odrzuconych:
+
+    **Sprawdź:**
+    - Czy kolumna email jest poprawnie zmapowana
+    - Czy adresy mają format: `nazwa@domena.pl`
+    - Czy nie ma spacji przed/po emailu
+
+    **Oczyść dane w CSV:**
+    ```csv
+    # ❌ Źle
+    " jan@example.com "
+    jan@example
+
+    # ✅ Dobrze
+    jan@example.com
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Import przez API
+
+Dla programistów i automatyzacji: importuj kontakty bezpośrednio przez REST API.
+
+### Endpoint: Import CSV
+
+```bash
+POST /api/v1/lists/{listId}/import
+Content-Type: multipart/form-data
+Authorization: Bearer ml_prod_a1b2c3d4e5f6g7h8
+```
+
+**Przykład (cURL):**
+```bash
+curl -X POST "https://api.mailist.com/v1/lists/123/import" \
+  -H "Authorization: Bearer ml_prod_a1b2c3d4e5f6g7h8" \
+  -F "file=@contacts.csv" \
+  -F "updateExisting=true" \
+  -F "tags=imported,api-import" \
+  -F "mappings=[{\"csvColumn\":\"email\",\"contactField\":\"email\",\"isCustomField\":false}]"
+```
+
+**Parametry:**
+- `file` - Plik CSV (required)
+- `updateExisting` - `true` lub `false` (default: `false`)
+- `tags` - Comma-separated lista tagów
+- `mappings` - JSON array z mapowaniem kolumn
+- `sendWelcomeEmail` - `true` lub `false` (default: `false`)
+- `welcomeTemplateId` - ID szablonu welcome email (jeśli sendWelcomeEmail=true)
+
+**Przykład z Node.js:**
+```javascript
+const FormData = require('form-data');
+const fs = require('fs');
+
+const form = new FormData();
+form.append('file', fs.createReadStream('contacts.csv'));
+form.append('updateExisting', 'true');
+form.append('tags', 'imported,api-2025');
+form.append('mappings', JSON.stringify([
+  { csvColumn: 'email', contactField: 'email', isCustomField: false },
+  { csvColumn: 'first_name', contactField: 'firstName', isCustomField: false },
+  { csvColumn: 'company', contactField: 'company', isCustomField: false }
+]));
+
+const response = await fetch('https://api.mailist.com/v1/lists/123/import', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ml_prod_a1b2c3d4e5f6g7h8',
+    ...form.getHeaders()
+  },
+  body: form
+});
+
+const result = await response.json();
+console.log(`✅ Imported: ${result.successfulImports}`);
+console.log(`🔄 Duplicates: ${result.duplicateContacts}`);
+console.log(`❌ Failed: ${result.failedImports}`);
+```
+
+**Odpowiedź (JSON):**
+```json
+{
+  "totalRecords": 2000,
+  "successfulImports": 1883,
+  "failedImports": 28,
+  "duplicateContacts": 89,
+  "errors": [
+    {
+      "row": 12,
+      "email": "invalid-email",
+      "error": "Invalid email format",
+      "field": "email"
+    }
+  ]
+}
+```
+
+<Tip>
+  API import jest idealny do automatycznych synchronizacji z CRM, e-commerce platform lub własnej aplikacji.
+</Tip>
+
+## Zaawansowane scenariusze
+
+<AccordionGroup>
+  <Accordion title="Import z wielu źródeł (merge)" icon="code-merge">
+    **Problem:** Masz kontakty w 3 różnych plikach CSV (CRM, webinary, newsletter) i chcesz je połączyć.
+
+    **Rozwiązanie:**
+
+    1. **Import CRM z tagiem "crm":**
+       - Plik: `crm-contacts.csv`
+       - Tagi: `crm`, `imported-2025-01`
+       - Opcja: Pomiń duplikaty
+
+    2. **Import webinaru z tagiem "webinar":**
+       - Plik: `webinar-attendees.csv`
+       - Tagi: `webinar-2025-01`, `imported-2025-01`
+       - Opcja: **Aktualizuj istniejące** (dodaj nowe tagi do duplikatów)
+
+    3. **Import newslettera z tagiem "newsletter":**
+       - Plik: `newsletter-subscribers.csv`
+       - Tagi: `newsletter`, `imported-2025-01`
+       - Opcja: Aktualizuj istniejące
+
+    **Wynik:**
+    - Kontakt `jan@example.com` który jest w CRM + webinar ma tagi: `crm`, `webinar-2025-01`, `imported-2025-01`
+    - Możesz później segmentować: "wszyscy z CRM którzy byli na webinarze"
+  </Accordion>
+
+  <Accordion title="Migracja z innego systemu (Mailchimp/SendGrid)" icon="right-left">
+    **Eksport z Mailchimp:**
+    1. Mailchimp → Audience → Export Audience → CSV
+    2. Pobierz plik `mailchimp-export.csv`
+
+    **Import do Mailist:**
+    1. Mapowanie kolumn Mailchimp → Mailist:
+       - `Email Address` → `email`
+       - `First Name` → `firstName`
+       - `Last Name` → `lastName`
+       - `MEMBER_RATING` → custom field: `engagement_score`
+       - `OPTIN_TIME` → custom field: `subscribed_date`
+
+    2. Opcje:
+       - Tagi: `migration-mailchimp`, `migrated-2025-01`
+       - Aktualizuj duplikaty: **NIE** (zachowaj dane Mailist)
+       - Welcome email: **NIE** (nie spamuj starych subskrybentów)
+
+    3. Po imporcie:
+       - Zweryfikuj czy liczba się zgadza
+       - Wyślij "We've upgraded" email informujący o zmianie platformy
+  </Accordion>
+
+  <Accordion title="Import z czyszczeniem danych" icon="broom">
+    **Problem:** CSV zawiera nieczyste dane (duplikaty, spacje, mixed case).
+
+    **Preprocessing przed importem (Excel/Google Sheets):**
+
+    ```
+    1. Usuń duplikaty emaili:
+       - Data → Remove Duplicates → Email column
+
+    2. Trim spacji:
+       - =TRIM(A2) dla każdej kolumny
+
+    3. Normalize case:
+       - Email: =LOWER(A2)
+       - Imię: =PROPER(B2)
+
+    4. Usuń puste wiersze:
+       - Filtr → Pokaż tylko niepuste emaile
+    ```
+
+    **Lub użyj API z pre-processing w kodzie:**
+
+    ```javascript
+    const cleaned = csvData.map(row => ({
+      email: row.email.trim().toLowerCase(),
+      firstName: row.firstName ? row.firstName.trim() : '',
+      lastName: row.lastName ? row.lastName.trim() : '',
+      company: row.company ? row.company.trim() : ''
+    }));
+
+    // Usuń duplikaty
+    const unique = [...new Map(cleaned.map(c => [c.email, c])).values()];
+
+    // Eksportuj jako CSV i importuj do Mailist
+    ```
+  </Accordion>
+
+  <Accordion title="Scheduled imports (automatyczne codzienne)" icon="clock">
+    **Use case:** E-commerce - codziennie importuj nowych klientów z bazy danych.
+
+    **Rozwiązanie (cron + API):**
+
+    ```bash
+    # Crontab: Codziennie o 2:00 AM
+    0 2 * * * /path/to/import-script.sh
+    ```
+
+    **Script `import-script.sh`:**
+    ```bash
+    #!/bin/bash
+
+    # 1. Eksport z MySQL do CSV
+    mysql -u user -p'password' -D ecommerce -e \
+      "SELECT email, first_name, last_name, created_at \
+       FROM customers \
+       WHERE DATE(created_at) = CURDATE() - INTERVAL 1 DAY" \
+      | sed 's/\t/,/g' > /tmp/new-customers.csv
+
+    # 2. Import do Mailist przez API
+    curl -X POST "https://api.mailist.com/v1/lists/123/import" \
+      -H "Authorization: Bearer $MAILIST_API_KEY" \
+      -F "file=@/tmp/new-customers.csv" \
+      -F "updateExisting=false" \
+      -F "tags=daily-import,$(date +%Y-%m-%d)" \
+      -F "sendWelcomeEmail=true" \
+      -F "welcomeTemplateId=456"
+
+    # 3. Cleanup
+    rm /tmp/new-customers.csv
+    ```
+
+    **Monitoring:**
+    - Sprawdzaj logi importu w Mailist
+    - Ustaw alerty jeśli `failedImports > 10%`
+  </Accordion>
+</AccordionGroup>
+
+## Najlepsze praktyki
+
+<Check>
+  **Przed każdym importem:**
+</Check>
+
+1. **Backup obecnych danych** (jeśli używasz "Aktualizuj duplikaty")
+2. **Test na małej próbce** (pierwsze 100 wierszy)
+3. **Sprawdź separator** (`,` vs `;` vs tab)
+4. **Zweryfikuj kodowanie** (UTF-8!)
+5. **Usuń duplikaty** w CSV przed importem
+6. **Użyj tagów** do identyfikacji źródła importu
+
+<Warning>
+  **Nie importuj:**
+  - Kupionych baz emailowych (naruszenie RODO + blacklista)
+  - Kontaktów bez zgody (spam complaints → ban konta)
+  - Starych, nieaktywnych baz (>2 lata) bez reconfirmation
+</Warning>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Segmentacja" icon="filter" href="/guides/listy/segmentacja">
+    Podziel zaimportowane kontakty na grupy
+  </Card>
+
+  <Card title="Stwórz kampanię" icon="paper-plane" href="/guides/kampanie/tworzenie-kampanii">
+    Wyślij email do nowej listy
+  </Card>
+
+  <Card title="Pola niestandardowe" icon="table-columns" href="/guides/listy/pola-niestandardowe">
+    Dostosuj pola do specyfiki Twojej branży
+  </Card>
+
+  <Card title="REST API" icon="code" href="/api-reference/introduction">
+    Automatyzuj import przez API
+  </Card>
+</CardGroup>

@@ -1,0 +1,628 @@
+---
+title: 'Analityka kampanii'
+description: 'Mierz i optymalizuj skuteczność kampanii emailowych. Zrozum open rate, click rate i konwersje.'
+---
+
+# Analityka kampanii
+
+Po wysłaniu kampanii kluczowe jest zrozumienie wyników i optymalizacja kolejnych wysyłek.
+
+## Kluczowe metryki
+
+<CardGroup cols={2}>
+  <Card title="Delivered" icon="check-circle">
+    **1,198 / 1,245** (96.2%)
+
+    Pomyślnie dostarczone emaile
+
+    *Bounced: 47* (nieprawidłowe adresy)
+  </Card>
+
+  <Card title="Open Rate" icon="envelope-open">
+    **287 / 1,198** (23.9%)
+
+    % odbiorców, którzy otworzyli
+
+    *Benchmark B2B: 20-25%*
+  </Card>
+
+  <Card title="Click Rate" icon="mouse-pointer">
+    **89 / 1,198** (7.4%)
+
+    % odbiorców, którzy kliknęli
+
+    *Benchmark B2B: 3-7%*
+  </Card>
+
+  <Card title="Unsubscribe" icon="user-xmark">
+    **12 / 1,198** (1.0%)
+
+    Liczba wypisań
+
+    *Normalny poziom: 0.5-2%*
+  </Card>
+</CardGroup>
+
+## Interpretacja wyników
+
+### Open Rate
+
+<Tabs>
+  <Tab title="Wysoki (>30%)">
+    **Świetnie!** Twój temat emaila i nadawca są rozpoznawalni.
+
+    **Dalej:**
+    - Użyj tego typu tematów w przyszłych kampaniach
+    - Testuj, czy możesz osiągnąć 40%+
+  </Tab>
+
+  <Tab title="Średni (15-30%)">
+    **Dobrze.** Typowy wynik dla większości branż.
+
+    **Optymalizuj:**
+    - Testuj różne tematy (A/B testing)
+    - Dodaj personalizację: `{{firstName}}`
+    - Zmień godzinę wysyłki
+  </Tab>
+
+  <Tab title="Niski (<15%)">
+    **Problem.** Email może trafiać do spamu lub temat nie zachęca.
+
+    **Napraw:**
+    - Zweryfikuj domenę (SPF/DKIM)
+    - Usuń spamowe słowa z tematu
+    - Wyślij z imienia, nie "noreply@"
+    - Oczyść bazę z nieaktywnych kontaktów
+  </Tab>
+</Tabs>
+
+### Click Rate
+
+<Tabs>
+  <Tab title="Wysoki (>5%)">
+    **Doskonale!** Treść jest angażująca i CTA wyraźny.
+
+    **Skaluj:**
+    - Użyj tego formatu w kolejnych kampaniach
+    - Dodaj więcej treści wartościowej
+  </Tab>
+
+  <Tab title="Średni (2-5%)">
+    **OK.** Standardowy wynik.
+
+    **Popraw:**
+    - Większy, bardziej widoczny CTA
+    - Skróć treść (ludzie nie doczytują do końca)
+    - Dodaj więcej linków
+  </Tab>
+
+  <Tab title="Niski (<2%)">
+    **Problem.** CTA niejasny lub oferta nieatrakcyjna.
+
+    **Napraw:**
+    - Jeden, wyraźny przycisk CTA
+    - Umieść CTA "above the fold"
+    - Testuj różne texty CTA
+    - Sprawdź czy linki działają
+  </Tab>
+</Tabs>
+
+## Zaawansowana analityka
+
+### Mapa kliknięć
+
+Zobacz ranking najczęściej klikanych linków w kampanii:
+
+<Steps>
+  <Step title="Dostęp do mapy kliknięć">
+    **Kampanie** → **[Twoja kampania]** → **Statystyki** → **Top klikane URL**
+  </Step>
+
+  <Step title="Analiza wyników">
+    ```
+    1. https://mailist.com/ebook-download - 145 kliknięć (42.5%)
+    2. https://mailist.com/blog/artykul-1 - 89 kliknięć (26.1%)
+    3. https://facebook.com/mailist - 54 kliknięcia (15.8%)
+    4. https://mailist.com/pricing - 53 kliknięcia (15.5%)
+    ```
+  </Step>
+
+  <Step title="Optymalizacja">
+    **Wysokie CTR (>10%):** Link działa świetnie - użyj podobnego formatu w przyszłych kampaniach
+
+    **Niskie CTR (<5%):** Rozważ:
+    - Lepsze umiejscowienie linku (wyżej w treści)
+    - Bardziej widoczny CTA button
+    - Atrakcyjniejszy tekst zachęty
+  </Step>
+</Steps>
+
+### Wykres zaangażowania w czasie
+
+Mailist automatycznie generuje interaktywny wykres pokazujący otwarcia, kliknięcia i odrzucenia w czasie:
+
+<Tabs>
+  <Tab title="Wykres liniowy">
+    ```
+    Otwarcia (niebieski)  ─────────────────
+    Kliknięcia (żółty)    ············
+    Odrzucenia (czerwony) ....
+
+    │
+    │         ╱╲
+    │        ╱  ╲╲
+    │       ╱    ╲ ╲
+    │      ╱      ╲  ╲___
+    │_____╱        ╲______╲_____
+
+    10:00  11:00  12:00  14:00  16:00
+    ```
+
+    **Insights:**
+    - Peak zaangażowania: 11:00-12:00 (35% otwarć)
+    - Drugi peak: 14:00-15:00 (22% otwarć)
+    - Evening: 19:00-20:00 (18% otwarć)
+  </Tab>
+
+  <Tab title="Wykorzystanie">
+    **Optymalizacja wysyłki:**
+    - Wysyłaj kampanie 1-2h przed peak engagement
+    - W przypadku powyższych danych: **09:00-10:00**
+    - Unikaj wysyłki po 15:00 (niższe otwarcia)
+
+    **A/B Testing czasu:**
+    - Grupa A: Wysłanie o 09:00
+    - Grupa B: Wysłanie o 13:00
+    - Porównaj open rate i wybierz lepszy czas
+  </Tab>
+</Tabs>
+
+<Note>
+  Wykres wykorzystuje ApexCharts z możliwością zoom i eksportu do PNG/SVG.
+</Note>
+
+### Dodatkowe metryki
+
+<AccordionGroup>
+  <Accordion title="Click-to-Open Rate (CTOR)" icon="percentage">
+    ```
+    CTOR = (Unikalne kliknięcia / Unikalne otwarcia) × 100
+    ```
+
+    **Przykład:**
+    - Unikalne otwarcia: 287
+    - Unikalne kliknięcia: 89
+    - **CTOR = 31.0%**
+
+    **Interpretacja:**
+    - **>25%** - Doskonała zawartość! Odbiorcy czytają i klikają.
+    - **15-25%** - Dobra zawartość, można jeszcze poprawić CTA.
+    - **<15%** - Problem z treścią lub CTA jest słabo widoczny.
+
+    CTOR mierzy **jakość treści dla tych, którzy faktycznie otworzyli email**, eliminując wpływ subject line.
+  </Accordion>
+
+  <Accordion title="Bounce Rate" icon="circle-alert">
+    ```
+    Bounce Rate = (Bounces / Wysłane) × 100
+    ```
+
+    **Typy bounces:**
+    - **Hard bounce** - Nieistniejący adres email (trwałe)
+    - **Soft bounce** - Skrzynka pełna, serwer niedostępny (tymczasowe)
+
+    **Akcje:**
+    - Bounce Rate **>5%** → Oczyść bazę z nieaktywnych
+    - Hard bounces → Automatycznie usuwane przez Mailist
+    - Soft bounces → 3 próby, potem oznaczenie jako niezdatne
+  </Accordion>
+
+  <Accordion title="Complaint Rate (spam reports)" icon="flag">
+    ```
+    Complaint Rate = (Zgłoszenia spam / Dostarczone) × 100
+    ```
+
+    **Bezpieczne poziomy:**
+    - **<0.1%** - Doskonale
+    - **0.1-0.5%** - Dopuszczalne
+    - **>0.5%** - ⚠️ Ryzyko blacklisty!
+
+    **Jak zmniejszyć:**
+    - Nie kupuj baz emailowych
+    - Używaj double opt-in
+    - Wysyłaj tylko do zaangażowanych (otwarli w ostatnich 90 dni)
+    - Widoczny przycisk unsubscribe
+  </Accordion>
+</AccordionGroup>
+
+### Analiza per-recipient (szczegółowa)
+
+Mailist śledzi **każde działanie dla każdego odbiorcy** z pełnym timeline:
+
+<Steps>
+  <Step title="Dostęp do danych odbiorcy">
+    **Kampanie** → **[Kampania]** → **Statystyki** → **Szczegóły odbiorców**
+  </Step>
+
+  <Step title="Filtrowanie odbiorców">
+    Użyj filtrów aby zobaczyć:
+
+    <CardGroup cols={2}>
+      <Card title="Wszyscy" icon="users">
+        Kompletna lista 1,245 odbiorców
+      </Card>
+      <Card title="Dostarczone" icon="circle-check">
+        1,198 odbiorców (96.2%)
+      </Card>
+      <Card title="Odrzucone" icon="circle-alert">
+        47 hard/soft bounces
+      </Card>
+      <Card title="Spam" icon="flag">
+        2 zgłoszenia spam
+      </Card>
+    </CardGroup>
+  </Step>
+
+  <Step title="Timeline pojedynczego odbiorcy">
+    ```
+    jan.kowalski@example.com (ID: 12345)
+
+    ✅ Wysłano:       07.01.2025 10:15:23
+    ✅ Dostarczono:   07.01.2025 10:15:45
+    👁️  Otwarto (3×):  07.01.2025 10:23:45 (mobile)
+                     07.01.2025 14:12:11 (desktop)
+                     08.01.2025 09:05:33 (mobile)
+    🖱️  Kliknięto (2×):
+       - https://mailist.com/ebook → 07.01.2025 10:24:01
+       - https://mailist.com/pricing → 07.01.2025 14:15:22
+    ```
+  </Step>
+</Steps>
+
+<Tip>
+  **Użyj per-recipient data do:**
+  - Segmentacji („kliknął, ale nie kupił" → follow-up)
+  - Personalizacji kolejnych kampanii
+  - Identyfikacji ambasadorów marki (high engagement)
+</Tip>
+
+## Eksport danych
+
+Mailist umożliwia pełny eksport statystyk do CSV dla zaawansowanej analizy w Excel, Google Sheets lub BI tools.
+
+### Eksport zbiorczy kampanii
+
+```bash
+Kampanie → [Kampania] → Statystyki → Eksportuj CSV
+```
+
+**Zawartość pliku:**
+```csv
+campaign_id,campaign_name,sent,delivered,bounced,unique_opens,total_opens,unique_clicks,total_clicks,unsubscribes,complaints
+123,"Newsletter Q1 2025",1245,1198,47,287,512,89,147,12,2
+```
+
+### Eksport per-recipient
+
+```bash
+Kampanie → [Kampania] → Statystyki → Szczegóły odbiorców → Eksportuj CSV
+```
+
+**Zawartość pliku:**
+```csv
+email,contact_id,status,sent_at,delivered_at,opened_at,clicked_at,total_opens,total_clicks,clicked_urls,bounced_at,bounce_type,complained_at,unsubscribed_at,error_message
+jan@example.com,4521,DELIVERED,2025-01-07 10:15:23,2025-01-07 10:15:45,2025-01-07 10:23:45,2025-01-07 10:24:01,3,2,"https://mailist.com/ebook,https://mailist.com/pricing",,,,,
+anna@example.com,4522,BOUNCED,2025-01-07 10:15:23,,,,0,0,,2025-01-07 10:16:12,HARD,,,"550 User not found"
+```
+
+**Kolumny:**
+- `email` - Adres odbiorcy
+- `contact_id` - ID w bazie kontaktów (jeśli istnieje)
+- `status` - PENDING | SENT | DELIVERED | BOUNCED | FAILED | COMPLAINED
+- `sent_at` - Timestamp wysyłki
+- `delivered_at` - Timestamp dostarczenia
+- `opened_at` - Pierwsze otwarcie
+- `clicked_at` - Pierwsze kliknięcie
+- `total_opens` - Łączna liczba otwarć (3 = otworzył 3 razy)
+- `total_clicks` - Łączna liczba kliknięć
+- `clicked_urls` - Lista klikniętych URL (separated by comma)
+- `bounced_at` - Timestamp odrzucenia
+- `bounce_type` - HARD | SOFT
+- `complained_at` - Timestamp zgłoszenia spam
+- `unsubscribed_at` - Timestamp wypisania
+- `error_message` - Komunikat błędu (jeśli failed/bounced)
+
+### Analiza w Excel/Google Sheets
+
+<Tabs>
+  <Tab title="Pivot Table">
+    ```
+    1. Importuj CSV do Excel/Sheets
+    2. Insert → Pivot Table
+    3. Rows: status
+    4. Values: COUNT(email)
+
+    Wynik:
+    DELIVERED: 1,198 (96.2%)
+    BOUNCED:      47 (3.8%)
+    COMPLAINED:    2 (0.2%)
+    ```
+  </Tab>
+
+  <Tab title="Segmentacja">
+    **Znajdź engaged users (otworzyli i kliknęli):**
+    ```
+    =FILTER(A:A, (G:G>0)*(H:H>0))
+    ```
+    Gdzie:
+    - A:A = email
+    - G:G = total_opens
+    - H:H = total_clicks
+
+    **Rezultat:** Lista 89 high-engaged users → dodaj do VIP segmentu
+  </Tab>
+
+  <Tab title="Funnel analysis">
+    ```
+    Wysłano:      1,245 (100.0%)
+      ↓ 96.2%
+    Dostarczono:  1,198 (96.2%)
+      ↓ 23.9%
+    Otwarto:        287 (23.9% z dostarczonych)
+      ↓ 31.0%
+    Kliknięto:       89 (31.0% z otwartych, 7.4% z dostarczonych)
+    ```
+
+    **Gdzie tracisz odbiorców?**
+    - Delivery (3.8% bounce) → ✅ Dobry wynik
+    - Open (76.1% nie otworzyło) → 🟡 Popraw subject line
+    - Click (69% otworzyło ale nie kliknęło) → 🟡 Popraw treść/CTA
+  </Tab>
+</Tabs>
+
+## API: Programatyczny dostęp do statystyk
+
+Zintegruj statystyki kampanii z własnymi dashboardami lub BI tools poprzez REST API.
+
+### Endpoint: Szczegółowe statystyki kampanii
+
+```bash
+GET /api/v1/campaigns/{campaignId}/statistics
+```
+
+**Przykład (cURL):**
+```bash
+curl -X GET "https://api.mailist.com/v1/campaigns/123/statistics" \
+  -H "Authorization: Bearer ml_prod_a1b2c3d4e5f6g7h8"
+```
+
+**Odpowiedź (JSON):**
+```json
+{
+  "campaignId": 123,
+  "campaignName": "Newsletter Q1 2025",
+  "campaignStatus": "sent",
+  "totalRecipients": 1245,
+  "sentCount": 1245,
+  "deliveredCount": 1198,
+  "pendingCount": 0,
+  "failedCount": 47,
+  "uniqueOpens": 287,
+  "totalOpens": 512,
+  "uniqueClicks": 89,
+  "totalClicks": 147,
+  "uniqueBounces": 47,
+  "uniqueComplaints": 2,
+  "uniqueUnsubscribes": 12,
+  "openRate": 23.9,
+  "clickRate": 7.4,
+  "clickToOpenRate": 31.0,
+  "bounceRate": 3.8,
+  "complaintRate": 0.2,
+  "unsubscribeRate": 1.0,
+  "topClickedUrls": [
+    { "url": "https://mailist.com/ebook", "clicks": 145 },
+    { "url": "https://mailist.com/pricing", "clicks": 89 }
+  ],
+  "engagementTimeline": [
+    { "timestamp": "2025-01-07T10:00:00Z", "opens": 45, "clicks": 12, "bounces": 2 },
+    { "timestamp": "2025-01-07T11:00:00Z", "opens": 89, "clicks": 34, "bounces": 5 }
+  ],
+  "createdAt": "2025-01-05T14:30:00Z",
+  "sentAt": "2025-01-07T10:00:00Z"
+}
+```
+
+### Endpoint: Szczegóły odbiorców
+
+```bash
+GET /api/v1/campaigns/{campaignId}/recipients?page=0&size=20&status=ALL
+```
+
+**Parametry query:**
+- `page` - Numer strony (0-indexed)
+- `size` - Ilość wyników (default: 20, max: 100)
+- `status` - Filtr: `ALL`, `PENDING`, `SENT`, `DELIVERED`, `BOUNCED`, `FAILED`, `COMPLAINED`
+
+**Przykład (JavaScript):**
+```javascript
+const response = await fetch(
+  'https://api.mailist.com/v1/campaigns/123/recipients?status=DELIVERED&size=50',
+  {
+    headers: {
+      'Authorization': 'Bearer ml_prod_a1b2c3d4e5f6g7h8'
+    }
+  }
+);
+
+const data = await response.json();
+console.log(`Dostarczono do ${data.totalElements} odbiorców`);
+
+data.content.forEach(recipient => {
+  console.log(`${recipient.email}: ${recipient.totalOpens} otwarć, ${recipient.totalClicks} kliknięć`);
+});
+```
+
+**Odpowiedź:**
+```json
+{
+  "content": [
+    {
+      "id": 45123,
+      "email": "jan@example.com",
+      "contactId": 4521,
+      "status": "DELIVERED",
+      "sentAt": "2025-01-07T10:15:23Z",
+      "deliveredAt": "2025-01-07T10:15:45Z",
+      "openedAt": "2025-01-07T10:23:45Z",
+      "clickedAt": "2025-01-07T10:24:01Z",
+      "totalOpens": 3,
+      "totalClicks": 2,
+      "clickedUrls": [
+        "https://mailist.com/ebook",
+        "https://mailist.com/pricing"
+      ],
+      "retryCount": 0
+    }
+  ],
+  "totalElements": 1198,
+  "totalPages": 24,
+  "number": 0,
+  "size": 50
+}
+```
+
+<Note>
+  Szczegóły autoryzacji i rate limits znajdziesz w [dokumentacji API](/api-reference/introduction).
+</Note>
+
+## Porównanie kampanii
+
+Porównaj skuteczność różnych kampanii aby zidentyfikować best practices:
+
+<Tabs>
+  <Tab title="Tabela porównawcza">
+    | Kampania | Open Rate | Click Rate | CTOR | Unsubscribe |
+    |----------|-----------|------------|------|-------------|
+    | Newsletter #1 | 23.9% | 7.4% | 31.0% | 1.0% |
+    | Newsletter #2 | 31.2% ✅ | 9.1% ✅ | 29.2% | 0.8% ✅ |
+    | Promocja Black Friday | 18.5% | 12.3% ✅ | 66.5% ✅ | 2.1% |
+    | Onboarding Day 1 | 42.1% ✅ | 18.7% ✅ | 44.4% | 0.3% ✅ |
+
+    **Insights:**
+    - **Onboarding emails** mają najwyższy engagement (42% open rate!)
+    - **Promocje** generują wysokie CTOR (66.5%) ale niższy open rate
+    - **Newsletter #2** (personalizowany subject) +7.3pp open rate vs #1
+  </Tab>
+
+  <Tab title="Benchmark industrialny">
+    **Średnie wskaźniki według branży (2025):**
+
+    | Branża | Open Rate | Click Rate | CTOR |
+    |--------|-----------|------------|------|
+    | E-commerce | 15.7% | 2.3% | 14.6% |
+    | SaaS/Software | 21.3% | 3.1% | 14.6% |
+    | Media/Publishing | 22.8% | 4.9% | 21.5% |
+    | Edukacja | 23.4% | 3.7% | 15.8% |
+    | Non-profit | 25.2% | 2.8% | 11.1% |
+    | Healthcare | 21.7% | 3.0% | 13.8% |
+
+    <Tip>
+      Porównuj się z benchmarkiem swojej branży, nie ogólnym. E-commerce naturalnie ma niższy open rate niż non-profit.
+    </Tip>
+  </Tab>
+</Tabs>
+
+## Dashboardy i raporty
+
+Mailist oferuje gotowe dashboardy analityczne dostępne w sekcji **Analytics**:
+
+<CardGroup cols={2}>
+  <Card title="Email Dashboard" icon="chart-line">
+    - Ogólne metryki emailowe
+    - Trendy open/click rate w czasie
+    - Top performing kampanie
+    - Health score deliverability
+  </Card>
+
+  <Card title="Campaign Comparison" icon="code-compare">
+    - Porównanie side-by-side kampanii
+    - Identyfikacja best performers
+    - Subject line effectiveness
+  </Card>
+
+  <Card title="Engagement Heatmap" icon="grid">
+    - Najlepsze dni/godziny wysyłki
+    - Aktywność per segment
+    - Geographic engagement
+  </Card>
+
+  <Card title="List Health" icon="heart-pulse">
+    - Wskaźnik zdrowia list kontaktów
+    - Engagement decay (spadek zaangażowania)
+    - Rekomendacje czyszczenia
+  </Card>
+</CardGroup>
+
+## Najlepsze praktyki
+
+<AccordionGroup>
+  <Accordion title="Regularnie monitoruj metryki" icon="calendar-check">
+    - Sprawdzaj statystyki **24h** i **7 dni** po wysłaniu
+    - Większość otwarć: pierwsze 48h
+    - Większość kliknięć: pierwsze 72h
+    - Po 7 dniach metryki stabilizują się
+  </Accordion>
+
+  <Accordion title="Zdefiniuj cele dla każdej kampanii" icon="bullseye">
+    **Przykłady:**
+    - Newsletter: Open rate >25%, Click rate >5%
+    - Promocja: Click rate >10%, Conversion rate >2%
+    - Onboarding: Open rate >40%, Click rate >15%
+    - Re-engagement: Open rate >15% (dla nieaktywnych)
+  </Accordion>
+
+  <Accordion title="Reaguj na złe sygnały" icon="triangle-alert">
+    **Wysokie unsubscribe (>2%):**
+    - Zmniejsz częstotliwość wysyłki
+    - Dodaj preference center
+    - Zwiększ wartość treści
+
+    **Wysokie bounce (>5%):**
+    - Włącz double opt-in
+    - Regularnie czyść bazę
+    - Usuń hard bounces natychmiast
+
+    **Wysokie complaint (>0.5%):**
+    - ⚠️ Ryzyko blacklisty!
+    - Zweryfikuj źródło kontaktów
+    - Widoczny unsubscribe w każdym emailu
+  </Accordion>
+
+  <Accordion title="Optymalizacja ciągła (A/B testing)" icon="flask">
+    **Testuj systematycznie:**
+    1. **Tydzień 1:** Subject line A vs B
+    2. **Tydzień 2:** CTA copy A vs B
+    3. **Tydzień 3:** Wysyłka 9am vs 2pm
+    4. **Tydzień 4:** Personalizacja vs generic
+
+    Po każdym teście: **zapisz wyniki** i zastosuj winning variant w przyszłych kampaniach.
+  </Accordion>
+</AccordionGroup>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="A/B Testing" href="/guides/kampanie/ab-testing" icon="flask">
+    Testuj i optymalizuj skuteczność o 20-30%
+  </Card>
+  <Card title="Automatyzacja" href="/guides/automatyzacja/workflow" icon="diagram-project">
+    Automatyzuj najskuteczniejsze kampanie
+  </Card>
+  <Card title="Segmentacja" href="/guides/listy/segmentacja" icon="filter">
+    Wysyłaj do właściwych osób (boost open rate +15%)
+  </Card>
+  <Card title="REST API" href="/api-reference/analytics/campaign-stats" icon="code">
+    Integruj statystyki z własnymi dashboardami
+  </Card>
+</CardGroup>

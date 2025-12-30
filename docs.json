@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Mailist Docs",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#3b82f6",
+    "light": "#60a5fa",
+    "dark": "#2563eb"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -26,54 +26,86 @@
     },
     "tabs": [
       {
-        "tab": "Guides",
-        "hidden": true,
+        "tab": "Przewodnik",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Pierwsze kroki",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "guides/wprowadzenie",
+              "guides/pierwsze-kampanie",
+              "guides/quick-start"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Listy i kontakty",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "guides/listy/tworzenie-list",
+              "guides/listy/import-kontaktow",
+              "guides/listy/segmentacja",
+              "guides/listy/pola-niestandardowe"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Kampanie emailowe",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "guides/kampanie/tworzenie-kampanii",
+              "guides/kampanie/planowanie-wysylki",
+              "guides/kampanie/ab-testing",
+              "guides/kampanie/analityka"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Szablony",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "guides/szablony/edytor-html",
+              "guides/szablony/personalizacja",
+              "guides/szablony/biblioteka"
+            ]
+          },
+          {
+            "group": "Automatyzacja",
+            "pages": [
+              "guides/automatyzacja/workflow",
+              "guides/automatyzacja/triggery",
+              "guides/automatyzacja/welcome-series"
+            ]
+          },
+          {
+            "group": "Integracje",
+            "pages": [
+              "guides/integracje/api-keys"
+            ]
+          },
+          {
+            "group": "Analityka i raporty",
+            "pages": [
+              "guides/analityka/dashboardy"
+            ]
+          },
+          {
+            "group": "Ustawienia",
+            "pages": [
+              "guides/ustawienia/profil-firmy",
+              "guides/ustawienia/domeny-dns",
+              "guides/ustawienia/zespol",
+              "guides/ustawienia/rodo",
+              "guides/ustawienia/billing",
+              "guides/ustawienia/usage-limits"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Dokumentacja API",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Wprowadzenie",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Contacts",
+            "group": "Kontakty",
             "pages": [
               "api-reference/subscribers/create",
               "api-reference/subscribers/get",
@@ -81,14 +113,14 @@
             ]
           },
           {
-            "group": "Contact Lists",
+            "group": "Listy kontaktów",
             "pages": [
               "api-reference/lists/list",
               "api-reference/lists/create"
             ]
           },
           {
-            "group": "Campaigns",
+            "group": "Kampanie",
             "pages": [
               "api-reference/campaigns/list",
               "api-reference/campaigns/get",

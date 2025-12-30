@@ -1,0 +1,572 @@
+---
+title: 'Pierwsze kampanie'
+description: 'Kompletny przewodnik krok po kroku do stworzenia i wysłania pierwszej kampanii emailowej w Mailist.'
+---
+
+# Twoja pierwsza kampania - przewodnik krok po kroku
+
+Ten przewodnik pomoże Ci wysłać pierwszą profesjonalną kampanię emailową w 15 minut. Przejdziemy przez każdy etap od przygotowania listy po analizę wyników.
+
+<Info>
+  **Przed rozpoczęciem:** Upewnij się, że masz przygotowaną listę kontaktów z co najmniej 5-10 testowymi adresami email.
+</Info>
+
+## Etap 1: Przygotowanie listy odbiorców
+
+### Sprawdź swoją listę kontaktów
+
+<Steps>
+  <Step title="Przejdź do sekcji Listy">
+    W menu głównym kliknij **Listy** i wybierz listę, do której chcesz wysłać kampanię.
+  </Step>
+
+  <Step title="Zweryfikuj kontakty">
+    Sprawdź, czy lista zawiera aktywne kontakty:
+    - **Aktywne kontakty**: gotowe do wysyłki
+    - **Wypisane (unsubscribed)**: nie otrzymają emaila
+    - **Bounced**: nieprawidłowe adresy email
+  </Step>
+
+  <Step title="Dodaj kontakty testowe">
+    Dodaj swój adres email oraz adresy współpracowników do testowania kampanii.
+
+    ```
+    Lista testowa:
+    - twoj.email@firma.pl (Ty)
+    - kolega@firma.pl (Kolega z zespołu)
+    - koleżanka@firma.pl (Koleżanka z zespołu)
+    ```
+  </Step>
+</Steps>
+
+<Warning>
+  **Nigdy nie wysyłaj kampanii do zakupionych baz kontaktów!** To narusza RODO i może zablokować Twoje konto.
+</Warning>
+
+## Etap 2: Stworzenie szablonu emaila
+
+### Wybierz sposób tworzenia
+
+<Tabs>
+  <Tab title="Edytor HTML (zalecane)">
+    Pełna kontrola nad wyglądem emaila.
+
+    **Krok 1: Stwórz nowy szablon**
+    1. Przejdź do **Szablony** → **+ Nowy szablon**
+    2. Wybierz **Pusty szablon HTML**
+    3. Nadaj nazwę: "Newsletter - Styczeń 2025"
+
+    **Krok 2: Dodaj strukturę HTML**
+    ```html
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>{{subject}}</title>
+    </head>
+    <body style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding: 20px;">
+            <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff;">
+              <!-- Header -->
+              <tr>
+                <td style="padding: 40px 30px; text-align: center; background: #3b82f6;">
+                  <h1 style="margin: 0; color: #ffffff;">Witaj, {{firstName}}!</h1>
+                </td>
+              </tr>
+
+              <!-- Content -->
+              <tr>
+                <td style="padding: 40px 30px;">
+                  <p style="font-size: 16px; line-height: 1.6; color: #333;">
+                    Dziękujemy za zaufanie i zapisanie się do naszego newslettera.
+                  </p>
+                  <p style="font-size: 16px; line-height: 1.6; color: #333;">
+                    W tym wydaniu przygotowaliśmy dla Ciebie:
+                  </p>
+                  <ul style="font-size: 16px; line-height: 1.8; color: #333;">
+                    <li>Nowości w produkcie</li>
+                    <li>Case study: Jak firma X zwiększyła konwersje o 45%</li>
+                    <li>Nadchodzące webinary i wydarzenia</li>
+                  </ul>
+
+                  <!-- CTA Button -->
+                  <table cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+                    <tr>
+                      <td align="center" style="background: #3b82f6; border-radius: 6px;">
+                        <a href="https://twoja-strona.pl/artykul"
+                           style="display: inline-block; padding: 15px 40px; color: #ffffff;
+                                  text-decoration: none; font-weight: bold;">
+                          Czytaj więcej
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- Footer -->
+              <tr>
+                <td style="padding: 20px 30px; background: #f3f4f6; font-size: 12px; color: #6b7280;">
+                  <p>© 2025 Twoja Firma Sp. z o.o.</p>
+                  <p>ul. Przykładowa 123, 00-001 Warszawa</p>
+                  <p>
+                    <a href="{{unsubscribeUrl}}" style="color: #3b82f6;">Wypisz się z listy</a> |
+                    <a href="{{preferencesUrl}}" style="color: #3b82f6;">Preferencje</a>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
+    ```
+
+    **Krok 3: Zapisz szablon**
+    Kliknij **Zapisz szablon** - będzie dostępny do wielokrotnego użycia.
+  </Tab>
+
+  <Tab title="Gotowy szablon">
+    Szybkie rozpoczęcie z gotowymi wzorcami.
+
+    1. Przejdź do **Szablony** → **Biblioteka**
+    2. Wybierz szablon z kategorii "Newsletter"
+    3. Kliknij **Użyj tego szablonu**
+    4. Dostosuj treść i kolory
+    5. Zapisz jako nowy szablon
+  </Tab>
+</Tabs>
+
+### Personalizacja szablonu
+
+Mailist wspiera zmienne personalizacyjne:
+
+| Zmienna | Opis | Przykład |
+|---------|------|----------|
+| `{{firstName}}` | Imię kontaktu | "Jan" |
+| `{{lastName}}` | Nazwisko | "Kowalski" |
+| `{{email}}` | Adres email | "jan@example.com" |
+| `{{company}}` | Nazwa firmy | "ABC Sp. z o.o." |
+| `{{unsubscribeUrl}}` | Link do wypisania | Auto-generowany |
+| `{{preferencesUrl}}` | Preferencje | Auto-generowany |
+
+<Tip>
+  **Pro tip:** Użyj fallback dla brakujących danych: `{{firstName|Przyjacielu}}`
+
+  Jeśli kontakt nie ma imienia, wyświetli się "Przyjacielu"
+</Tip>
+
+## Etap 3: Tworzenie kampanii
+
+### Krok 1: Nowa kampania
+
+<Steps>
+  <Step title="Otwórz kreator kampanii">
+    Przejdź do **Kampanie** → **+ Nowa kampania**
+  </Step>
+
+  <Step title="Wybierz typ kampanii">
+    <CardGroup cols={2}>
+      <Card title="Jednorazowa wysyłka" icon="paper-plane">
+        Newsletter, promocja, ogłoszenie
+      </Card>
+      <Card title="Kampania cykliczna" icon="arrows-rotate">
+        Cotygodniowy newsletter
+      </Card>
+      <Card title="A/B Testing" icon="flask">
+        Testuj 2 wersje emaila
+      </Card>
+      <Card title="Automatyczna" icon="robot">
+        Trigger-based automation
+      </Card>
+    </CardGroup>
+
+    Dla pierwszej kampanii wybierz **Jednorazowa wysyłka**.
+  </Step>
+</Steps>
+
+### Krok 2: Podstawowe ustawienia
+
+Wypełnij formularz kampanii:
+
+```yaml
+Nazwa kampanii: "Newsletter - Styczeń 2025"
+Temat emaila: "🎯 Nowości stycznia + Ekskluzywna oferta dla Ciebie"
+Nadawca - Imię: "Jan Kowalski"
+Nadawca - Email: "newsletter@twojafirma.pl"
+Odpowiedź na (Reply-to): "kontakt@twojafirma.pl"
+```
+
+<Note>
+  **Dobre praktyki dla tematu emaila:**
+  - Maksymalnie 50 znaków (wyświetlanie mobile)
+  - Użyj emoji oszczędnie (max 1-2)
+  - Stwórz poczucie pilności: "Tylko dziś", "Ostatnie godziny"
+  - Personalizuj: "{{firstName}}, sprawdź nowości"
+  - Unikaj CAPS LOCK i wielu wykrzykników!!!
+</Note>
+
+### Krok 3: Wybór odbiorców
+
+<Tabs>
+  <Tab title="Cała lista">
+    Wyślij do wszystkich aktywnych kontaktów na liście.
+
+    1. Wybierz **Lista odbiorców**: "Newsletter 2025"
+    2. Automatycznie wysyła do wszystkich aktywnych kontaktów
+    3. Pomija wypisane i bounced
+  </Tab>
+
+  <Tab title="Segment (zaawansowane)">
+    Wyślij tylko do wybranej grupy.
+
+    **Przykład: Tylko kontakty z Warszawy**
+    ```
+    Warunek: city = "Warszawa"
+    Odbiorcy: 245 kontaktów
+    ```
+
+    **Przykład: Klienci VIP**
+    ```
+    Warunek: tag zawiera "VIP"
+    Odbiorcy: 89 kontaktów
+    ```
+
+    [Dowiedz się więcej o segmentacji →](/guides/listy/segmentacja)
+  </Tab>
+</Tabs>
+
+### Krok 4: Wybór szablonu
+
+1. W sekcji **Treść emaila** kliknij **Wybierz szablon**
+2. Wybierz szablon utworzony w Etapie 2
+3. Możesz jeszcze dostosować treść bezpośrednio w kampanii
+
+## Etap 4: Testowanie kampanii
+
+<Warning>
+  **Nigdy nie pomijaj testowania!** 87% błędów w kampaniach można wykryć przed wysyłką.
+</Warning>
+
+### Wysyłka testowa
+
+<Steps>
+  <Step title="Kliknij 'Wyślij testowy email'">
+    Znajdziesz ten przycisk w edytorze kampanii.
+  </Step>
+
+  <Step title="Podaj adresy email do testów">
+    ```
+    twoj.email@firma.pl
+    kolega@firma.pl
+    ```
+
+    Możesz podać do 10 adresów oddzielonych przecinkami.
+  </Step>
+
+  <Step title="Sprawdź otrzymany email">
+    Otwórz email i zweryfikuj:
+
+    **Wizualne:**
+    - [ ] Logo wyświetla się poprawnie
+    - [ ] Kolory i fonty są zgodne z marką
+    - [ ] Obrazy się ładują
+    - [ ] Layout wygląda dobrze na telefonie (otwórz na mobile!)
+
+    **Funkcjonalne:**
+    - [ ] Wszystkie linki działają
+    - [ ] Personalizacja działa ({{firstName}} zastąpiony prawdziwym imieniem)
+    - [ ] Przycisk CTA jest klikalny
+    - [ ] Link do wypisania działa
+
+    **Treść:**
+    - [ ] Brak literówek i błędów gramatycznych
+    - [ ] Temat emaila jest zachęcający
+    - [ ] Wiadomość jest zwięzła i na temat
+  </Step>
+</Steps>
+
+### Spam Score Check
+
+Mailist automatycznie sprawdza prawdopodobieństwo trafienia do spamu:
+
+<AccordionGroup>
+  <Accordion title="✅ Dobry (0-3 punkty)" icon="circle-check">
+    Twój email prawdopodobnie trafi do skrzynki odbiorczej. Możesz wysłać kampanię.
+  </Accordion>
+
+  <Accordion title="⚠️ Średni (4-6 punktów)" icon="circle-exclamation">
+    Możliwe problemy. Zalecane działania:
+    - Usuń słowa spamowe: "GRATIS", "KLIKNIJ TERAZ", "100% GWARANCJA"
+    - Zmniejsz liczbę CAPS LOCK
+    - Usuń nadmiar wykrzykników
+    - Sprawdź stosunek tekstu do obrazów (min. 60% tekstu)
+  </Accordion>
+
+  <Accordion title="❌ Zły (7+ punktów)" icon="circle-xmark">
+    Bardzo wysokie ryzyko spamu. **Nie wysyłaj kampanii!**
+
+    Popraw:
+    - Zweryfikuj domenę (SPF/DKIM)
+    - Usuń wszystkie słowa spamowe
+    - Zmień nadawcę na zweryfikowany email
+    - Dodaj więcej treści tekstowej
+  </Accordion>
+</AccordionGroup>
+
+## Etap 5: Planowanie wysyłki
+
+### Opcja A: Wyślij natychmiast
+
+Kampania zostanie wysłana w ciągu 5-15 minut od kliknięcia **Wyślij teraz**.
+
+<Note>
+  Szybkość wysyłki zależy od wielkości listy:
+  - Do 1,000 kontaktów: 5-10 minut
+  - 1,000-10,000: 15-30 minut
+  - 10,000+: do 2 godzin
+</Note>
+
+### Opcja B: Zaplanuj wysyłkę (zalecane)
+
+Ustaw datę i godzinę wysyłki w przyszłości.
+
+**Najlepsze czasy na wysyłkę:**
+
+<CardGroup cols={2}>
+  <Card title="B2B (Biznes)" icon="briefcase">
+    **Dni:** Wtorek-Czwartek
+
+    **Godziny:**
+    - 9:00-11:00 (początek dnia roboczego)
+    - 14:00-16:00 (po przerwie obiadowej)
+
+    **Unikaj:** Poniedziałki rano, piątki po południu
+  </Card>
+
+  <Card title="B2C (Konsumenci)" icon="users">
+    **Dni:** Wtorek, Środa, Sobota
+
+    **Godziny:**
+    - 8:00-10:00 (przy porannej kawie)
+    - 12:00-13:00 (przerwa obiadowa)
+    - 19:00-21:00 (wieczorny relaks)
+
+    **Unikaj:** Niedziele rano
+  </Card>
+</CardGroup>
+
+**Przykład:**
+```
+Data wysyłki: Wtorek, 7 stycznia 2025
+Godzina: 10:00 AM (strefa czasowa: Europe/Warsaw)
+```
+
+## Etap 6: Wysyłka kampanii
+
+### Ostateczna weryfikacja
+
+Przed kliknięciem "Wyślij" sprawdź:
+
+<Tabs>
+  <Tab title="Checklist techniczny">
+    - [ ] Wysłano email testowy i wszystko działa
+    - [ ] Spam score jest niski (0-3 punkty)
+    - [ ] Domena nadawcy jest zweryfikowana (SPF/DKIM)
+    - [ ] Lista odbiorców jest poprawna
+    - [ ] Personalizacja działa ({{firstName}})
+    - [ ] Link do wypisania jest obecny
+  </Tab>
+
+  <Tab title="Checklist biznesowy">
+    - [ ] Temat emaila jest zgodny z treścią
+    - [ ] CTA (Call To Action) jest wyraźny
+    - [ ] Oferta/treść jest aktualna
+    - [ ] Dane firmy w stopce są poprawne
+    - [ ] Polityka prywatności jest zlinkowana
+    - [ ] Kampania jest zgodna z RODO
+  </Tab>
+</Tabs>
+
+### Kliknij "Wyślij kampanię"
+
+<Steps>
+  <Step title="Potwierdź wysyłkę">
+    System pokaże podsumowanie:
+    ```
+    Lista: Newsletter 2025
+    Odbiorcy: 1,245 kontaktów
+    Temat: 🎯 Nowości stycznia + Ekskluzywna oferta
+    Wysyłka: Natychmiast (lub zaplanowana)
+    ```
+
+    Kliknij **Potwierdź i wyślij**.
+  </Step>
+
+  <Step title="Kampania w toku">
+    Status zmieni się na "Wysyłanie...". Możesz:
+    - Zobaczyć postęp wysyłki (245/1,245 wysłanych)
+    - Podejrzeć pierwsze statystyki w czasie rzeczywistym
+    - **Nie możesz anulować** - kampania jest już w ruchu
+  </Step>
+
+  <Step title="Kampania wysłana">
+    Po zakończeniu status zmieni się na "Wysłana". Czas przejść do analizy wyników!
+  </Step>
+</Steps>
+
+## Etap 7: Analiza wyników
+
+### Dashboard kampanii
+
+Po wysłaniu kampanii przejdź do **Kampanie** → wybierz swoją kampanię.
+
+Zobaczysz kluczowe metryki:
+
+<CardGroup cols={2}>
+  <Card title="📨 Delivered" icon="check">
+    **1,198 / 1,245** (96.2%)
+
+    Liczba pomyślnie dostarczonych emaili
+
+    *Bounced: 47* (nieprawidłowe adresy)
+  </Card>
+
+  <Card title="📬 Open Rate" icon="envelope-open">
+    **287 / 1,198** (23.9%)
+
+    Procent odbiorców, którzy otworzyli email
+
+    *Benchmark B2B: 20-25%*
+  </Card>
+
+  <Card title="🖱️ Click Rate" icon="mouse-pointer">
+    **89 / 1,198** (7.4%)
+
+    Procent odbiorców, którzy kliknęli link
+
+    *Benchmark B2B: 3-7%*
+  </Card>
+
+  <Card title="🚫 Unsubscribe" icon="user-xmark">
+    **12 / 1,198** (1.0%)
+
+    Liczba osób, które się wypisały
+
+    *Normalny poziom: 0.5-2%*
+  </Card>
+</CardGroup>
+
+### Interpretacja wyników
+
+<AccordionGroup>
+  <Accordion title="Niski Open Rate (<15%)" icon="arrow-down">
+    **Przyczyny:**
+    - Słaby temat emaila - nie zachęca do otwarcia
+    - Wysyłka w złej porze (weekend, późny wieczór)
+    - Nadawca nie jest rozpoznawalny
+    - Email trafił do zakładki Promocje/Spam
+
+    **Rozwiązania:**
+    - Testuj różne tematy (A/B testing)
+    - Zmień godzinę wysyłki
+    - Wyślij z imienia i nazwiska, nie "noreply@"
+    - Popraw spam score i zweryfikuj domenę
+  </Accordion>
+
+  <Accordion title="Niski Click Rate (<2%)" icon="arrow-down">
+    **Przyczyny:**
+    - Niejasny CTA (Call To Action)
+    - Zbyt długa treść - nikt nie doczytał do końca
+    - Oferta nie jest atrakcyjna
+    - Linki są mało widoczne
+
+    **Rozwiązania:**
+    - Wyraźny, duży przycisk CTA
+    - Skróć treść - maksymalnie 3-4 akapity
+    - Umieść CTA nad "fold" (widoczny bez scrollowania)
+    - Testuj różne wersje CTA
+  </Accordion>
+
+  <Accordion title="Wysoki Unsubscribe Rate (>3%)" icon="arrow-up">
+    **Przyczyny:**
+    - Zbyt częste wysyłki (email fatigue)
+    - Treść nie jest zgodna z oczekiwaniami
+    - Subskrybenci nie pamiętają, jak się zapisali
+    - Jakość listy jest niska
+
+    **Rozwiązania:**
+    - Zmniejsz częstotliwość wysyłek
+    - Przypomnij, dlaczego dostają emaile
+    - Daj opcję wyboru częstotliwości (Preferencje)
+    - Regularnie czyść nieaktywną bazę
+  </Accordion>
+</AccordionGroup>
+
+### Zaawansowana analityka
+
+Kliknij **Szczegóły kampanii** aby zobaczyć:
+
+- **Mapa kliknięć:** Które linki były najczęściej klikane
+- **Czas otwarć:** O której godzinie ludzie otwierają emaile
+- **Urządzenia:** Desktop vs Mobile (60% to mobile!)
+- **Klienci email:** Gmail, Outlook, Apple Mail
+- **Geo lokalizacja:** Miasta i kraje odbiorców
+
+## Co dalej?
+
+<CardGroup cols={2}>
+  <Card title="Optymalizuj kolejne kampanie" icon="chart-line" href="/guides/kampanie/ab-testing">
+    Wykorzystaj A/B testing do zwiększenia wyników o 20-30%
+  </Card>
+
+  <Card title="Automatyzuj wysyłki" icon="robot" href="/guides/automatyzacja/workflow">
+    Postaw workflow, który będzie pracował za Ciebie 24/7
+  </Card>
+
+  <Card title="Segmentuj bazę" icon="filter" href="/guides/listy/segmentacja">
+    Wyślij spersonalizowane kampanie do różnych grup
+  </Card>
+
+  <Card title="REST API" icon="code" href="/api-reference/introduction">
+    Zintegruj Mailist z własną aplikacją
+  </Card>
+</CardGroup>
+
+## Najczęstsze problemy
+
+<AccordionGroup>
+  <Accordion title="Email trafia do spamu" icon="triangle-exclamation">
+    **Rozwiązanie:**
+    1. Zweryfikuj domenę (SPF, DKIM, DMARC)
+    2. Wyślij z autentycznego adresu, nie "noreply@"
+    3. Usuń słowa spamowe: "GRATIS", "KLIKNIJ", "OFERTA"
+    4. Dodaj link do wypisania w widocznym miejscu
+    5. Buduj dobrą reputację - wysyłaj regularnie
+  </Accordion>
+
+  <Accordion title="Personalizacja nie działa" icon="user">
+    **Rozwiązanie:**
+    1. Sprawdź składnię: `{{firstName}}` (nie `{firstName}`)
+    2. Upewnij się, że kontakty mają wypełnione pole "firstName"
+    3. Użyj fallback: `{{firstName|Przyjacielu}}`
+    4. Zweryfikuj import CSV - czy kolumny są poprawnie zmapowane
+  </Accordion>
+
+  <Accordion title="Kampania wysyła się wolno" icon="clock">
+    **To normalne!** Wysyłka 10,000 emaili może zająć 1-2 godziny.
+
+    Dlaczego?
+    - Serwery email mają limity (rate limiting)
+    - Wysyłamy stopniowo, aby uniknąć spamu
+    - Każdy email jest personalizowany indywidualnie
+  </Accordion>
+</AccordionGroup>
+
+<Check>
+  **Gratulacje!** Właśnie wysłałeś pierwszą profesjonalną kampanię emailową. Teraz czas na optymalizację i automatyzację.
+</Check>

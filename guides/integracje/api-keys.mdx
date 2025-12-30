@@ -1,0 +1,728 @@
+---
+title: 'Klucze API'
+description: 'Zarządzaj kluczami API do automatyzacji i integracji Mailist z własnymi aplikacjami.'
+---
+
+# Klucze API - Zarządzanie i bezpieczeństwo
+
+Klucze API pozwalają na programistyczny dostęp do platformy Mailist. Automatyzuj tworzenie kontaktów, wysyłkę kampanii i zarządzanie danymi z własnych aplikacji.
+
+## Czym jest klucz API?
+
+**Klucz API** to unikalny identyfikator używany do uwierzytelniania żądań do REST API Mailist. Działa jak hasło - pozwala Twojej aplikacji na dostęp do danych i funkcji platformy.
+
+<Warning>
+  **Bezpieczeństwo:** Traktuj klucze API jak hasła. Nie udostępniaj ich publicznie ani nie commituj do repozytoriów Git.
+</Warning>
+
+## Dostęp do kluczy API
+
+<Steps>
+  <Step title="Otwórz sekcję Integracje">
+    W menu głównym przejdź do **Integracje API**
+  </Step>
+
+  <Step title="Przegląd kluczy">
+    Zobaczysz dashboard z:
+    - Wszystkie klucze (całkowita liczba)
+    - Aktywne klucze
+    - Nieaktywne klucze (odwołane/wygasłe)
+    - Całkowite żądania API (z wszystkich kluczy)
+  </Step>
+</Steps>
+
+## Tworzenie nowego klucza API
+
+<Steps>
+  <Step title="Kliknij 'Utwórz nowy klucz'">
+    Przycisk w prawym górnym rogu sekcji Integracje
+  </Step>
+
+  <Step title="Wypełnij formularz">
+    ### Podstawowe informacje
+
+    ```yaml
+    Nazwa klucza: "Formularz kontaktowy - Strona główna"
+    Opis (opcjonalnie): "Klucz dla produkcyjnego środowiska"
+    ```
+
+    <Tip>
+      **Dobra nazwa:** Opisz gdzie i jak klucz będzie używany. To pomoże Ci później zidentyfikować klucze.
+
+      Przykłady:
+      - "Landing Page - Newsletter signup"
+      - "Mobile App - iOS Production"
+      - "Webhook - Abandoned Cart"
+      - "Internal CRM Integration"
+    </Tip>
+
+    ### Wybór uprawnień
+
+    Zaznacz uprawnienia, których potrzebuje Twoja integracja:
+
+    | Uprawnienie | Opis | Użycie |
+    |:------------|:-----|:-------|
+    | **contacts.read** | Odczyt kontaktów | Pobieranie listy kontaktów, szczegóły kontaktu |
+    | **contacts.write** | Tworzenie/edycja kontaktów | Dodawanie nowych subskrybentów, aktualizacja danych |
+    | **contacts.delete** | Usuwanie kontaktów | Permanentne usuwanie kontaktów |
+    | **lists.read** | Odczyt list | Pobieranie listy wszystkich list |
+    | **lists.write** | Tworzenie/edycja list | Tworzenie nowych list, dodawanie kontaktów do list |
+    | **campaigns.read** | Odczyt kampanii | Pobieranie statystyk kampanii |
+    | **campaigns.write** | Tworzenie/edycja kampanii | Tworzenie i edycja kampanii |
+    | **campaigns.send** | Wysyłka kampanii | Uruchamianie wysyłki kampanii |
+    | **automation.read** | Odczyt automatyzacji | Pobieranie workflow |
+    | **automation.write** | Tworzenie/edycja automatyzacji | Zarządzanie workflow |
+    | **\*** | Pełny dostęp | Wszystkie uprawnienia (używaj ostrożnie!) |
+
+    <Note>
+      **Principle of Least Privilege:** Nadawaj tylko te uprawnienia, których faktycznie potrzebuje Twoja integracja.
+
+      **Przykład:** Formularz zapisu do newslettera potrzebuje tylko `contacts.write` + `lists.read`, nie wymaga `campaigns.send`.
+    </Note>
+  </Step>
+
+  <Step title="Utwórz klucz">
+    Kliknij **Utwórz klucz API**
+  </Step>
+
+  <Step title="Skopiuj klucz">
+    <Warning>
+      **WAŻNE!** To jedyny raz, kiedy zobaczysz pełny klucz. Skopiuj go i przechowuj bezpiecznie.
+    </Warning>
+
+    Modal wyświetli:
+    ```
+    Nazwa: Formularz kontaktowy
+    Klucz API: ml_prod_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
+    Uprawnienia: contacts.write, lists.read
+    ```
+
+    Kliknij **Kopiuj** i zapisz klucz w bezpiecznym miejscu (np. password manager).
+  </Step>
+</Steps>
+
+## Używanie klucza API
+
+### Uwierzytelnianie
+
+Dodaj klucz do nagłówka `Authorization` jako Bearer token:
+
+<Tabs>
+  <Tab title="cURL">
+    ```bash
+    curl -X GET https://api.mailist.com/v1/contacts \
+      -H "Authorization: Bearer ml_prod_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" \
+      -H "Content-Type: application/json"
+    ```
+  </Tab>
+
+  <Tab title="Node.js (fetch)">
+    ```javascript
+    const apiKey = 'ml_prod_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6';
+
+    const response = await fetch('https://api.mailist.com/v1/contacts', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const data = await response.json();
+    console.log(data);
+    ```
+  </Tab>
+
+  <Tab title="Python (requests)">
+    ```python
+    import requests
+
+    api_key = 'ml_prod_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6'
+
+    headers = {
+        'Authorization': f'Bearer {api_key}',
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.get(
+        'https://api.mailist.com/v1/contacts',
+        headers=headers
+    )
+
+    data = response.json()
+    print(data)
+    ```
+  </Tab>
+
+  <Tab title="PHP">
+    ```php
+    <?php
+    $apiKey = 'ml_prod_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6';
+
+    $ch = curl_init('https://api.mailist.com/v1/contacts');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Authorization: Bearer ' . $apiKey,
+        'Content-Type: application/json'
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($ch);
+    $data = json_decode($response, true);
+    curl_close($ch);
+
+    print_r($data);
+    ?>
+    ```
+  </Tab>
+</Tabs>
+
+### Przykłady użycia
+
+<AccordionGroup>
+  <Accordion title="Dodanie nowego kontaktu" icon="user-plus">
+    ```javascript
+    const apiKey = 'ml_prod_...';
+
+    const response = await fetch('https://api.mailist.com/v1/contacts', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: 'jan.kowalski@example.com',
+        firstName: 'Jan',
+        lastName: 'Kowalski',
+        listId: 'list_abc123',
+        customFields: {
+          company: 'ABC Sp. z o.o.',
+          city: 'Warszawa'
+        }
+      })
+    });
+
+    const contact = await response.json();
+    console.log('Utworzono kontakt:', contact.id);
+    ```
+
+    **Wymagane uprawnienie:** `contacts.write`
+  </Accordion>
+
+  <Accordion title="Pobieranie statystyk kampanii" icon="chart-line">
+    ```javascript
+    const campaignId = 'campaign_xyz789';
+
+    const response = await fetch(
+      `https://api.mailist.com/v1/campaigns/${campaignId}/stats`,
+      {
+        headers: {
+          'Authorization': `Bearer ${apiKey}`
+        }
+      }
+    );
+
+    const stats = await response.json();
+    console.log('Open rate:', stats.openRate);
+    console.log('Click rate:', stats.clickRate);
+    ```
+
+    **Wymagane uprawnienie:** `campaigns.read`
+  </Accordion>
+
+  <Accordion title="Bulk import kontaktów" icon="file-import">
+    ```javascript
+    const contacts = [
+      { email: 'user1@example.com', firstName: 'Anna' },
+      { email: 'user2@example.com', firstName: 'Piotr' },
+      // ... do 1000 kontaktów per request
+    ];
+
+    const response = await fetch('https://api.mailist.com/v1/contacts/bulk', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        listId: 'list_abc123',
+        contacts: contacts,
+        skipDuplicates: true
+      })
+    });
+
+    const result = await response.json();
+    console.log(`Zaimportowano ${result.created} kontaktów`);
+    console.log(`Pominięto ${result.skipped} duplikatów`);
+    ```
+
+    **Wymagane uprawnienie:** `contacts.write`
+  </Accordion>
+
+  <Accordion title="Webhook - Abandoned Cart" icon="cart-shopping">
+    ```javascript
+    // Express.js endpoint
+    app.post('/webhook/abandoned-cart', async (req, res) => {
+      const { userEmail, cartItems, cartValue } = req.body;
+
+      // Dodaj do listy "Abandoned Cart"
+      await fetch('https://api.mailist.com/v1/contacts', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.MAILIST_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: userEmail,
+          listId: 'list_abandoned_cart',
+          customFields: {
+            cartValue: cartValue,
+            lastCartUpdate: new Date().toISOString()
+          }
+        })
+      });
+
+      // Trigger automatyzacji (jeśli jest workflow na TAG_ADDED)
+      await fetch(`https://api.mailist.com/v1/events`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.MAILIST_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: userEmail,
+          event: 'cart_abandoned',
+          data: { cartValue, items: cartItems.length }
+        })
+      });
+
+      res.json({ success: true });
+    });
+    ```
+
+    **Wymagane uprawnienia:** `contacts.write`, `automation.write`
+  </Accordion>
+</AccordionGroup>
+
+## Zarządzanie kluczami
+
+### Przegląd kluczy
+
+W tabeli kluczy API zobaczysz:
+
+| Kolumna | Opis |
+|:--------|:-----|
+| **Nazwa** | Nazwa klucza + liczba uprawnień |
+| **Klucz API** | Zamaskowany klucz (ml_prod_a1b2c3...******) + przycisk kopiuj |
+| **Status** | Aktywny / Odwołany / Wygasły |
+| **Żądania** | Całkowita liczba wywołań API tym kluczem |
+| **Ostatnie użycie** | Data i godzina ostatniego żądania |
+| **Data utworzenia** | Kiedy klucz został wygenerowany |
+| **Akcje** | Menu z opcjami zarządzania |
+
+### Filtrowanie kluczy
+
+<Tabs>
+  <Tab title="Wyszukiwanie">
+    Szukaj po:
+    - Nazwie klucza
+    - Fragmencie klucza API
+
+    ```
+    Wpisz: "Landing" → Znajdzie "Landing Page - Newsletter"
+    Wpisz: "ml_prod_a1b" → Znajdzie klucz zaczynający się od ml_prod_a1b
+    ```
+  </Tab>
+
+  <Tab title="Filtr statusu">
+    Dropdown z opcjami:
+    - Wszystkie statusy
+    - Aktywny (zielony)
+    - Odwołany (żółty - dezaktywowany przez Ciebie)
+    - Wygasły (czerwony - automatycznie wygasł)
+  </Tab>
+</Tabs>
+
+### Akcje na kluczach
+
+<AccordionGroup>
+  <Accordion title="Dezaktywuj / Aktywuj klucz" icon="circle-pause">
+    **Kiedy używać:** Tymczasowe wyłączenie klucza bez usuwania
+
+    **Jak:**
+    1. Menu akcji → **Dezaktywuj** (lub **Aktywuj**)
+    2. Status zmienia się na "Odwołany"
+    3. Wszystkie żądania z tym kluczem będą odrzucane (HTTP 401)
+
+    **Użycie:**
+    - Debugowanie integracji
+    - Rotacja kluczy (wyłącz stary, włącz nowy)
+    - Podejrzenie compromisu bezpieczeństwa
+  </Accordion>
+
+  <Accordion title="Regeneruj klucz" icon="refresh">
+    **Co robi:** Generuje nowy klucz, stary przestaje działać
+
+    **Kiedy używać:**
+    - Klucz został przypadkowo udostępniony publicznie
+    - Regularny rotation (best practice: co 90 dni)
+    - Zmiana środowiska (dev → production)
+
+    **Proces:**
+    1. Menu akcji → **Wygeneruj ponownie**
+    2. Potwierdź: "Stary klucz przestanie działać"
+    3. Skopiuj nowy klucz (pokazany raz!)
+    4. Zaktualizuj klucz w swojej aplikacji
+
+    <Warning>
+      **Uwaga:** Stary klucz natychmiast przestaje działać. Aplikacja używająca starego klucza zacznie dostawać błędy 401.
+
+      **Strategia zero-downtime:**
+      1. Stwórz nowy klucz (osobny, nie regeneruj)
+      2. Wdróż aplikację z nowym kluczem
+      3. Poczekaj kilka dni (upewnij się że stary nie jest używany)
+      4. Usuń stary klucz
+    </Warning>
+  </Accordion>
+
+  <Accordion title="Kopiuj klucz" icon="copy">
+    Kopiuje pełny klucz API do schowka.
+
+    **Uwaga:** Klucze są zamaskowane w interfejsie (`ml_prod_a1b2...******`), ale przycisk kopiuje pełny klucz.
+  </Accordion>
+
+  <Accordion title="Odwołaj klucz" icon="circle-minus">
+    **Permanentnie dezaktywuje klucz** (nie można cofnąć)
+
+    Różnica vs dezaktywacja:
+    - **Dezaktywacja:** Można ponownie aktywować
+    - **Odwołanie:** Nie można aktywować (tylko usunąć)
+
+    **Użycie:** Kompromis bezpieczeństwa - klucz wyciekł publicznie
+  </Accordion>
+
+  <Accordion title="Usuń klucz" icon="trash">
+    **Permanentnie usuwa klucz** z systemu.
+
+    <Warning>
+      **Nieodwracalne!** Klucz znika z listy, wszystkie statystyki zostają usunięte.
+    </Warning>
+
+    **Kiedy usuwać:**
+    - Projekt został zamknięty
+    - Integracja nie jest już używana
+    - Czyszczenie starych/testowych kluczy
+  </Accordion>
+</AccordionGroup>
+
+## Statystyki i monitoring
+
+### Top Endpoints
+
+Platforma pokazuje najpopularniejsze endpointy API używane przez Twoje klucze:
+
+```
+1. POST /v1/contacts - 15,234 wywołań
+2. GET /v1/campaigns/{id}/stats - 8,921 wywołań
+3. GET /v1/contacts - 5,432 wywołań
+4. POST /v1/events - 3,210 wywołań
+...
+```
+
+**Użycie:**
+- Zidentyfikuj najczęściej używane endpointy
+- Optymalizuj rate limiting
+- Znajdź potencjalne bottlenecki
+
+### Per-Key Statistics
+
+Każdy klucz pokazuje:
+- **Całkowite żądania:** Suma wszystkich wywołań API
+- **Ostatnie użycie:** Kiedy klucz był ostatnio używany (pomaga znaleźć nieużywane klucze)
+
+## Bezpieczeństwo - Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Przechowywanie kluczy" icon="shield-check">
+    **✅ Dobrze:**
+    - Zmienne środowiskowe (`.env` file, nie commitowane)
+    - Secrets manager (AWS Secrets, Azure Key Vault)
+    - Password manager (1Password, LastPass)
+
+    **❌ Źle:**
+    - Hardcoded w kodzie
+    - Commitowane do Git
+    - Przesyłane plaintext emailem
+    - Zapisane w logs
+  </Card>
+
+  <Card title="Rotacja kluczy" icon="arrows-rotate">
+    **Zalecane:** Co 90 dni
+
+    Automatyzacja:
+    ```javascript
+    // Sprawdź wiek klucza
+    const keyAge = Date.now() - keyCreatedAt;
+    const ninetyDays = 90 * 24 * 60 * 60 * 1000;
+
+    if (keyAge > ninetyDays) {
+      console.warn('Klucz API starszy niż 90 dni - rozważ rotację');
+    }
+    ```
+  </Card>
+
+  <Card title="Minimalne uprawnienia" icon="lock">
+    Nadawaj tylko te uprawnienia, których potrzebujesz:
+
+    ```yaml
+    # ✅ Dobrze - tylko co potrzebne
+    Formularz zapisu:
+      - contacts.write
+      - lists.read
+
+    # ❌ Źle - za dużo uprawnień
+    Formularz zapisu:
+      - * (full access)
+    ```
+  </Card>
+
+  <Card title="Monitoring" icon="activity">
+    Regularnie sprawdzaj:
+    - Nieużywane klucze (ostatnie użycie > 90 dni)
+    - Nieoczekiwane spike'i w requestach
+    - 401 errors (potencjalna próba włamania)
+
+    **Akcja:** Usuń nieużywane klucze
+  </Card>
+</CardGroup>
+
+### Rate Limiting
+
+Mailist ma limity żądań API:
+
+| Plan | Rate Limit | Burst |
+|:-----|:-----------|:------|
+| **Free** | 60 req/min | 10 req/s |
+| **Starter** | 300 req/min | 50 req/s |
+| **Business** | 1,200 req/min | 100 req/s |
+| **Enterprise** | Nieograniczony | Nieograniczony |
+
+**Co się stanie przy przekroczeniu:**
+```json
+HTTP/1.1 429 Too Many Requests
+{
+  "error": "Rate limit exceeded",
+  "retryAfter": 42,
+  "limit": 300,
+  "remaining": 0
+}
+```
+
+**Jak obsłużyć:**
+```javascript
+const response = await fetch(url, { headers });
+
+if (response.status === 429) {
+  const retryAfter = response.headers.get('Retry-After');
+  console.log(`Rate limit - czekaj ${retryAfter}s`);
+
+  await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+
+  // Retry request
+  return fetch(url, { headers });
+}
+```
+
+## Błędy uwierzytelniania
+
+<AccordionGroup>
+  <Accordion title="401 Unauthorized" icon="triangle-exclamation">
+    ```json
+    {
+      "error": "Unauthorized",
+      "message": "Invalid or missing API key"
+    }
+    ```
+
+    **Przyczyny:**
+    - Brak nagłówka `Authorization`
+    - Nieprawidłowy format (brak "Bearer ")
+    - Klucz odwołany/wygasły
+    - Klucz nie istnieje (literówka)
+
+    **Rozwiązanie:**
+    ```javascript
+    // ✅ Poprawnie
+    headers: {
+      'Authorization': 'Bearer ml_prod_...'
+    }
+
+    // ❌ Źle
+    headers: {
+      'Authorization': 'ml_prod_...' // brak "Bearer "
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="403 Forbidden" icon="ban">
+    ```json
+    {
+      "error": "Forbidden",
+      "message": "Insufficient permissions: requires contacts.write"
+    }
+    ```
+
+    **Przyczyny:**
+    - Klucz nie ma wymaganego uprawnienia
+    - Próba dostępu do zasobu poza zakresem uprawnień
+
+    **Rozwiązanie:**
+    1. Sprawdź uprawnienia klucza w Integracje → [Twój klucz]
+    2. Edytuj klucz → Dodaj brakujące uprawnienie
+    3. LUB stwórz nowy klucz z odpowiednimi uprawnieniami
+  </Accordion>
+
+  <Accordion title="429 Too Many Requests" icon="gauge-high">
+    ```json
+    {
+      "error": "Rate limit exceeded",
+      "limit": 300,
+      "remaining": 0,
+      "resetAt": "2025-01-07T10:15:00Z"
+    }
+    ```
+
+    **Rozwiązanie:**
+    - Implementuj exponential backoff
+    - Cache'uj odpowiedzi gdzie możliwe
+    - Batch requests (np. bulk import zamiast pojedynczych)
+    - Upgrade plan dla wyższych limitów
+  </Accordion>
+</AccordionGroup>
+
+## Środowiska: Development vs Production
+
+Zalecane jest używanie osobnych kluczy dla różnych środowisk:
+
+<Tabs>
+  <Tab title="Development">
+    ```yaml
+    Nazwa: "Dev - Landing Page"
+    Opis: "Klucz dla lokalnego developmentu"
+    Uprawnienia: Minimum required (contacts.write, lists.read)
+    ```
+
+    **Przechowywanie:**
+    ```.env
+    # .env (local, NOT committed)
+    MAILIST_API_KEY=ml_dev_abc123...
+    ```
+  </Tab>
+
+  <Tab title="Staging">
+    ```yaml
+    Nazwa: "Staging - Landing Page"
+    Opis: "Klucz dla środowiska testowego"
+    Uprawnienia: Same co production
+    ```
+  </Tab>
+
+  <Tab title="Production">
+    ```yaml
+    Nazwa: "Production - Landing Page"
+    Opis: "Klucz produkcyjny - CHRONIĆ!"
+    Uprawnienia: Minimum required
+    ```
+
+    **Przechowywanie:**
+    - AWS Secrets Manager
+    - Azure Key Vault
+    - Google Cloud Secret Manager
+    - Environment variables (Heroku, Vercel, Netlify)
+  </Tab>
+</Tabs>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Ile kluczy mogę mieć?" icon="circle-question">
+    **Zależy od planu:**
+    - Free: 2 klucze
+    - Starter: 5 kluczy
+    - Business: 20 kluczy
+    - Enterprise: Nieograniczone
+
+    **Strategie przy limicie:**
+    - Jeden klucz per aplikacja/środowisko
+    - Usuń nieużywane klucze
+    - Grupuj podobne integracje (jeśli bezpieczne)
+  </Accordion>
+
+  <Accordion title="Co jeśli zgubię klucz API?" icon="key">
+    Klucze są pokazane **tylko raz** przy tworzeniu.
+
+    **Jeśli zgubiłeś:**
+    1. **Nie możesz go odzyskać** - klucze są haszowane w bazie
+    2. Wygeneruj nowy klucz (regeneruj istniejący lub stwórz nowy)
+    3. Zaktualizuj aplikację z nowym kluczem
+    4. Usuń stary klucz
+
+    **Zapobieganie:**
+    - Zapisuj klucze w password managerze od razu
+    - Używaj `.env` files dla lokalnego developmentu
+    - Dokumentuj gdzie każdy klucz jest używany
+  </Accordion>
+
+  <Accordion title="Czy klucze wygasają automatycznie?" icon="clock">
+    **Nie**, klucze API nie wygasają automatycznie (chyba że ręcznie ustawisz datę wygaśnięcia w przyszłości).
+
+    **Best practice:** Rotuj klucze co 90 dni dla bezpieczeństwa.
+  </Accordion>
+
+  <Accordion title="Czy mogę używać tego samego klucza na wielu serwerach?" icon="server">
+    **Tak**, ale niezalecane ze względów bezpieczeństwa.
+
+    **Lepiej:**
+    - Osobny klucz per środowisko (dev, staging, prod)
+    - Osobny klucz per aplikacja (jeśli masz wiele)
+
+    **Dlaczego:**
+    - Łatwiejszy audit (wiesz, która aplikacja wywołała API)
+    - Łatwiejsza rotacja (jeden kompromis nie wpływa na inne)
+    - Lepszy monitoring (per-key statistics)
+  </Accordion>
+</AccordionGroup>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Dokumentacja REST API" icon="code" href="/api-reference/introduction">
+    Pełna dokumentacja endpointów API
+  </Card>
+
+  <Card title="Przykłady integracji" icon="puzzle-piece" href="/guides/integracje/przyklady">
+    Gotowe przykłady dla popularnych przypadków użycia
+  </Card>
+
+  <Card title="Webhooks" icon="webhook" href="/guides/automatyzacja/triggery">
+    Użyj custom events do trigger automatyzacji
+  </Card>
+
+  <Card title="Billing & Limity" icon="credit-card" href="/guides/ustawienia/billing">
+    Sprawdź limity API w swoim planie
+  </Card>
+</CardGroup>
+
+## Bezpieczeństwo - Zgłaszanie problemów
+
+Jeśli znajdziesz lukę bezpieczeństwa lub podejrzewasz kompromis klucza:
+
+<Card title="Security Team" icon="shield-halved">
+  **Email:** security@mailist.com
+
+  **Zgłoś:**
+  - Opis problemu
+  - Kompromitowany klucz (jeśli dotyczy)
+  - Timestamp incydentu
+
+  **Odpowiedź:** W ciągu 24 godzin
+</Card>

@@ -1,0 +1,67 @@
+---
+title: 'Profil firmy'
+description: 'Skonfiguruj podstawowe informacje o firmie w Mailist.'
+---
+
+# Profil firmy
+
+Uzupełnij dane firmy, które będą wyświetlane w stopkach emaili i wymagane są przez RODO.
+
+## Podstawowe dane
+
+<Steps>
+  <Step title="Otwórz ustawienia">
+    **Ustawienia** → **Profil firmy**
+  </Step>
+
+  <Step title="Wypełnij formularz">
+    ```yaml
+    Nazwa firmy: "ABC Sp. z o.o."
+    Adres: "ul. Przykładowa 123"
+    Kod pocztowy: "00-001"
+    Miasto: "Warszawa"
+    Kraj: "Polska"
+    NIP: "123-456-78-90"
+    Email kontaktowy: "kontakt@firma.pl"
+    Telefon: "+48 123 456 789"
+    ```
+  </Step>
+
+  <Step title="Logo firmy">
+    Prześlij logo (PNG/SVG, max 2MB):
+    - Wyświetla się w emailach
+    - Rekomendowana szerokość: 200-300px
+    - Transparent background zalecany
+  </Step>
+</Steps>
+
+<Warning>
+  **Wymagane przez RODO:** Dane firmy muszą być prawdziwe i aktualne. Będą widoczne w stopce każdego emaila komercyjnego.
+</Warning>
+
+## Zgodność prawna
+
+### RODO
+
+- ✅ Dane firmy w stopce emaila
+- ✅ Link do wypisania (unsubscribe)
+- ✅ Link do polityki prywatności
+- ✅ Zgoda na przetwarzanie danych
+
+### CAN-SPAM Act (USA)
+
+- ✅ Fizyczny adres firmy
+- ✅ Mechanizm opt-out
+- ✅ Brak misleading subject lines
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Domeny i DNS" href="/guides/ustawienia/domeny-dns">
+    Zweryfikuj domenę dla lepszego delivery
+  </Card>
+
+  <Card title="Zespół" href="/guides/ustawienia/zespol">
+    Dodaj członków zespołu
+  </Card>
+</CardGroup>

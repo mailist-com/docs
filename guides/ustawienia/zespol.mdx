@@ -1,0 +1,103 @@
+---
+title: 'Zarządzanie zespołem'
+description: 'Dodaj członków zespołu i zarządzaj uprawnieniami w Mailist.'
+---
+
+# Zarządzanie zespołem
+
+Zaproś współpracowników do współdzielenia dostępu do platformy Mailist z kontrolą uprawnień.
+
+## Role użytkowników
+
+| Rola | Uprawnienia |
+|:-----|:------------|
+| **Admin** | Pełny dostęp + zarządzanie zespołem + billing |
+| **Manager** | Tworzenie kampanii, list, automatyzacji |
+| **Editor** | Edycja szablonów i content |
+| **Viewer** | Tylko podgląd statystyk (read-only) |
+
+## Dodawanie użytkownika
+
+<Steps>
+  <Step title="Otwórz ustawienia zespołu">
+    **Ustawienia** → **Zespół** → **+ Zaproś członka**
+  </Step>
+
+  <Step title="Wypełnij formularz">
+    ```yaml
+    Email: jan.kowalski@firma.pl
+    Rola: Manager
+    Wiadomość (opcjonalnie): "Witaj w zespole!"
+    ```
+  </Step>
+
+  <Step title="Wyślij zaproszenie">
+    Użytkownik otrzyma email z linkiem aktywacyjnym ważnym 7 dni.
+  </Step>
+</Steps>
+
+## Uprawnienia szczegółowe
+
+<Tabs>
+  <Tab title="Admin">
+    ✅ Wszystko co Manager
+
+    ✅ Zarządzanie zespołem (dodaj/usuń)
+
+    ✅ Billing i płatności
+
+    ✅ Usuwanie konta
+
+    ✅ Dostęp do API keys
+  </Tab>
+
+  <Tab title="Manager">
+    ✅ Tworzenie i wysyłka kampanii
+
+    ✅ Zarządzanie listami i kontaktami
+
+    ✅ Import/export kontaktów
+
+    ✅ Tworzenie automatyzacji
+
+    ✅ Edycja szablonów
+
+    ❌ Zarządzanie zespołem
+
+    ❌ Billing
+  </Tab>
+
+  <Tab title="Editor">
+    ✅ Edycja szablonów emaili
+
+    ✅ Podgląd kampanii i list
+
+    ❌ Wysyłka kampanii
+
+    ❌ Import/export
+
+    ❌ Automatyzacja
+  </Tab>
+
+  <Tab title="Viewer">
+    ✅ Podgląd statystyk i raportów
+
+    ❌ Wszystkie akcje edycji/tworzenia
+  </Tab>
+</Tabs>
+
+## Usuwanie użytkownika
+
+```bash
+Ustawienia → Zespół → [Użytkownik] → Usuń dostęp
+```
+
+<Warning>
+  Użytkownik natychmiast traci dostęp. Wszystkie jego kampanie i szablony pozostają w systemie.
+</Warning>
+
+## Następny krok
+
+<Card title="RODO" href="/guides/ustawienia/rodo">
+  Konfiguruj zgodność z ochroną danych osobowych
+</Card>

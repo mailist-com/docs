@@ -1,0 +1,215 @@
+---
+title: 'Zgodność z RODO'
+description: 'Jak używać Mailist zgodnie z RODO i ochroną danych osobowych.'
+---
+
+# Zgodność z RODO
+
+Mailist pomaga Ci być zgodnym z RODO (General Data Protection Regulation) i polską ustawą o ochronie danych osobowych.
+
+## Podstawowe wymagania RODO
+
+<CardGroup cols={2}>
+  <Card title="Zgoda" icon="square-check">
+    Kontakty muszą wyrazić zgodę na otrzymywanie emaili
+  </Card>
+
+  <Card title="Transparentność" icon="eye">
+    Jasna polityka prywatności i informacje o przetwarzaniu
+  </Card>
+
+  <Card title="Prawo do wypisania" icon="door-open">
+    Łatwy mechanizm unsubscribe w każdym emailu
+  </Card>
+
+  <Card title="Prawo do danych" icon="file-export">
+    Możliwość eksportu i usunięcia danych
+  </Card>
+</CardGroup>
+
+## Implementacja w Mailist
+
+### 1. Double Opt-in (zalecane)
+
+<Steps>
+  <Step title="Włącz double opt-in">
+    **Lista** → **Ustawienia** → ☑ **Wymagaj potwierdzenia emailem**
+  </Step>
+
+  <Step title="Jak działa">
+    ```
+    1. Użytkownik zapisuje się formularzem
+    2. Otrzymuje email: "Potwierdź zapis"
+    3. Klika link w emailu
+    4. Status: Pending → Active
+    ```
+
+    **Dowód zgody:** Data i IP potwierdzenia są zapisane
+  </Step>
+</Steps>
+
+### 2. Automatyczny Unsubscribe
+
+W każdym emailu Mailist automatycznie dodaje:
+
+```html
+<p style="font-size: 12px; color: #666;">
+  <a href="{{unsubscribeUrl}}">Wypisz się z listy</a> |
+  <a href="{{preferencesUrl}}">Zarządzaj preferencjami</a>
+</p>
+```
+
+<Note>
+  Zmienne `{{unsubscribeUrl}}` i `{{preferencesUrl}}` są generowane automatycznie dla każdego kontaktu.
+</Note>
+
+### 3. Eksport danych kontaktu
+
+Kontakty mają prawo do kopii swoich danych:
+
+```bash
+Kontakty → [Kontakt] → Więcej → Eksportuj dane osobowe
+```
+
+Otrzymasz plik JSON z:
+```json
+{
+  "email": "jan@example.com",
+  "firstName": "Jan",
+  "lastName": "Kowalski",
+  "subscribed": "2025-01-15T10:30:00Z",
+  "confirmedAt": "2025-01-15T10:32:15Z",
+  "ip": "192.168.1.1",
+  "campaigns_received": [...],
+  "custom_fields": {...}
+}
+```
+
+### 4. Usuwanie danych (Right to be forgotten)
+
+```bash
+Kontakty → [Kontakt] → Więcej → Usuń permanentnie
+```
+
+<Warning>
+  **Nieodwracalne!** Wszystkie dane kontaktu zostaną usunięte. Zachowaj zapis żądania usunięcia zgodnie z RODO (3 lata).
+</Warning>
+
+## Polityka prywatności
+
+Twoja polityka prywatności musi zawierać:
+
+<AccordionGroup>
+  <Accordion title="Administrator danych" icon="building">
+    ```
+    Administratorem danych osobowych jest:
+    [Nazwa firmy]
+    [Adres]
+    [Email]
+    [Telefon]
+    ```
+  </Accordion>
+
+  <Accordion title="Cel przetwarzania" icon="bullseye">
+    ```
+    Twoje dane przetwarzamy w celu:
+    - Wysyłki newslettera (zgoda)
+    - Informacji o promocjach (zgoda)
+    - Obsługi zamówień (kontrakt)
+    ```
+  </Accordion>
+
+  <Accordion title="Podstawa prawna" icon="scale-balanced">
+    ```
+    - Zgoda (Art. 6 ust. 1 lit. a RODO)
+    - Wykonanie umowy (Art. 6 ust. 1 lit. b)
+    - Prawnie uzasadniony interes (Art. 6 ust. 1 lit. f)
+    ```
+  </Accordion>
+
+  <Accordion title="Prawa użytkownika" icon="user-shield">
+    ```
+    Masz prawo do:
+    - Dostępu do swoich danych
+    - Poprawiania danych
+    - Usunięcia danych ("prawo do bycia zapomnianym")
+    - Ograniczenia przetwarzania
+    - Przenoszenia danych
+    - Sprzeciwu wobec przetwarzania
+    - Cofnięcia zgody w dowolnym momencie
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Checklist zgodności
+
+<Steps>
+  <Step title="Przed startem">
+    - [ ] Napisz politykę prywatności
+    - [ ] Dodaj link do polityki w formularzach zapisu
+    - [ ] Włącz double opt-in
+    - [ ] Uzupełnij dane firmy w stopce
+  </Step>
+
+  <Step title="W szablonach">
+    - [ ] Każdy email ma link unsubscribe
+    - [ ] Każdy email ma dane firmy (adres, NIP)
+    - [ ] Nie wysyłasz bez zgody
+  </Step>
+
+  <Step title="Zarządzanie danymi">
+    - [ ] Masz proces eksportu danych na żądanie
+    - [ ] Masz proces usuwania danych
+    - [ ] Regularnie czyscisz nieaktywne kontakty
+    - [ ] Logujesz zgody (data, IP, źródło)
+  </Step>
+
+  <Step title="Dokumentacja">
+    - [ ] Prowadzisz rejestr żądań usunięcia
+    - [ ] Masz umowę powierzenia z Mailist
+    - [ ] Informujesz o naruszeniach (72h)
+  </Step>
+</Steps>
+
+## Umowa powierzenia przetwarzania
+
+Mailist jako procesor danych oferuje umowę DPA (Data Processing Agreement).
+
+**Pobierz:**
+```bash
+Ustawienia → RODO → Pobierz umowę DPA
+```
+
+## Częste pytania
+
+<AccordionGroup>
+  <Accordion title="Czy mogę kupić bazę emaili?" icon="circle-question">
+    **❌ NIE!** To naruszenie RODO.
+
+    Możesz wysyłać tylko do osób, które **dobrowolnie** wyraziły zgodę.
+  </Accordion>
+
+  <Accordion title="Jak długo mogę przechowywać dane?" icon="clock">
+    - **Z aktywną zgodą:** Bez limitu (dopóki nie wycofają zgody)
+    - **Bez zgody:** Usuń natychmiast
+    - **Wycofana zgoda:** Usuń do 30 dni (chyba że inna podstawa prawna)
+    - **Żądanie usunięcia:** Usuń do 30 dni + potwierdź
+  </Accordion>
+
+  <Accordion title="Co jeśli ktoś wypisze się?" icon="user-xmark">
+    ```
+    1. System automatycznie zmienia status na "Unsubscribed"
+    2. Nie wysyłamy do nich kampanii marketingowych
+    3. Zachowujemy email na czarnej liście (aby nie dodać ponownie)
+    4. Możesz wysyłać emaile transakcyjne (faktury, potwierdzenia)
+    ```
+
+    **Nie usuwaj emaila całkowicie** - ryzyko dodania ponownie!
+  </Accordion>
+</AccordionGroup>
+
+## Następne kroki
+
+<Card title="REST API" href="/api-reference/introduction">
+  Zintegruj Mailist z własną aplikacją zgodnie z RODO
+</Card>

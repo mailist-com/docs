@@ -1,0 +1,669 @@
+---
+title: 'Dashboardy analityczne'
+description: 'Przegląd wszystkich dashboardów analitycznych w Mailist. Monitoruj wydajność kampanii, kontakty i zaangażowanie w czasie rzeczywistym.'
+---
+
+# Dashboardy analityczne
+
+Mailist oferuje **5 wyspecjalizowanych dashboardów** do monitorowania różnych aspektów email marketingu i wydajności platformy.
+
+## Przegląd dashboardów
+
+<CardGroup cols={2}>
+  <Card title="Main Dashboard" icon="house" href="#main-dashboard">
+    Główny przegląd aktywności platformy
+
+    **Kluczowe metryki:** Kontakty, Kampanie, Wzrost
+  </Card>
+
+  <Card title="Email Dashboard" icon="envelope" href="#email-dashboard">
+    Dedykowany dashboard dla email marketingu
+
+    **Kluczowe metryki:** Open Rate, Click Rate, Deliverability
+  </Card>
+
+  <Card title="Analytics Dashboard" icon="chart-line" href="#analytics-dashboard">
+    Zaawansowana analityka użytkowników
+
+    **Kluczowe metryki:** Sessions, Users, Bounce Rate
+  </Card>
+
+  <Card title="E-commerce Dashboard" icon="shopping-cart" href="#ecommerce-dashboard">
+    Analityka sprzedaży i przychodów
+
+    **Kluczowe metryki:** Revenue, Orders, AOV
+  </Card>
+
+  <Card title="HR Dashboard" icon="users" href="#hr-dashboard">
+    Zarządzanie zespołem i wydajnością
+
+    **Kluczowe metryki:** Employees, Performance, Payroll
+  </Card>
+</CardGroup>
+
+## Main Dashboard
+
+**Główny dashboard** - pierwszy ekran po zalogowaniu. Pokazuje ogólny stan platformy i aktywność.
+
+### Komponenty
+
+<Tabs>
+  <Tab title="Overview Stats">
+    **Statystyki na pierwszy rzut oka:**
+
+    ```
+    ┌─────────────┬─────────────┬─────────────┬─────────────┐
+    │ 📧 Campaigns│ 👥 Contacts │ ✉️ Sent     │ 📈 Open Rate│
+    │ 24 Active   │ 15,876      │ 103.5k      │ 23.4%       │
+    │ +12% ↑      │ +8.2% ↑     │ +15.3% ↑    │ +2.1pp ↑    │
+    └─────────────┴─────────────┴─────────────┴─────────────┘
+    ```
+
+    **4 główne metryki:**
+    - **Active Campaigns** - Liczba aktywnych kampanii
+    - **Total Contacts** - Suma kontaktów (wszystkie statusy)
+    - **Emails Sent** - Łączna liczba wysłanych emaili (30 dni)
+    - **Average Open Rate** - Średni open rate (30 dni)
+
+    **Trend indicators:**
+    - ↑ Zielony - Wzrost względem poprzedniego okresu
+    - ↓ Czerwony - Spadek
+    - → Szary - Bez zmian
+  </Tab>
+
+  <Tab title="Growth Chart">
+    **Wykres wzrostu kontaktów w czasie:**
+
+    ```
+    Kontakty (ostatnie 90 dni)
+
+    16k │                            ╱──
+        │                        ╱───
+    14k │                    ╱───
+        │                ╱───
+    12k │            ╱───
+        │        ╱───
+    10k │    ╱───
+        └────┴────┴────┴────┴────┴────
+         Sty  Lut  Mar  Kwi  Maj  Cze
+    ```
+
+    **Dane:**
+    - Linia: Liczba kontaktów (cumulative)
+    - Timeframe: Ostatnie 90 dni
+    - Granulacja: Daily/Weekly (auto)
+
+    **Use case:** Monitoruj tempo wzrostu bazy kontaktów
+  </Tab>
+
+  <Tab title="Recent Campaigns">
+    **Ostatnie kampanie (top 5):**
+
+    | Kampania | Status | Wysłano | Open Rate | Click Rate |
+    |:---------|:-------|:--------|:----------|:-----------|
+    | Newsletter Q2 2025 | Sent | 15.8k | 24.3% | 7.8% |
+    | Product Launch | Sent | 8.5k | 31.2% | 12.4% ✅ |
+    | Welcome Series #1 | Sending | 234 | - | - |
+    | Black Friday Promo | Scheduled | - | - | - |
+    | Re-engagement | Draft | - | - | - |
+
+    **Status values:**
+    - **Draft** - Zapisany, nieaktywny
+    - **Scheduled** - Zaplanowany do wysyłki
+    - **Sending** - Trwa wysyłka
+    - **Sent** - Wysłany (kompletny)
+
+    **Akcje szybkie:** Kliknij kampanię → Przejdź do szczegółów
+  </Tab>
+
+  <Tab title="Activity Feed">
+    **Timeline aktywności (real-time):**
+
+    ```
+    🕐 10:23  📧 Kampania "Newsletter" wysłana do 15,876 kontaktów
+    🕐 10:15  👥 125 nowych kontaktów dodanych przez import CSV
+    🕐 09:45  ✅ Automatyzacja "Welcome Series" aktywowana
+    🕐 09:12  📊 Raport tygodniowy wygenerowany
+    🕐 08:50  🔑 Nowy API key utworzony: "Shopify Integration"
+    ```
+
+    **Typy zdarzeń:**
+    - 📧 Campaign sent/scheduled
+    - 👥 Contacts imported/added
+    - ✅ Automation activated/triggered
+    - 📊 Report generated
+    - 🔑 API key created/revoked
+    - 🔔 Notifications (usage limits, errors)
+
+    **Limit:** Ostatnie 50 zdarzeń
+  </Tab>
+
+  <Tab title="Quick Actions">
+    **Shortcuts do najczęstszych akcji:**
+
+    <CardGroup cols={2}>
+      <Card title="📧 Nowa kampania" icon="plus">
+        Stwórz kampanię emailową
+      </Card>
+      <Card title="👥 Import kontaktów" icon="upload">
+        Importuj CSV z kontaktami
+      </Card>
+      <Card title="🤖 Nowa automatyzacja" icon="bolt">
+        Stwórz workflow automation
+      </Card>
+      <Card title="📝 Nowy szablon" icon="file-text">
+        Zaprojektuj szablon emaila
+      </Card>
+    </CardGroup>
+
+    **Use case:** Szybki dostęp bez nawigacji przez menu
+  </Tab>
+</Tabs>
+
+### Subscription Limit Warning
+
+<Warning>
+  **Alert limitów:** Jeśli zbliżasz się do limitu planu (90%+), Main Dashboard pokazuje banner z ostrzeżeniem:
+
+  ```
+  ⚠️ Zbliżasz się do limitu kontaktów!
+
+  Wykorzystano: 4,500 / 5,000 kontaktów (90%)
+
+  [Upgrade do STANDARD]  [Zobacz szczegóły]
+  ```
+
+  **Triggery:**
+  - Contacts: >90% limitu
+  - Emails sent: >90% miesięcznego limitu
+  - Storage: >90% limitu GB
+</Warning>
+
+## Email Dashboard
+
+**Dedykowany dashboard** dla email marketingu - szczegółowe metryki wydajności kampanii.
+
+### Komponenty
+
+<Tabs>
+  <Tab title="Statistics Widget">
+    **4 kluczowe metryki emailowe:**
+
+    ```
+    ┌──────────────┬──────────────┬──────────────┬──────────────┐
+    │ 📬 Delivered │ 👁️ Opened   │ 🖱️ Clicked  │ 🚫 Bounced   │
+    │ 98.2%        │ 23.4%        │ 7.8%         │ 1.8%         │
+    │ 156.2k/159k  │ 36.5k/156k   │ 12.2k/156k   │ 2.8k/159k    │
+    └──────────────┴──────────────┴──────────────┴──────────────┘
+    ```
+
+    **Delivered Rate:**
+    - Formuła: (Delivered / Sent) × 100
+    - Benchmark: >95% (dobry), >98% (doskonały)
+    - **Niski?** Sprawdź SPF/DKIM, oczyść bounces
+
+    **Open Rate:**
+    - Formuła: (Unique Opens / Delivered) × 100
+    - Benchmark: 20-25% (B2B), 15-20% (B2C)
+    - **Niski?** Testuj subject lines (A/B testing)
+
+    **Click Rate:**
+    - Formuła: (Unique Clicks / Delivered) × 100
+    - Benchmark: 3-7% (B2B), 2-5% (B2C)
+    - **Niski?** Popraw CTA, skróć treść
+
+    **Bounce Rate:**
+    - Formuła: (Bounces / Sent) × 100
+    - Benchmark: <2% (dobry), <1% (doskonały)
+    - **Wysoki?** Włącz double opt-in, czyść bazę
+  </Tab>
+
+  <Tab title="Email Rate Trends">
+    **Wykres trendów w czasie (30 dni):**
+
+    ```
+    30% │            ╱─╲
+        │        ╱──╱   ╲──╲
+    20% │    ╱──╱           ╲──╲    ← Open Rate
+        │╱──╱                   ╲──
+    10% │─────────────────────────── ← Click Rate
+        │
+     0% └────┴────┴────┴────┴────┴────
+        Tydzień 1  2    3    4    5
+    ```
+
+    **3 linie:**
+    - **Open Rate** (niebieski) - Trend otwarć
+    - **Click Rate** (zielony) - Trend kliknięć
+    - **Bounce Rate** (czerwony) - Trend odrzuceń
+
+    **Use case:** Identyfikuj anomalie i trendy sezonowe
+  </Tab>
+
+  <Tab title="Email Data Chart">
+    **Porównanie kampanii (Bar Chart):**
+
+    ```
+    Newsletter    ████████████ 24.3%
+    Product       ██████████████████ 31.2%
+    Promo         █████████ 18.5%
+    Welcome       █████████████████████ 35.6%
+    Re-engage     ██████ 12.1%
+
+                  0%   10%   20%   30%   40%
+    ```
+
+    **Sortowanie:** Po open rate (descending)
+
+    **Kolory:**
+    - 🟢 Green (>25%) - Wysoki open rate
+    - 🟡 Yellow (15-25%) - Średni
+    - 🔴 Red (<15%) - Niski (wymaga optymalizacji)
+  </Tab>
+
+  <Tab title="Email Marketing Chart">
+    **Funnel konwersji:**
+
+    ```
+    Wysłano:      159,000  ████████████████████ 100%
+      ↓ 98.2%
+    Dostarczone:  156,200  ███████████████████▓ 98.2%
+      ↓ 23.4%
+    Otwarte:       36,500  █████▓               23.4%
+      ↓ 33.4%
+    Kliknięte:     12,200  ██▓                  7.8%
+      ↓ 2.5%
+    Konwersje:        305  ▓                    0.19%
+    ```
+
+    **Insights:**
+    - **Największy drop:** Delivered → Opened (76.6%)
+      → **Akcja:** Popraw subject line
+
+    - **CTOR (Click-to-Open):** 33.4% (doskonały!)
+      → **Akcja:** Skaluj treść do większej bazy
+  </Tab>
+
+  <Tab title="Email Performance">
+    **Top 10 najlepszych kampanii (all-time):**
+
+    | # | Kampania | Open Rate | Click Rate | CTOR | Sent |
+    |:--|:---------|:----------|:-----------|:-----|:-----|
+    | 1 | Welcome #1 | 42.1% | 18.7% | 44.4% | 8.5k |
+    | 2 | Product Launch | 35.6% | 14.2% | 39.9% | 12.3k |
+    | 3 | Black Friday | 31.8% | 12.4% | 39.0% | 25.6k |
+    | 4 | Newsletter Q1 | 28.9% | 9.8% | 33.9% | 15.2k |
+    | 5 | Onboarding #2 | 27.3% | 11.2% | 41.0% | 6.8k |
+
+    **Use case:**
+    - Identyfikuj best practices
+    - Replikuj skuteczne formaty
+    - Benchmark nowych kampanii
+  </Tab>
+
+  <Tab title="Email Banner">
+    **Hero section z kluczowym KPI:**
+
+    ```
+    ┌────────────────────────────────────────────┐
+    │  📧 Email Marketing Performance            │
+    │                                            │
+    │  🎯 Average Open Rate:  23.4%  (+2.1pp)   │
+    │  🎯 Average Click Rate:  7.8%  (+0.8pp)   │
+    │  🎯 Deliverability:     98.2%  (+0.3pp)   │
+    │                                            │
+    │  Period: Last 30 days                      │
+    └────────────────────────────────────────────┘
+    ```
+
+    **Trendy:** Porównanie z poprzednim 30-dniowym okresem
+  </Tab>
+</Tabs>
+
+## Analytics Dashboard
+
+**Zaawansowana analityka** użytkowników i sesji (web analytics style).
+
+<Note>
+  **Context:** Ten dashboard pokazuje przykładowe dane analityczne. W kontekście email marketingu może być używany do śledzenia zachowań na landing pages po kliknięciu w email.
+</Note>
+
+### Kluczowe metryki
+
+<CardGroup cols={2}>
+  <Card title="Total Users" icon="users">
+    **15,876 użytkowników**
+
+    Unikalni użytkownicy którzy weszli z emaila
+  </Card>
+
+  <Card title="Sessions" icon="cog">
+    **103.15k sesji**
+
+    Łączna liczba sesji (avg: 6.5 sesji/user)
+  </Card>
+
+  <Card title="Avg. Visit Duration" icon="clock">
+    **2m 34s**
+
+    Średni czas spędzony na stronie
+  </Card>
+
+  <Card title="Bounce Rate" icon="arrow-down-circle">
+    **49.77%**
+
+    % użytkowników którzy wyszli bez interakcji
+  </Card>
+</CardGroup>
+
+### Komponenty
+
+<Tabs>
+  <Tab title="Perspective Chart">
+    **3D visualization** perspektywy czasowej:
+
+    ```
+    Q1  ▁▂▃▅▆▇██▇▆▅▃▂▁
+    Q2  ▁▃▄▆▇███▇▆▄▃▁
+    Q3  ▁▂▄▅▇██▇▅▄▂▁
+    Q4  ▁▃▅▆███▆▅▃▁
+    ```
+
+    **Wymiary:**
+    - X-axis: Time (days/weeks)
+    - Y-axis: Quarters
+    - Z-axis (height): Traffic volume
+
+    **Use case:** Sezonalność i trendy długoterminowe
+  </Tab>
+
+  <Tab title="Location Chart">
+    **Mapa geograficzna użytkowników:**
+
+    ```
+    🗺️ Top Countries:
+
+    1. 🇵🇱 Poland        8,234 (51.9%)
+    2. 🇩🇪 Germany       2,456 (15.5%)
+    3. 🇬🇧 UK            1,892 (11.9%)
+    4. 🇺🇸 USA           1,234 (7.8%)
+    5. 🇫🇷 France          876 (5.5%)
+    ```
+
+    **Visual:** Heatmapa świata z intensywnością koloru
+
+    **Use case:** Targetowanie geograficzne kampanii
+  </Tab>
+
+  <Tab title="User Device Chart">
+    **Rozkład urządzeń:**
+
+    ```
+    📱 Mobile:   62%  ████████████▓
+    💻 Desktop:  35%  ███████▓
+    📲 Tablet:    3%  ▓
+    ```
+
+    **Breakdown:**
+    - iOS: 38%
+    - Android: 24%
+    - Windows: 22%
+    - macOS: 13%
+    - Other: 3%
+
+    <Warning>
+      **62% mobile!** Zawsze testuj emaile na urządzeniach mobilnych.
+    </Warning>
+  </Tab>
+
+  <Tab title="Traffic Source">
+    **Źródła ruchu:**
+
+    | Source | Sessions | % |
+    |:-------|:---------|:--|
+    | Email Campaign | 45.2k | 43.8% |
+    | Direct | 28.5k | 27.6% |
+    | Social Media | 18.3k | 17.7% |
+    | Organic Search | 7.8k | 7.6% |
+    | Referral | 3.3k | 3.2% |
+
+    **Use case:** Mierz efektywność email marketingu vs inne kanały
+  </Tab>
+</Tabs>
+
+## E-commerce Dashboard
+
+**Dashboard e-commerce** - monitorowanie sprzedaży i przychodów z kampanii emailowych.
+
+### Metryki Revenue
+
+<CardGroup cols={2}>
+  <Card title="Total Revenue" icon="dollar-sign">
+    **$458,920** (this month)
+
+    +18.5% vs poprzedni miesiąc
+  </Card>
+
+  <Card title="Orders" icon="shopping-bag">
+    **2,347 zamówień**
+
+    +12.3% vs poprzedni miesiąc
+  </Card>
+
+  <Card title="AOV (Average Order Value)" icon="trending-up">
+    **$195.50**
+
+    +5.2% vs poprzedni miesiąc
+  </Card>
+
+  <Card title="Conversion Rate" icon="percent">
+    **2.87%**
+
+    Email → Purchase conversion
+  </Card>
+</CardGroup>
+
+### Komponenty
+
+<Tabs>
+  <Tab title="Sales Revenue Chart">
+    **Wykres przychodów (30 dni):**
+
+    ```
+    $60k │                          ╱──
+         │                      ╱──╱
+    $50k │                  ╱──╱
+         │              ╱──╱
+    $40k │          ╱──╱
+         │      ╱──╱
+    $30k │  ╱──╱
+         └──┴──┴──┴──┴──┴──┴──┴──
+          1   5   10  15  20  25  30
+    ```
+
+    **2 linie:**
+    - Revenue (niebieski)
+    - Projected trend (przerywany)
+
+    **Insights:** Identyfikuj dni/tygodnie o najwyższych przychodach
+  </Tab>
+
+  <Tab title="Order Chart">
+    **Breakdown zamówień:**
+
+    ```
+    Status:
+    ✅ Completed:    2,089 (89.0%)
+    ⏳ Processing:     198 (8.4%)
+    🚫 Cancelled:       43 (1.8%)
+    💰 Refunded:        17 (0.7%)
+    ```
+
+    **Pie chart:** Visual rozkładu statusów
+  </Tab>
+
+  <Tab title="Top Selling Products">
+    **Bestsellery:**
+
+    | # | Product | Units | Revenue | Avg Price |
+    |:--|:--------|:------|:--------|:----------|
+    | 1 | Product A | 456 | $68,400 | $150 |
+    | 2 | Product B | 389 | $54,460 | $140 |
+    | 3 | Product C | 312 | $43,680 | $140 |
+    | 4 | Product D | 287 | $40,180 | $140 |
+    | 5 | Product E | 234 | $32,760 | $140 |
+
+    **Use case:** Cross-sell/upsell w email campaigns
+  </Tab>
+
+  <Tab title="Customer Segments">
+    **Segmentacja klientów:**
+
+    ```
+    🌟 VIP (10+ orders):     234 customers  ($189k revenue)
+    💚 Loyal (5-9 orders):   567 customers  ($156k revenue)
+    💛 Regular (2-4 orders): 892 customers  ($98k revenue)
+    💙 New (1 order):      1,234 customers  ($76k revenue)
+    ```
+
+    **Use case:** Targetuj emaile według wartości klienta
+  </Tab>
+</Tabs>
+
+## HR Dashboard
+
+**Dashboard HR** - zarządzanie zespołem i wydajnością (dla większych organizacji).
+
+<Note>
+  Ten dashboard jest dedykowany dla zespołów zarządzających email marketingiem lub większych firm.
+</Note>
+
+### Komponenty
+
+<Tabs>
+  <Tab title="HR Metrics">
+    **Kluczowe metryki zespołu:**
+
+    ```
+    👥 Total Employees:     24
+    📧 Email Marketers:      8
+    📊 Analysts:             4
+    🎨 Designers:            6
+    💻 Developers:           6
+    ```
+
+    **Roles:** Przypisanie członków zespołu do kampanii
+  </Tab>
+
+  <Tab title="Performance">
+    **Wydajność zespołu:**
+
+    | Member | Campaigns | Avg Open Rate | Avg Click Rate |
+    |:-------|:----------|:--------------|:---------------|
+    | Jan K. | 12 | 28.4% | 9.2% |
+    | Anna N. | 15 | 25.1% | 7.8% |
+    | Piotr Z. | 10 | 31.2% | 10.1% |
+
+    **Use case:** Identyfikuj top performers
+  </Tab>
+
+  <Tab title="Upcoming Tasks">
+    **Najbliższe zadania:**
+
+    ```
+    📅 Today (3):
+    - Review campaign "Newsletter Q3" - Jan K.
+    - Design template "Product Launch" - Anna N.
+    - A/B test analysis - Piotr Z.
+
+    📅 This week (8):
+    - Create welcome series automation
+    - Import 5k new contacts
+    - Monthly report generation
+    ```
+  </Tab>
+</Tabs>
+
+## Nawigacja między dashboardami
+
+**Menu dashboardów (sidebar):**
+
+```
+📊 Dashboards
+├─ 🏠 Main (default)
+├─ 📧 Email
+├─ 📈 Analytics
+├─ 🛒 E-commerce
+└─ 👥 HR
+```
+
+**Skróty klawiszowe:**
+- `Cmd/Ctrl + 1` - Main Dashboard
+- `Cmd/Ctrl + 2` - Email Dashboard
+- `Cmd/Ctrl + 3` - Analytics Dashboard
+
+## Personalizacja dashboardów
+
+<Tip>
+  **Widget customization (planned):** W przyszłych wersjach będzie możliwość przeciągania widgetów i tworzenia custom layouts.
+</Tip>
+
+**Obecnie dostępne:**
+- Zmiana timeframe (7/30/90 dni)
+- Export danych do CSV/PDF
+- Filtering by tags, lists, campaigns
+
+## Najlepsze praktyki
+
+<AccordionGroup>
+  <Accordion title="Daily routine" icon="calendar-day">
+    **Codziennie (5 min):**
+    1. **Main Dashboard** - Sprawdź overview stats i activity feed
+    2. **Email Dashboard** - Sprawdź wczorajsze open/click rates
+    3. **Subscription limits** - Upewnij się że nie przekraczasz limitów
+
+    **Akcja:** Jeśli widzisz anomalie (nagły spadek open rate) → investigate
+  </Accordion>
+
+  <Accordion title="Weekly review" icon="calendar-week">
+    **Co tydzień (30 min):**
+    1. **Email Dashboard** → Email Performance → Analiza top/bottom performers
+    2. **Analytics Dashboard** → Traffic sources → Verify email effectiveness
+    3. **E-commerce Dashboard** (jeśli applicable) → Revenue trends
+
+    **Akcja:** Zidentyfikuj 1-2 obszary do optymalizacji
+  </Accordion>
+
+  <Accordion title="Monthly reporting" icon="file-chart-column">
+    **Co miesiąc:**
+    1. Export danych z wszystkich dashboardów
+    2. Przygotuj raport dla stakeholders:
+       - Open/Click rate trends
+       - List growth
+       - Revenue attribution (from emails)
+       - Top campaigns
+    3. Zaplanuj A/B testy na następny miesiąc
+
+    **Format:** PDF report z screenshots z dashboardów
+  </Accordion>
+</AccordionGroup>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Analityka kampanii" href="/guides/kampanie/analityka" icon="chart-line">
+    Szczegółowa analityka pojedynczych kampanii
+  </Card>
+
+  <Card title="A/B Testing" href="/guides/kampanie/ab-testing" icon="flask">
+    Optymalizuj kampanie testując warianty
+  </Card>
+
+  <Card title="Segmentacja" href="/guides/listy/segmentacja" icon="filter">
+    Targetuj emaile według danych z dashboardów
+  </Card>
+
+  <Card title="REST API Analytics" href="/api-reference/analytics/campaign-stats" icon="code">
+    Pobieraj dane analityczne programatically
+  </Card>
+</CardGroup>

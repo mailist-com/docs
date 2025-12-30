@@ -1,0 +1,693 @@
+---
+title: 'Plan i płatności'
+description: 'Zarządzaj planem subskrypcji, limitami kontaktów i płatnościami w Mailist.'
+---
+
+# Plan i płatności (Billing)
+
+Zarządzaj swoim planem subskrypcji, limitami kontaktów, cyklem rozliczeniowym i historią płatności.
+
+## Dostęp do ustawień billing
+
+<Steps>
+  <Step title="Otwórz Ustawienia">
+    W menu głównym kliknij **Ustawienia**
+  </Step>
+
+  <Step title="Przejdź do Plan i Płatności">
+    W menu bocznym wybierz **Plan i Płatności** (lub **Billing**)
+  </Step>
+</Steps>
+
+## Aktualny plan
+
+Na górze strony zobaczysz podsumowanie aktualnej subskrypcji:
+
+<CardGroup cols={2}>
+  <Card title="Nazwa planu" icon="tag">
+    FREE, STANDARD, PRO lub ENTERPRISE
+  </Card>
+
+  <Card title="Cena miesięczna" icon="credit-card">
+    0 - 2,000+ PLN/miesiąc (zależnie od planu i limitów)
+  </Card>
+
+  <Card title="Status subskrypcji" icon="circle-check">
+    - **Aktywna** (zielony) - wszystko działa
+    - **Anulowana** (czerwony) - kończy się w dacie
+    - **Zaległa** (żółty) - problem z płatnością
+    - **Próbna** (niebieski) - trial period
+  </Card>
+
+  <Card title="Następna płatność" icon="calendar">
+    Data kolejnego obciążenia karty
+  </Card>
+</CardGroup>
+
+## Dostępne plany
+
+Mailist oferuje 4 plany subskrypcji dostosowane do różnych potrzeb:
+
+### Plan FREE 🎁
+
+```yaml
+Cena: 0 PLN/miesiąc
+Kontakty: 1,000 (stałe)
+Idealny dla: Małych projektów i testowania
+```
+
+**Funkcje:**
+- ✅ 1,000 kontaktów
+- ✅ 1,000 emaili/miesiąc
+- ✅ Podstawowe szablony HTML
+- ✅ Podstawowe statystyki
+- ✅ 2 klucze API
+- ❌ Bez automatyzacji
+- ❌ Bez A/B testingu
+- ❌ Bez wsparcia premium
+
+**Ograniczenia:**
+- Logo Mailist w stopce emaili
+- Brak usuwania logo (branding)
+- Wolniejsze wsparcie (48-72h)
+
+### Plan STANDARD ⚡
+
+```yaml
+Cena: Od 49 PLN/miesiąc
+Kontakty: 1,000 - 100,000 (skalowalne)
+Idealny dla: Rozwijających się firm
+```
+
+**Funkcje:**
+- ✅ Do 100,000 kontaktów (wybierz suwak)
+- ✅ Nielimitowane emaile
+- ✅ Wszystkie szablony i edytor HTML
+- ✅ Podstawowa automatyzacja (3 workflow)
+- ✅ Zaawansowane statystyki
+- ✅ 5 kluczy API
+- ✅ Usuwanie logo Mailist
+- ✅ Wsparcie email (24h)
+- ❌ Bez zaawansowanej automatyzacji
+- ❌ Bez dedykowanego IP
+
+**Cena skaluje się z liczbą kontaktów:**
+
+| Kontakty | Miesięcznie | Rocznie (-16%) |
+|:---------|:------------|:---------------|
+| 1,000 | 49 PLN | 494 PLN |
+| 5,000 | 149 PLN | 1,502 PLN |
+| 10,000 | 249 PLN | 2,514 PLN |
+| 25,000 | 499 PLN | 5,030 PLN |
+| 50,000 | 849 PLN | 8,563 PLN |
+| 100,000 | 1,499 PLN | 15,110 PLN |
+
+### Plan PRO 🚀
+
+```yaml
+Cena: Od 199 PLN/miesiąc
+Kontakty: 1,000 - 100,000 (skalowalne)
+Idealny dla: Profesjonalistów i agencji
+```
+
+**Funkcje:**
+- ✅ Wszystko z STANDARD
+- ✅ Nielimitowana automatyzacja (unlimited workflow)
+- ✅ A/B Testing kampanii
+- ✅ Zaawansowana segmentacja
+- ✅ Priorytetowe wsparcie (12h)
+- ✅ 20 kluczy API
+- ✅ Custom email tracking domain
+- ✅ Advanced analytics & reporting
+- ✅ Export danych per-recipient
+- ❌ Bez dedykowanego IP
+- ❌ Bez SLA 99.9%
+
+**Cena skaluje się z liczbą kontaktów:**
+
+| Kontakty | Miesięcznie | Rocznie (-16%) |
+|:---------|:------------|:---------------|
+| 1,000 | 199 PLN | 2,006 PLN |
+| 5,000 | 349 PLN | 3,519 PLN |
+| 10,000 | 549 PLN | 5,534 PLN |
+| 25,000 | 999 PLN | 10,070 PLN |
+| 50,000 | 1,699 PLN | 17,130 PLN |
+| 100,000 | 2,999 PLN | 30,230 PLN |
+
+### Plan ENTERPRISE 👑
+
+```yaml
+Cena: Na zapytanie (custom pricing)
+Kontakty: Nielimitowane
+Idealny dla: Duże korporacje i wymagające projekty
+```
+
+**Funkcje:**
+- ✅ Wszystko z PRO
+- ✅ Nielimitowane kontakty
+- ✅ Dedykowane IP
+- ✅ White-label (własny branding)
+- ✅ SLA 99.9% uptime
+- ✅ Dedykowany account manager
+- ✅ On-boarding i szkolenia
+- ✅ Nielimitowane klucze API
+- ✅ Custom integracje
+- ✅ Wsparcie 24/7 (Slack/Phone)
+- ✅ Single Sign-On (SSO)
+- ✅ Advanced security (penetration tests)
+
+**Kontakt:** Skontaktuj się z działem sprzedaży: enterprise@mailist.com
+
+## Zmiana planu
+
+### Wybór liczby kontaktów
+
+<Steps>
+  <Step title="Przesuń suwak kontaktów">
+    ```
+    Zakres: 1,000 - 100,000 kontaktów
+    Krok: 1,000 kontaktów
+    ```
+
+    **Live preview:** Ceny wszystkich planów aktualizują się automatycznie podczas przesuwania.
+  </Step>
+
+  <Step title="Wybierz cykl rozliczeniowy">
+    <Tabs>
+      <Tab title="Miesięcznie">
+        Płatność co miesiąc, możliwość anulowania w dowolnym momencie.
+
+        **Przykład:** STANDARD 5,000 kontaktów = **149 PLN/miesiąc**
+      </Tab>
+
+      <Tab title="Rocznie (-16%)">
+        Płatność raz w roku, **16% taniej** niż miesięcznie.
+
+        **Przykład:** STANDARD 5,000 kontaktów = **1,502 PLN/rok** (zamiast 1,788 PLN)
+
+        **Oszczędzasz:** 286 PLN rocznie
+      </Tab>
+    </Tabs>
+
+    <Tip>
+      **Rabat roczny:** Badge "-16%" pokazuje oszczędności. To prawie 2 miesiące gratis!
+    </Tip>
+  </Step>
+</Steps>
+
+### Upgrade planu
+
+<Steps>
+  <Step title="Wybierz nowy plan">
+    Kliknij **Wybierz plan** pod odpowiednią kartą (STANDARD, PRO, ENTERPRISE)
+  </Step>
+
+  <Step title="Przekierowanie do Stripe Checkout">
+    System przekieruje Cię do bezpiecznej strony płatności Stripe.
+
+    **Co zobaczysz:**
+    - Podsumowanie zamówienia
+    - Formularz karty kredytowej
+    - Faktura będzie wysłana automatycznie po płatności
+  </Step>
+
+  <Step title="Zakończenie płatności">
+    Po pomyślnej płatności:
+    1. Zostaniesz przekierowany z powrotem do Mailist
+    2. Plan zostanie aktywowany natychmiast
+    3. Nowe limity są dostępne od razu
+    4. Faktura trafi na email w ciągu 24h
+  </Step>
+</Steps>
+
+<Note>
+  **Proration (proporcjonalna płatność):**
+
+  Jeśli masz aktywną subskrypcję i robisz upgrade w środku okresu:
+  - System obliczy **proporcjonalną różnicę** za pozostałe dni
+  - Zostaniesz obciążony tylko za różnicę
+  - Przykład: Upgrade z STANDARD (149 PLN) na PRO (349 PLN) w połowie miesiąca = zapłacisz ~100 PLN za pozostałe 15 dni
+</Note>
+
+### Downgrade planu
+
+<Warning>
+  **Downgrade** działa inaczej niż upgrade:
+
+  1. Zmiana **nie jest natychmiastowa**
+  2. Nowy plan aktywuje się **na końcu bieżącego okresu rozliczeniowego**
+  3. Do tego czasu korzystasz z obecnego planu
+  4. Nie ma refund za niewykorzystany czas
+</Warning>
+
+**Proces:**
+1. Wybierz niższy plan (np. z PRO na STANDARD)
+2. Potwierdź downgrade
+3. System zaplanuje zmianę na koniec okresu
+4. Otrzymasz email z potwierdzeniem daty zmiany
+
+**Co się stanie z nadmiarem kontaktów?**
+- Jeśli masz 15,000 kontaktów i przechodzisz na plan dla 10,000:
+  - System **nie usunie** kontaktów automatycznie
+  - Musisz ręcznie usunąć 5,000 kontaktów przed końcem okresu
+  - Jeśli nie usuniesz - downgrade zostanie **zablokowany**
+
+### Powrót do planu FREE
+
+<Steps>
+  <Step title="Wybierz plan FREE">
+    Kliknij **Wybierz plan** pod kartą FREE
+  </Step>
+
+  <Step title="Potwierdź rezygnację">
+    System wyświetli ostrzeżenie:
+
+    ```
+    ⚠️ Stracisz dostęp do:
+    - Automatyzacji (wszystkie workflow zostaną wyłączone)
+    - A/B testingu
+    - Zaawansowanych statystyk
+    - Wsparcia premium
+    - Logo Mailist zostanie dodane z powrotem
+    ```
+
+    Potwierdź jeśli na pewno chcesz.
+  </Step>
+
+  <Step title="Zmniejsz liczbę kontaktów">
+    Plan FREE ma limit **1,000 kontaktów**.
+
+    **Jeśli masz więcej:**
+    1. Przejdź do **Kontakty** → usuń nieaktywne
+    2. Lub przenieś do archiwum
+    3. Zostaw max 1,000 aktywnych kontaktów
+  </Step>
+</Steps>
+
+## Anulowanie subskrypcji
+
+<Warning>
+  Anulowanie **nie jest natychmiastowe**. Zachowasz dostęp do końca opłaconego okresu.
+</Warning>
+
+<Steps>
+  <Step title="Kliknij 'Anuluj subskrypcję'">
+    Przycisk w sekcji "Aktualny plan" (jeśli masz aktywną subskrypcję)
+  </Step>
+
+  <Step title="Potwierdź anulowanie">
+    System wyświetli dialog:
+
+    ```
+    Czy na pewno chcesz anulować subskrypcję?
+
+    Stracisz dostęp do funkcji premium na końcu
+    bieżącego okresu rozliczeniowego: 15.02.2025
+
+    [Anuluj subskrypcję] [Wróć]
+    ```
+  </Step>
+
+  <Step title="Po anulowaniu">
+    - Status zmienia się na "Anulowana"
+    - Widzisz komunikat: "Subskrypcja zostanie anulowana 15.02.2025"
+    - Do tej daty korzystasz z pełnego dostępu
+    - Po tej dacie automatyczny downgrade do FREE
+  </Step>
+</Steps>
+
+**Reaktywacja:**
+- Możesz w dowolnym momencie kliknąć **Wybierz plan** i ponownie wykupić subskrypcję
+- Nie stracisz danych ani historii
+
+## Historia płatności i faktury
+
+### Tabela płatności
+
+Na dole strony billing zobaczysz tabelę z historią wszystkich płatności:
+
+| Kolumna | Opis |
+|:--------|:-----|
+| **Data** | Data płatności lub wystawienia faktury |
+| **Numer faktury** | Np. "FV/2025/01/123" z Fakturowni |
+| **Kwota** | Np. "149.00 PLN" |
+| **Status** | Opłacona, Oczekująca, Niepowodzenie |
+| **Akcje** | Pobierz PDF, Zobacz w Fakturowni |
+
+### Statusy płatności
+
+<AccordionGroup>
+  <Accordion title="✅ Opłacona (SUCCEEDED/PAID)" icon="circle-check">
+    Płatność przeszła pomyślnie, faktura dostępna do pobrania.
+
+    **Akcje:**
+    - **Pobierz PDF** - bezpośredni download faktury
+    - **Zobacz w Fakturowni** - otwiera fakturę w systemie Fakturownia
+  </Accordion>
+
+  <Accordion title="⏳ Oczekująca (PENDING)" icon="clock">
+    Płatność w trakcie przetwarzania (rzadkie - max 24h).
+
+    **Co robić:** Poczekaj 24h. Jeśli status się nie zmieni, skontaktuj się z supportem.
+  </Accordion>
+
+  <Accordion title="❌ Niepowodzenie (FAILED)" icon="circle-xmark">
+    Płatność nie powiodła się.
+
+    **Przyczyny:**
+    - Niewystarczające środki na karcie
+    - Karta wygasła
+    - Bank odrzucił transakcję
+    - Limit transakcyjny przekroczony
+
+    **Rozwiązanie:**
+    1. Zaktualizuj dane karty w Stripe
+    2. Spróbuj ponownie wykupić plan
+    3. Lub skontaktuj się z bankiem
+  </Accordion>
+
+  <Accordion title="⚠️ Przeterminowana (OVERDUE)" icon="triangle-exclamation">
+    Faktura nie została opłacona w terminie.
+
+    **Co się stanie:**
+    - Po 7 dniach: Przypomnienie email
+    - Po 14 dniach: Drugie przypomnienie
+    - Po 21 dniach: Automatyczny downgrade do FREE
+    - Po 30 dniach: Dezaktywacja konta
+
+    **Rozwiązanie:** Opłać fakturę jak najszybciej lub skontaktuj się z billing@mailist.com
+  </Accordion>
+</AccordionGroup>
+
+### Pobieranie faktur
+
+<Tabs>
+  <Tab title="Pobierz PDF">
+    **Przycisk:** Zielona ikona download
+
+    **Co robi:**
+    - Otwiera PDF faktury w nowej karcie
+    - Możesz zapisać na dysku (Ctrl+S / Cmd+S)
+    - Format: Faktura VAT zgodna z polskim prawem
+
+    **Zawiera:**
+    - Dane sprzedawcy (Mailist)
+    - Dane nabywcy (Twoja firma)
+    - Pozycje (plan, liczba kontaktów, okres)
+    - Kwoty netto/brutto + VAT 23%
+    - Podpis i pieczęć
+  </Tab>
+
+  <Tab title="Zobacz w Fakturowni">
+    **Przycisk:** Niebieska ikona external link
+
+    **Co robi:**
+    - Otwiera fakturę w systemie Fakturownia.pl
+    - Możesz zobaczyć pełną historię
+    - Dodatkowe opcje (korekta, duplikat, etc.)
+  </Tab>
+</Tabs>
+
+<Note>
+  **Faktury automatyczne:**
+
+  - Faktury są generowane automatycznie po każdej płatności
+  - Wysyłane na email właściciela konta w ciągu 24h
+  - Dane firmy pobierane z **Ustawienia → Profil firmy**
+  - Upewnij się, że dane są aktualne (NIP, adres)!
+</Note>
+
+## Dane firmy na fakturze
+
+Aby faktury były poprawne, uzupełnij dane w **Ustawienia → Profil firmy**:
+
+```yaml
+Wymagane:
+  Nazwa firmy: "ABC Sp. z o.o."
+  NIP: "123-456-78-90"
+  Adres: "ul. Przykładowa 123"
+  Kod pocztowy: "00-001"
+  Miasto: "Warszawa"
+  Kraj: "Polska"
+
+Opcjonalne:
+  Email do faktury: "ksiegowosc@firma.pl"
+  Telefon: "+48 123 456 789"
+```
+
+<Warning>
+  **Błędne dane firmy:**
+
+  Jeśli dane na fakturze są niepoprawne:
+  1. Zaktualizuj dane w Profil firmy
+  2. Skontaktuj się z billing@mailist.com
+  3. Podaj numer faktury do korekty
+  4. Otrzymasz fakturę korygującą w ciągu 48h
+</Warning>
+
+## Metody płatności
+
+Mailist korzysta z **Stripe** do przetwarzania płatności.
+
+### Akceptowane karty
+
+<CardGroup cols={2}>
+  <Card title="Karty kredytowe" icon="credit-card">
+    - Visa
+    - Mastercard
+    - American Express
+    - Discover
+  </Card>
+
+  <Card title="Karty debetowe" icon="credit-card">
+    - Visa Debit
+    - Mastercard Debit
+    - Maestro
+  </Card>
+
+  <Card title="Portfele cyfrowe" icon="wallet">
+    - Apple Pay
+    - Google Pay
+  </Card>
+
+  <Card title="SEPA (dla UE)" icon="building-columns">
+    - Przelew bankowy SEPA
+    - Direct Debit (dla planów rocznych)
+  </Card>
+</CardGroup>
+
+### Bezpieczeństwo płatności
+
+<Check>
+  **Mailist NIE przechowuje danych kart**
+</Check>
+
+- Wszystkie dane kart są przechowywane przez **Stripe** (PCI DSS Level 1)
+- Mailist ma dostęp tylko do:
+  - Ostatnie 4 cyfry karty (np. "****1234")
+  - Typ karty (Visa, Mastercard)
+  - Data wygaśnięcia
+- 3D Secure dla wszystkich płatności
+- Szyfrowanie SSL/TLS
+
+### Aktualizacja metody płatności
+
+<Steps>
+  <Step title="Kliknij 'Zarządzaj subskrypcją'">
+    Link w sekcji Aktualny plan (redirect do Stripe Customer Portal)
+  </Step>
+
+  <Step title="Zaktualizuj kartę">
+    W portalu Stripe:
+    1. Sekcja "Payment method"
+    2. Dodaj nową kartę
+    3. Ustaw jako domyślną
+    4. Usuń starą kartę (opcjonalnie)
+  </Step>
+
+  <Step title="Zapisz zmiany">
+    Następna płatność użyje nowej karty.
+  </Step>
+</Steps>
+
+## Częste pytania
+
+<AccordionGroup>
+  <Accordion title="Co się stanie jeśli przekroczę limit kontaktów?" icon="circle-question">
+    **Miękki limit** - możesz dodać do +10% kontaktów ponad limit:
+
+    ```
+    Plan: 5,000 kontaktów
+    Możesz mieć: do 5,500 kontaktów (soft limit)
+    ```
+
+    **Po przekroczeniu:**
+    1. System wyśle ostrzeżenie email
+    2. Masz 7 dni na upgrade lub usunięcie nadmiaru
+    3. Po 7 dniach: Blokada dodawania nowych kontaktów
+    4. Po 14 dniach: Blokada wysyłki kampanii
+
+    **Rozwiązanie:**
+    - Upgrade do wyższego tiera (przesuń suwak w billing)
+    - Lub usuń nieaktywne kontakty
+  </Accordion>
+
+  <Accordion title="Co się stanie z danymi po downgrade do FREE?" icon="database">
+    **Dane NIE są usuwane**, ale funkcje są ograniczone:
+
+    **Zachowane:**
+    - Wszystkie kontakty (ale możesz wysyłać tylko do 1,000)
+    - Historia kampanii (read-only)
+    - Szablony emaili
+    - Statystyki
+
+    **Wyłączone:**
+    - Workflow automatyzacji (paused, nie usunięte)
+    - A/B testing (kampanie będą wysyłane bez testów)
+    - Zaawansowana analityka (basic metrics only)
+    - Klucze API > 2 (nieaktywne, możesz reaktywować po upgrade)
+
+    **Powrót do planu płatnego:**
+    - Wszystkie funkcje wracają natychmiast
+    - Workflow są automatycznie wznawiane
+    - Klucze API reaktywowane
+  </Accordion>
+
+  <Accordion title="Czy mogę zmienić cykl rozliczeniowy (miesięczny ↔ roczny)?" icon="arrows-rotate">
+    **TAK**, ale z pewnymi zasadami:
+
+    **Miesięczny → Roczny (upgrade cyklu):**
+    - Natychmiastowa zmiana
+    - Płacisz za pełny rok od razu
+    - Otrzymujesz credit za pozostałe dni miesięczne
+    - Przykład: Masz STANDARD miesięcznie (149 PLN/msc), chcesz roczny (1,502 PLN/rok)
+      - Pozostało 20 dni w miesiącu
+      - Credit: ~100 PLN
+      - Zapłacisz: 1,502 - 100 = ~1,402 PLN
+
+    **Roczny → Miesięczny (downgrade cyklu):**
+    - Zmiana na końcu roku
+    - Nie ma refund za niewykorzystany czas roczny
+    - Od następnego okresu płacisz miesięcznie
+  </Accordion>
+
+  <Accordion title="Czy mogę anulować w dowolnym momencie?" icon="door-open">
+    **TAK, bez żadnych kar!**
+
+    **Plan miesięczny:**
+    - Anuluj kiedy chcesz
+    - Zachowasz dostęp do końca opłaconego miesiąca
+    - Brak refund za częściowy miesiąc
+
+    **Plan roczny:**
+    - Anuluj kiedy chcesz
+    - Zachowasz dostęp do końca opłaconego roku
+    - Brak refund za niewykorzystany czas (zgodnie z polityką no-refund)
+
+    **Wyjątek - refund możliwy:**
+    - Pierwsze 14 dni od zakupu (zgodnie z prawem konsumenckim UE)
+    - Skontaktuj się z billing@mailist.com
+    - Podaj numer faktury i powód
+  </Accordion>
+
+  <Accordion title="Co jeśli moja płatność się nie powiedzie?" icon="credit-card">
+    **Automatyczne retry:**
+
+    System Stripe automatycznie spróbuje ponownie:
+    - Po 3 dniach
+    - Po 7 dniach
+    - Po 14 dniach
+
+    **Otrzymasz emaile:**
+    - Powiadomienie o niepowodzeniu (natychmiast)
+    - Przypomnienie przed każdym retry
+    - Ostateczne ostrzeżenie przed dezaktywacją
+
+    **Co robić:**
+    1. Sprawdź stan karty (środki, limit, wygaśnięcie)
+    2. Zaktualizuj dane karty w Stripe Portal
+    3. Lub ręcznie opłać fakturę (link w emailu)
+    4. Skontaktuj się z billing@mailist.com jeśli problem persystuje
+  </Accordion>
+
+  <Accordion title="Czy ceny są z VAT?" icon="receipt">
+    **TAK, wszystkie ceny zawierają VAT 23%.**
+
+    Na fakturze zobaczysz:
+    ```
+    Netto: 121.14 PLN
+    VAT 23%: 27.86 PLN
+    Brutto: 149.00 PLN ← To widzisz w billing
+    ```
+
+    **Dla firm z UE (poza Polską):**
+    - Jeśli masz ważny VAT UE - możesz być zwolniony z VAT
+    - Podaj NIP UE w danych firmy
+    - System automatycznie sprawdzi w VIES
+    - Faktura będzie bez VAT (reverse charge)
+  </Accordion>
+</AccordionGroup>
+
+## Wsparcie billing
+
+Masz pytania dotyczące płatności, faktur lub planu?
+
+<CardGroup cols={2}>
+  <Card title="Email billing" icon="envelope">
+    **billing@mailist.com**
+
+    Odpowiedź w ciągu 24h (dni robocze)
+
+    **Kiedy pisać:**
+    - Pytania o faktury
+    - Korekty faktur
+    - Problemy z płatnościami
+    - Custom pricing (Enterprise)
+  </Card>
+
+  <Card title="Live Chat" icon="comments">
+    **W aplikacji** (prawy dolny róg)
+
+    Pon-Pt, 9:00-17:00
+
+    **Dla planów:** PRO i ENTERPRISE
+
+    **Standard:** Email support only
+  </Card>
+
+  <Card title="Stripe Support Portal" icon="credit-card">
+    **Zarządzanie kartą i subskrypcją**
+
+    Link w sekcji "Aktualny plan"
+
+    **Możliwości:**
+    - Aktualizacja karty
+    - Historia płatności
+    - Faktury (download)
+    - Anulowanie subskrypcji
+  </Card>
+
+  <Card title="Telefon (Enterprise)" icon="phone">
+    **+48 123 456 789**
+
+    Dostępny tylko dla Enterprise
+
+    24/7 dla klientów Enterprise z SLA
+  </Card>
+</CardGroup>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Limity i usage" icon="gauge" href="/guides/ustawienia/usage-limits">
+    Sprawdź zużycie emaili, kontaktów i API
+  </Card>
+
+  <Card title="Profil firmy" icon="building" href="/guides/ustawienia/profil-firmy">
+    Uzupełnij dane do faktur VAT
+  </Card>
+
+  <Card title="API Keys" icon="key" href="/guides/integracje/api-keys">
+    Zarządzaj kluczami API (limity zależne od planu)
+  </Card>
+</CardGroup>

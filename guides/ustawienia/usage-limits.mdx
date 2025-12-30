@@ -1,0 +1,730 @@
+---
+title: 'Zużycie i limity'
+description: 'Monitoruj zużycie kontaktów, emaili, storage i API w czasie rzeczywistym. Unikaj przekroczenia limitów planu.'
+---
+
+# Zużycie i limity (Usage & Limits)
+
+Monitor
+
+uj w czasie rzeczywistym jak wykorzystujesz limity swojego planu. Otrzymuj alerty przed przekroczeniem limitów, aby uniknąć przerw w działaniu.
+
+## Dostęp do Usage
+
+<Steps>
+  <Step title="Otwórz Ustawienia">
+    W menu głównym kliknij **Ustawienia**
+  </Step>
+
+  <Step title="Przejdź do Zużycie">
+    W menu bocznym wybierz **Zużycie** (lub **Usage**)
+  </Step>
+</Steps>
+
+## Przegląd zużycia
+
+Na górze strony zobaczysz podsumowanie aktualnego okresu rozliczeniowego:
+
+```
+Okres: 1 stycznia - 31 stycznia 2025
+Pozostało dni: 15 dni do resetu limitów
+```
+
+<Note>
+  **Reset limitów:** Wszystkie limity miesięczne (emaile, API calls) resetują się pierwszego dnia miesiąca. Limity stałe (kontakty, storage) nie resetują się.
+</Note>
+
+## Monitorowane metryki
+
+### 1. Kontakty
+
+<CardGroup cols={2}>
+  <Card title="Aktualne zużycie" icon="users">
+    Liczba aktywnych kontaktów w bazie
+
+    **Przykład:** 4,235 / 5,000
+  </Card>
+
+  <Card title="Limit planu" icon="gauge">
+    Maksymalna liczba kontaktów w Twoim planie
+
+    **Zależy od:** Wybranego tiera w billing (1k-100k)
+  </Card>
+</CardGroup>
+
+**Progress bar:**
+```
+[████████████░░░░] 84.7% (4,235 / 5,000)
+```
+
+**Kolory:**
+- 🟢 **Zielony** (0-74%): Bezpieczny poziom
+- 🟡 **Żółty** (75-89%): Ostrzeżenie - rozważ upgrade
+- 🔴 **Czerwony** (90-100%): Krytyczny - upgrade wymagany
+
+**Trend:**
+```
+↗ +12% w porównaniu z poprzednim miesiącem
+```
+
+<Warning>
+  **Soft limit:** Możesz przekroczyć limit o +10% (np. 5,500 dla planu 5,000), ale:
+  - Otrzymasz ostrzeżenie email
+  - Masz 7 dni na upgrade lub usunięcie nadmiaru
+  - Po 7 dniach: Blokada dodawania nowych kontaktów
+  - Po 14 dniach: Blokada wysyłki kampanii
+</Warning>
+
+### 2. Wysłane emaile (miesięcznie)
+
+<CardGroup cols={2}>
+  <Card title="Wysłane w tym miesiącu" icon="paper-plane">
+    Suma wszystkich wysłanych emaili
+
+    **Przykład:** 12,453 / 50,000
+  </Card>
+
+  <Card title="Limit miesięczny" icon="envelope">
+    Zależy od planu:
+    - **FREE**: 1,000/miesiąc
+    - **STANDARD**: Nielimitowane
+    - **PRO**: Nielimitowane
+    - **ENTERPRISE**: Nielimitowane
+  </Card>
+</CardGroup>
+
+**Co się liczy jako "wysłany email":**
+- ✅ Kampanie regularne
+- ✅ Kampanie automatyczne (workflow)
+- ✅ Emaile testowe (do 10/dzień nie liczą się)
+- ✅ Transakcyjne emaile
+- ❌ Bounced emails (nie liczą się do limitu)
+- ❌ Niewysłane (draft campaigns)
+
+**Progress bar:**
+```
+[███████░░░░░░░░░] 24.9% (12,453 / 50,000)
+```
+
+**Trend:**
+```
+↘ -8% w porównaniu z poprzednim miesiącem
+(Wysłałeś mniej emaili niż w grudniu)
+```
+
+<Tip>
+  **Optymalizacja zużycia emaili:**
+
+  - Segmentuj listy - wyślij tylko do zainteresowanych
+  - Usuń nieaktywne kontakty (0 otwarć przez 90 dni)
+  - Użyj workflow zamiast masowych kampanii
+  - A/B testing - wysyłaj do mniejszej grupy testowej najpierw
+</Tip>
+
+### 3. Storage (przechowywanie danych)
+
+<CardGroup cols={2}>
+  <Card title="Wykorzystane" icon="database">
+    Suma rozmiaru wszystkich danych
+
+    **Przykład:** 2.3 GB / 10 GB
+  </Card>
+
+  <Card title="Limit storage" icon="hard-drive">
+    Zależy od planu:
+    - **FREE**: 500 MB
+    - **STANDARD**: 5 GB
+    - **PRO**: 20 GB
+    - **ENTERPRISE**: 100 GB
+  </Card>
+</CardGroup>
+
+**Co zajmuje storage:**
+- **Kontakty** (dane + custom fields): ~1 KB per kontakt
+  - 5,000 kontaktów ≈ 5 MB
+- **Załączniki w emailach**: Rozmiar plików
+  - Logo: 50-200 KB
+  - Obrazki w szablonach: 100-500 KB each
+- **Historia kampanii**: Metadata
+  - 1 kampania ≈ 10 KB (bez załączników)
+- **Logi API**: Request/response data
+  - 100,000 calls ≈ 50 MB
+
+**Progress bar:**
+```
+[███░░░░░░░░░░░░░] 23% (2.3 GB / 10 GB)
+```
+
+<Note>
+  **Jak zmniejszyć storage:**
+
+  1. **Kompresuj obrazki** przed uploadem (TinyPNG, ImageOptim)
+  2. **Używaj external hosting** dla dużych plików (CDN, S3)
+  3. **Usuń stare kampanie** (archiwizuj lokalnie jeśli potrzeba)
+  4. **Czyść nieaktywne kontakty** regularnie
+</Note>
+
+### 4. API Calls (miesięcznie)
+
+<CardGroup cols={2}>
+  <Card title="Wywołania w tym miesiącu" icon="webhook">
+    Suma wszystkich żądań API
+
+    **Przykład:** 8,234 / 10,000
+  </Card>
+
+  <Card title="Limit API" icon="gauge-high">
+    Zależy od planu:
+    - **FREE**: 1,000/miesiąc
+    - **STANDARD**: 50,000/miesiąc
+    - **PRO**: 200,000/miesiąc
+    - **ENTERPRISE**: Nielimitowane
+  </Card>
+</CardGroup>
+
+**Rate limiting (dodatkowy):**
+| Plan | Minute Limit | Burst |
+|:-----|:-------------|:------|
+| FREE | 60 req/min | 10 req/s |
+| STANDARD | 300 req/min | 50 req/s |
+| PRO | 1,200 req/min | 100 req/s |
+| ENTERPRISE | Unlimited | Unlimited |
+
+**Progress bar:**
+```
+[████████████░░░░] 82.3% (8,234 / 10,000)
+```
+
+**Breakdown wywołań:**
+```
+POST /v1/contacts: 3,421 (41.5%)
+GET /v1/campaigns/{id}/stats: 2,134 (25.9%)
+GET /v1/contacts: 1,567 (19.0%)
+POST /v1/events: 892 (10.8%)
+Inne: 220 (2.7%)
+```
+
+<Tip>
+  **Optymalizacja API calls:**
+
+  - **Cache responses** gdzie możliwe (statystyki, listy)
+  - **Batch operations** - użyj `/v1/contacts/bulk` zamiast pojedynczych POST
+  - **Webhooks** zamiast pollingu - niech Mailist powiadamia Cię o eventach
+  - **Pagination** - nie pobieraj wszystkich danych naraz
+  - **Conditional requests** - użyj ETag/If-None-Match headers
+</Tip>
+
+### 5. Klucze API
+
+<CardGroup cols={2}>
+  <Card title="Aktywne klucze" icon="key">
+    Liczba utworzonych kluczy API
+
+    **Przykład:** 3 / 5
+  </Card>
+
+  <Card title="Limit kluczy" icon="keys">
+    Zależy od planu:
+    - **FREE**: 2 klucze
+    - **STANDARD**: 5 kluczy
+    - **PRO**: 20 kluczy
+    - **ENTERPRISE**: Unlimited
+  </Card>
+</CardGroup>
+
+**Progress bar:**
+```
+[██████░░░░░░░░░░] 60% (3 / 5)
+```
+
+[Zarządzanie kluczami API →](/guides/integracje/api-keys)
+
+### 6. Workflow (automatyzacje)
+
+<CardGroup cols={2}>
+  <Card title="Aktywne workflow" icon="workflow">
+    Liczba włączonych automatyzacji
+
+    **Przykład:** 5 / 10
+  </Card>
+
+  <Card title="Limit workflow" icon="robot">
+    Zależy od planu:
+    - **FREE**: 0 (brak automatyzacji)
+    - **STANDARD**: 3 workflow
+    - **PRO**: Unlimited
+    - **ENTERPRISE**: Unlimited
+  </Card>
+</CardGroup>
+
+**Progress bar:**
+```
+[██████████░░░░░░] 50% (5 / 10)
+```
+
+[Tworzenie workflow →](/guides/automatyzacja/workflow)
+
+## Alerty i powiadomienia
+
+System automatycznie monitoruje zużycie i wysyła alerty emailem:
+
+### Progi alertów
+
+<Tabs>
+  <Tab title="75% limitu">
+    **Email:** "⚠️ Osiągnąłeś 75% limitu [metryka]"
+
+    **Treść:**
+    ```
+    Witaj,
+
+    Twoje konto osiągnęło 75% limitu:
+    - Kontakty: 3,750 / 5,000
+    - Pozostało: 1,250 kontaktów
+
+    Zalecamy:
+    - Rozważ upgrade do wyższego tiera
+    - Lub usuń nieaktywne kontakty
+
+    [Upgrade planu] [Zobacz zużycie]
+    ```
+
+    **Akcja:** Rozważ upgrade, ale nie pilne
+  </Tab>
+
+  <Tab title="90% limitu">
+    **Email:** "🚨 KRYTYCZNE: 90% limitu [metryka]"
+
+    **Treść:**
+    ```
+    UWAGA! Osiągnąłeś 90% limitu:
+    - Kontakty: 4,500 / 5,000
+    - Pozostało: tylko 500 kontaktów
+
+    ⚠️ Po przekroczeniu 100%:
+    - Blokada dodawania nowych kontaktów
+    - Możliwe ograniczenia wysyłki
+
+    WYMAGANE DZIAŁANIE (w ciągu 7 dni):
+    - Upgrade planu
+    - Lub usuń kontakty
+
+    [Upgrade TERAZ] [Zarządzaj kontaktami]
+    ```
+
+    **Akcja:** Upgrade lub czyszczenie WYMAGANE
+  </Tab>
+
+  <Tab title="100% limitu">
+    **Email:** "🔴 LIMIT PRZEKROCZONY - Akcja wymagana"
+
+    **Treść:**
+    ```
+    Przekroczyłeś limit planu:
+    - Kontakty: 5,234 / 5,000 (+234)
+
+    OGRANICZENIA AKTYWOWANE:
+    ✘ Blokada dodawania nowych kontaktów
+    ✘ Import CSV wyłączony
+    ✘ API endpoints /contacts zwracają 402 Payment Required
+
+    ROZWIĄZANIE (wybierz jedno):
+    1. Upgrade planu (natychmiastowe)
+    2. Usuń 234 kontakty (w ciągu 7 dni)
+
+    Po 14 dniach bez akcji: Blokada wysyłki kampanii
+
+    [UPGRADE TERAZ] [Usuń kontakty]
+    ```
+
+    **Akcja:** NATYCHMIASTOWA - funkcje zablokowane
+  </Tab>
+</Tabs>
+
+### Konfiguracja alertów
+
+<Note>
+  **Obecnie alerty są automatyczne** i nie można ich wyłączyć (dla bezpieczeństwa konta).
+
+  Plany na przyszłość:
+  - Custom progi (np. alert przy 60% zamiast 75%)
+  - Wybór kanałów (email, Slack, SMS)
+  - Alert per metryka (wyłącz alerty storage, zostaw kontakty)
+</Note>
+
+## Co się stanie przy przekroczeniu limitu?
+
+<AccordionGroup>
+  <Accordion title="Kontakty" icon="users">
+    **Soft limit (100-110%):**
+    - Można dodawać do +10% ponad limit
+    - Ostrzeżenia email codziennie
+    - 7 dni na upgrade lub usunięcie
+
+    **Po 7 dniach (110%+):**
+    - ❌ Blokada `/contacts` API endpoints
+    - ❌ Blokada importu CSV
+    - ❌ Nie można dodać kontaktów ręcznie
+    - ✅ Wysyłka kampanii nadal działa (do istniejących)
+
+    **Po 14 dniach:**
+    - ❌ Blokada wysyłki nowych kampanii
+    - ❌ Workflow automatyzacji paused
+    - ✅ Statystyki i podgląd działają
+  </Accordion>
+
+  <Accordion title="Emaile (miesięcznie)" icon="envelope">
+    **Plan FREE tylko:**
+
+    **100% limitu (1,000 emaili):**
+    - ❌ Blokada wysyłki kampanii
+    - ❌ Workflow paused
+    - ❌ Nie można wysłać testowych emaili
+    - ✅ Statystyki działają
+    - ✅ Tworzenie kampanii (draft) działa
+
+    **Rozwiązanie:**
+    - Poczekaj do 1-go dnia miesiąca (reset)
+    - Lub upgrade do STANDARD (unlimited emails)
+
+    **Plany STANDARD/PRO/ENTERPRISE:**
+    - Brak limitu - nie można przekroczyć
+  </Accordion>
+
+  <Accordion title="Storage" icon="database">
+    **100% limitu:**
+    - ❌ Nie można uploadować obrazków
+    - ❌ Import CSV >100MB zablokowany
+    - ✅ Wszystkie inne funkcje działają
+
+    **110% limitu (+10%):**
+    - Email z ostatecznym ostrzeżeniem
+    - 7 dni na czyszczenie lub upgrade
+
+    **Po 7 dniach:**
+    - ❌ Losowe obrazki mogą nie ładować się w emailach
+    - ❌ Stare logi API są usuwane (oldest first)
+
+    **Rozwiązanie:**
+    - Usuń stare kampanie z załącznikami
+    - Kompresuj obrazki
+    - Upgrade planu
+  </Accordion>
+
+  <Accordion title="API Calls" icon="webhook">
+    **100% limitu miesięcznego:**
+    - ❌ Wszystkie API endpoints zwracają `402 Payment Required`
+    - ❌ Blokada do 1-go dnia miesiąca (reset)
+
+    **Rate limiting (per-minute):**
+    - `429 Too Many Requests` jeśli przekroczysz req/min
+    - Nagłówek `Retry-After: 42` (sekundy do odczekania)
+    - Exponential backoff zalecany
+
+    **Rozwiązanie:**
+    - Poczekaj do resetu (1-szy dzień miesiąca)
+    - Lub upgrade planu dla wyższych limitów
+    - Zaimplementuj caching i batching
+  </Accordion>
+
+  <Accordion title="Klucze API" icon="key">
+    **100% limitu:**
+    - ❌ Nie możesz utworzyć nowego klucza
+    - ✅ Istniejące klucze działają normalnie
+
+    **Rozwiązanie:**
+    - Usuń nieużywane klucze
+    - Lub upgrade planu
+  </Accordion>
+
+  <Accordion title="Workflow" icon="robot">
+    **100% limitu:**
+    - ❌ Nie możesz utworzyć nowego workflow
+    - ❌ Nie możesz włączyć wyłączonych workflow
+    - ✅ Aktywne workflow działają normalnie
+
+    **Rozwiązanie:**
+    - Wyłącz nieużywane workflow
+    - Połącz podobne workflow w jeden
+    - Upgrade do PRO (unlimited)
+  </Accordion>
+</AccordionGroup>
+
+## Monitorowanie w czasie rzeczywistym
+
+### Dashboard widget
+
+W głównym dashboard zobaczysz widget "Zużycie":
+
+```
+┌─────────────────────────────┐
+│ Zużycie                     │
+├─────────────────────────────┤
+│ Kontakty  [████░] 84%       │
+│ Emaile    [██░░░] 25%       │
+│ Storage   [█░░░░] 23%       │
+│ API       [███░░] 82% ⚠️    │
+└─────────────────────────────┘
+```
+
+Kliknij aby przejść do pełnej strony Usage.
+
+### Email daily summary
+
+Jeśli jesteś na planie **PRO** lub **ENTERPRISE**, możesz włączyć daily summary email:
+
+```
+Temat: Daily Usage Report - 15 stycznia 2025
+
+Dzień dobry,
+
+Podsumowanie zużycia za wczoraj:
+- Wysłane emaile: +234 (total: 12,687 / 200,000)
+- Nowe kontakty: +89 (total: 4,324 / 5,000)
+- API calls: +1,234 (total: 9,468 / 200,000)
+
+Alerty: Brak
+
+[Zobacz szczegóły]
+```
+
+<Note>
+  **Włączenie daily summary:**
+
+  Obecnie niedostępne w UI - skontaktuj się z support@mailist.com jeśli chcesz włączyć.
+</Note>
+
+## API endpoint dla usage
+
+Możesz programistycznie sprawdzać zużycie przez REST API:
+
+```javascript
+const response = await fetch('https://api.mailist.com/v1/usage', {
+  headers: {
+    'Authorization': `Bearer ${apiKey}`
+  }
+});
+
+const usage = await response.json();
+console.log(usage);
+```
+
+**Response:**
+```json
+{
+  "period": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2025-01-31T23:59:59Z"
+  },
+  "contacts": {
+    "current": 4235,
+    "limit": 5000,
+    "percentage": 84.7,
+    "trend": 12
+  },
+  "emails": {
+    "current": 12453,
+    "limit": -1,
+    "percentage": 0
+  },
+  "storage": {
+    "current": 2.3,
+    "limit": 10,
+    "unit": "GB",
+    "percentage": 23
+  },
+  "apiCalls": {
+    "current": 8234,
+    "limit": 10000,
+    "percentage": 82.3,
+    "trend": -5
+  },
+  "apiKeys": {
+    "current": 3,
+    "limit": 5,
+    "percentage": 60
+  },
+  "workflows": {
+    "current": 5,
+    "limit": -1,
+    "percentage": 0
+  }
+}
+```
+
+**Limit: -1** oznacza "Unlimited" (nie ma limitu)
+
+[Dokumentacja API Usage →](/api-reference/introduction)
+
+## Najlepsze praktyki
+
+<CardGroup cols={2}>
+  <Card title="Monitor regularnie" icon="eye">
+    Sprawdzaj usage **raz w tygodniu**
+
+    - Przed dużymi kampaniami
+    - Przed bulk importem kontaktów
+    - Po wdrożeniu nowych integracji API
+  </Card>
+
+  <Card title="Ustaw internal alerts" icon="bell">
+    W swojej aplikacji:
+
+    ```javascript
+    if (usage.contacts.percentage > 80) {
+      notifyTeam('Contacts at 80% - plan upgrade?');
+    }
+    ```
+  </Card>
+
+  <Card title="Czyszczenie proaktywne" icon="broom">
+    **Miesięcznie:**
+    - Usuń kontakty 0 otwarć przez 90 dni
+    - Archiwizuj stare kampanie (>6 miesięcy)
+    - Usuń nieużywane klucze API
+    - Wyłącz nieaktywne workflow
+  </Card>
+
+  <Card title="Plan ahead" icon="calendar">
+    **Przed wielkimi akcjami:**
+
+    - Black Friday kampania - sprawdź limit emaili
+    - Import 10k kontaktów - czy starczy miejsca?
+    - Nowa integracja API - czy mieszczę się w API calls?
+  </Card>
+</CardGroup>
+
+## Upgrade dla więcej zasobów
+
+Jeśli regularnie osiągasz limity:
+
+<Steps>
+  <Step title="Przejdź do Billing">
+    **Ustawienia** → **Plan i Płatności**
+  </Step>
+
+  <Step title="Przesuń suwak kontaktów">
+    Zwiększ tier (np. z 5,000 na 10,000)
+
+    **Cena zaktualizuje się live**
+  </Step>
+
+  <Step title="Lub wybierz wyższy plan">
+    - STANDARD → PRO: Unlimited workflow, zaawansowana analityka
+    - PRO → ENTERPRISE: Unlimited wszystko, dedykowane IP, SLA
+  </Step>
+
+  <Step title="Potwierdź upgrade">
+    Płatność przez Stripe, limity aktywowane natychmiast
+  </Step>
+</Steps>
+
+[Porównanie planów →](/guides/ustawienia/billing)
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Kiedy resetują się limity miesięczne?" icon="calendar-days">
+    **1-szego dnia każdego miesiąca o 00:00 UTC**
+
+    Resetowane:
+    - Emaile wysłane
+    - API calls
+    - Storage logs (częściowo - stare logi usuwane)
+
+    Nie resetowane:
+    - Kontakty (to stały limit, nie miesięczny)
+    - Storage (pliki są trwałe)
+    - Klucze API (stały limit)
+  </Accordion>
+
+  <Accordion title="Czy emaile testowe liczą się do limitu?" icon="flask">
+    **TAK, ale z wyjątkiem:**
+
+    - Pierwsze 10 emaili testowych dziennie: **NIE liczą się**
+    - Powyżej 10/dzień: Liczą się normalnie
+
+    **Definicja email testowy:**
+    - Wysłany przyciskiem "Wyślij testowy"
+    - LUB kampania do <10 odbiorców z tagiem "test"
+
+    **Zwykłe kampanie:** Zawsze liczą się, nawet do 1 osoby
+  </Accordion>
+
+  <Accordion title="Co z kontaktami wypisanymi (unsubscribed)?" icon="user-xmark">
+    **NIE liczą się do limitu!**
+
+    ```
+    Aktywne kontakty: 4,500
+    Wypisane: 823
+    Bounced: 145
+
+    Limit: 5,000
+    Wykorzystane: 4,500 / 5,000 (tylko aktywne)
+    ```
+
+    **Możesz mieć:**
+    - 5,000 aktywnych
+    - + Unlimited wypisanych
+    - + Unlimited bounced
+
+    **Oczyszczanie:**
+    - System automatycznie usuwa bounced >90 dni
+    - Wypisani są przechowywani permanent (blacklist)
+  </Accordion>
+
+  <Accordion title="Czy mogę tymczasowo zwiększyć limity?" icon="arrow-up-right">
+    **TAK - custom limits dla wydarzeń**
+
+    Jeśli potrzebujesz tymczasowego boost (np. Black Friday):
+
+    1. Skontaktuj się z support@mailist.com
+    2. Podaj:
+       - Jakiego limitu potrzebujesz
+       - Na jak długo (dni/tygodnie)
+       - Powód (event, kampania)
+    3. Otrzymasz ofertę custom pricing
+    4. Po akceptacji: Limity aktywowane na okres
+
+    **Przykład:**
+    ```
+    Normalnie: 10,000 kontaktów
+    Event: 50,000 kontaktów na 7 dni (Black Friday)
+    Cena: 999 PLN za tydzień
+    ```
+
+    **Dla planów ENTERPRISE:** Included w SLA
+  </Accordion>
+</AccordionGroup>
+
+## Wsparcie
+
+Problemy z limitami lub zużyciem?
+
+<Card title="Support Email" icon="envelope">
+  **support@mailist.com**
+
+  Podaj:
+  - Twój plan i tier
+  - Metrykę której dotyczy problem (kontakty, emaile, API)
+  - Aktualne zużycie (screenshot z Usage)
+  - Co próbujesz osiągnąć
+
+  Odpowiedź: 24h (PRO: 12h, ENTERPRISE: 4h)
+</Card>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Upgrade planu" icon="arrow-up" href="/guides/ustawienia/billing">
+    Zwiększ limity dla rozwijającego się biznesu
+  </Card>
+
+  <Card title="API Keys" icon="key" href="/guides/integracje/api-keys">
+    Zarządzaj kluczami API (limit zależny od planu)
+  </Card>
+
+  <Card title="Czyszczenie kontaktów" icon="broom" href="/guides/listy/tworzenie-list">
+    Usuń nieaktywne kontakty aby zwolnić miejsce
+  </Card>
+</CardGroup>

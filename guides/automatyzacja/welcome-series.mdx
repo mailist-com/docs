@@ -1,0 +1,233 @@
+---
+title: 'Welcome Series'
+description: 'Gotowy workflow powitalny dla nowych kontaktów. Wdróż w 10 minut.'
+---
+
+# Welcome Series - Seria emaili powitalnych
+
+Welcome series to zautomatyzowana seria emaili wysyłanych do nowych kontaktów. Ma najwyższy open rate ze wszystkich typów kampanii (50-86%!).
+
+## Dlaczego Welcome Series?
+
+<CardGroup cols={2}>
+  <Card title="Wysoki engagement" icon="chart-line">
+    Open rate 50-86% vs 20% standardowych kampanii
+  </Card>
+
+  <Card title="Pierwsze wrażenie" icon="handshake">
+    Ustaw ton relacji od pierwszego kontaktu
+  </Card>
+
+  <Card title="Edukacja" icon="graduation-cap">
+    Naucz nowych użytkowników jak korzystać z produktu
+  </Card>
+
+  <Card title="Konwersja" icon="cart-shopping">
+    320% wyższy revenue vs zwykłych kampanii
+  </Card>
+</CardGroup>
+
+## Gotowy schemat 5-emailowy
+
+```yaml
+Email #1: Welcome (natychmiast)
+  ↓
+Wait: 1 dzień
+  ↓
+Email #2: Co możesz zrobić? (funkcje)
+  ↓
+Wait: 3 dni
+  ↓
+Email #3: Case study / Success story
+  ↓
+Wait: 3 dni
+  ↓
+Email #4: Edukacja / Tutorial
+  ↓
+Wait: 7 dni
+  ↓
+Email #5: Oferta specjalna dla nowych
+
+Total: 14 dni
+```
+
+## Email #1: Welcome (Day 0)
+
+**Cel:** Potwierdzenie zapisu i pierwsze wrażenie
+
+**Temat:** "Witaj w [Nazwa firmy]! 👋"
+
+**Treść:**
+```
+Cześć {{firstName}},
+
+Dziękujemy za zapisanie się do naszego newslettera!
+
+Co możesz oczekiwać:
+✅ Cotygodniowe tips & tricks
+✅ Ekskluzywne oferty tylko dla subskrybentów
+✅ Early access do nowych funkcji
+
+W międzyczasie, sprawdź nasze najpopularniejsze artykuły:
+→ [Link do artykułu #1]
+→ [Link do artykułu #2]
+
+Do zobaczenia wkrótce!
+Team [Nazwa]
+```
+
+**CTA:** "Przeczytaj najpopularniejszy artykuł"
+
+## Email #2: Funkcje (Day 1)
+
+**Cel:** Pokaż wartość produktu/usługi
+
+**Temat:** "{{firstName}}, oto co możesz zrobić z [Produkt]"
+
+**Treść:**
+```
+Hej {{firstName}},
+
+Wczoraj dołączyłeś do społeczności [Nazwa].
+Oto 3 rzeczy, które możesz zrobić już dziś:
+
+1️⃣ [Funkcja #1] - oszczędź 5 godzin tygodniowo
+2️⃣ [Funkcja #2] - zwiększ efektywność o 30%
+3️⃣ [Funkcja #3] - zautomatyzuj nudne zadania
+
+[Video tutorial 2 min]
+```
+
+**CTA:** "Zobacz jak to działa"
+
+## Email #3: Social Proof (Day 4)
+
+**Cel:** Budowanie zaufania przez case study
+
+**Temat:** "Jak firma X zwiększyła wyniki o 150% z [Produkt]"
+
+**Treść:**
+```
+Firma X miała problem: [Problem]
+
+Po wdrożeniu [Twój produkt]:
+✅ +150% więcej leadów
+✅ -60% czasu na manualne zadania
+✅ ROI 320% w 3 miesiące
+
+"[Cytat CEO firmy X]"
+
+Chcesz podobnych wyników?
+[Przeczytaj case study]
+```
+
+## Email #4: Edukacja (Day 7)
+
+**Cel:** Pomóż wykorzystać maksimum z produktu
+
+**Temat:** "5 błędów które popełniają początkujący [kategoria]"
+
+**Treść:**
+```
+Hej {{firstName}},
+
+Po tygodniu widzimy, że aktywnie korzystasz z [produkt]. Świetnie!
+
+Oto 5 błędów, których powinieneś unikać:
+
+❌ Błąd #1: [Opis] → ✅ Zrób to zamiast: [Rozwiązanie]
+❌ Błąd #2: [Opis] → ✅ Zrób to zamiast: [Rozwiązanie]
+[...]
+
+[Link do pełnego poradnika]
+```
+
+## Email #5: Oferta (Day 14)
+
+**Cel:** Konwersja / Upsell
+
+**Temat:** "Ekskluzywna oferta dla Ciebie, {{firstName}}"
+
+**Treść:**
+```
+Minęły 2 tygodnie odkąd dołączyłeś do [Nazwa].
+
+Jako podziękowanie, przygotowaliśmy specjalną ofertę:
+
+🎁 -20% na [Produkt/Plan Premium]
+⏰ Ważne tylko 48 godzin
+✨ + Bonus: [Dodatkowa wartość]
+
+Kod: WELCOME20
+
+[CTA: Wykorzystaj ofertę]
+
+Oferta wygasa: [Data + 2 dni]
+```
+
+## Implementacja w Mailist
+
+<Steps>
+  <Step title="Stwórz 5 szablonów emaili">
+    Użyj powyższych treści jako baza, dostosuj do swojej marki
+  </Step>
+
+  <Step title="Nowy workflow">
+    **Automatyzacja** → **+ Nowy workflow** → "Welcome Series"
+  </Step>
+
+  <Step title="Konfiguracja">
+    ```yaml
+    Trigger: CONTACT_CREATED
+
+    1. Send Email: "Welcome #1"
+    2. Wait: 1 day
+    3. Send Email: "Funkcje #2"
+    4. Wait: 3 days
+    5. Send Email: "Case study #3"
+    6. Wait: 3 days
+    7. Send Email: "Edukacja #4"
+    8. Wait: 7 days
+    9. Condition: opened >= 2 emails
+       ├─ YES → Send "Oferta #5"
+       └─ NO → End workflow (nie spamuj nieaktywnych)
+    ```
+  </Step>
+
+  <Step title="Aktywuj">
+    Kliknij **Aktywuj** - workflow działa automatycznie dla wszystkich nowych kontaktów!
+  </Step>
+</Steps>
+
+## Optymalizacja
+
+Po 30 dniach sprawdź statystyki:
+
+<Tabs>
+  <Tab title="Analityka">
+    ```
+    Email #1: 86% open, 12% click
+    Email #2: 65% open, 18% click ← Najlepszy!
+    Email #3: 54% open, 8% click
+    Email #4: 48% open, 15% click
+    Email #5: 42% open, 25% click ← Najwyższa konwersja
+    ```
+
+    **Akcja:** Email #2 działa najlepiej - użyj podobnego stylu w #3 i #4
+  </Tab>
+
+  <Tab title="A/B Testing">
+    Testuj różne wersje:
+
+    - **Timing:** 1 dzień vs 2 dni między emailami
+    - **Długość:** Krótkie vs długie emaile
+    - **CTA:** "Dowiedz się więcej" vs "Zobacz tutorial"
+    - **Personalizacja:** Więcej/mniej personalizacji
+  </Tab>
+</Tabs>
+
+## Następne kroki
+
+<Card title="REST API" href="/api-reference/introduction">
+  Integruj workflow z własną aplikacją przez API
+</Card>

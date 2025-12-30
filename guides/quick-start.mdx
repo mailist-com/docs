@@ -1,0 +1,175 @@
+---
+title: 'Szybki start'
+description: 'Rozpocznij pracę z Mailist w 5 minut. Minimalistyczny przewodnik dla zapracowanych.'
+---
+
+# Szybki start - 5 minut ⚡
+
+Nie masz czasu na długie przewodniki? Ten quick start pomoże Ci wysłać pierwszą kampanię w 5 minut.
+
+<Warning>
+  To skrócona wersja. Dla pełnego przewodnika zobacz [Pierwsze kampanie →](/guides/pierwsze-kampanie)
+</Warning>
+
+## Krok 1: Stwórz listę (1 min)
+
+```bash
+Dashboard → Listy → + Nowa lista
+```
+
+Wypełnij:
+- **Nazwa:** "Test Newsletter"
+- **Język:** Polski
+- Kliknij **Zapisz**
+
+## Krok 2: Dodaj kontakty (1 min)
+
+```bash
+Twoja lista → + Dodaj kontakt
+```
+
+Dodaj swój email testowy:
+```
+Email: twoj.email@gmail.com
+Imię: Twoje Imię
+```
+
+<Tip>
+  Dodaj 2-3 adresy testowe. Później sprawdzisz, jak email wygląda w różnych klientach (Gmail, Outlook).
+</Tip>
+
+## Krok 3: Stwórz prosty szablon (2 min)
+
+```bash
+Szablony → + Nowy szablon → Pusty HTML
+```
+
+Wklej minimalny szablon:
+
+```html
+<!DOCTYPE html>
+<html>
+<body style="font-family: Arial, sans-serif; padding: 20px;">
+  <h1 style="color: #3b82f6;">Witaj, {{firstName}}!</h1>
+
+  <p>To Twoja pierwsza kampania z Mailist.</p>
+
+  <a href="https://mailist.com"
+     style="display: inline-block; padding: 12px 24px;
+            background: #3b82f6; color: white; text-decoration: none;
+            border-radius: 6px;">
+    Kliknij tutaj
+  </a>
+
+  <p style="font-size: 12px; color: #666; margin-top: 40px;">
+    <a href="{{unsubscribeUrl}}">Wypisz się</a>
+  </p>
+</body>
+</html>
+```
+
+Zapisz jako "Szablon testowy".
+
+## Krok 4: Wyślij kampanię (1 min)
+
+```bash
+Kampanie → + Nowa kampania
+```
+
+Wypełnij tylko najważniejsze:
+
+```yaml
+Typ: Jednorazowa wysyłka
+Nazwa: "Test - Pierwsza kampania"
+Temat: "Test email z Mailist"
+Nadawca: Twoje imię
+Email nadawcy: twoj.email@twojadomena.pl
+Lista: "Test Newsletter"
+Szablon: "Szablon testowy"
+```
+
+**Wyślij testowy email:**
+1. Kliknij **Wyślij testowy**
+2. Podaj swój email
+3. Sprawdź skrzynkę
+
+**Jeśli wygląda OK:**
+- Kliknij **Wyślij teraz**
+- Potwierdź
+
+<Check>
+  **Gotowe!** Za 2-5 minut otrzymasz email.
+</Check>
+
+## Co sprawdzić w otrzymanym emailu?
+
+- [ ] Personalizacja działa (`{{firstName}}` zamienione na prawdziwe imię)
+- [ ] Link "Kliknij tutaj" działa
+- [ ] Link "Wypisz się" działa
+- [ ] Email wygląda dobrze na telefonie
+
+## Następne kroki
+
+Teraz, gdy wiesz jak to działa:
+
+<CardGroup cols={2}>
+  <Card title="Pełny przewodnik" icon="book" href="/guides/pierwsze-kampanie">
+    Szczegółowy tutorial z najlepszymi praktykami
+  </Card>
+
+  <Card title="Zaimportuj kontakty" icon="file-import" href="/guides/listy/import-kontaktow">
+    Przenieś istniejącą bazę CSV
+  </Card>
+
+  <Card title="Lepsze szablony" icon="palette" href="/guides/szablony/edytor-html">
+    Projektuj profesjonalne emaile
+  </Card>
+
+  <Card title="Automatyzacja" icon="robot" href="/guides/automatyzacja/workflow">
+    Postaw automatyczne kampanie
+  </Card>
+</CardGroup>
+
+## Najczęstsze problemy w quick start
+
+<AccordionGroup>
+  <Accordion title="Nie otrzymałem testowego emaila" icon="envelope">
+    **Sprawdź:**
+    1. Folder spam/promocje
+    2. Czy adres email jest poprawny
+    3. Poczekaj 5 minut (czasem dłużej w przypadku Gmail)
+
+    **Nadal nie ma?**
+    - Sprawdź status kampanii w Dashboard
+    - Zobacz logi wysyłki (jeśli są błędy)
+    - Wyślij ponownie do innego adresu
+  </Accordion>
+
+  <Accordion title="Personalizacja nie działa" icon="user">
+    Upewnij się, że kontakt ma wypełnione pole `firstName`.
+
+    **Lub użyj fallback:**
+    ```
+    {{firstName|Przyjacielu}}
+    ```
+    Jeśli brak imienia, wyświetli się "Przyjacielu"
+  </Accordion>
+
+  <Accordion title="Link 'Wypisz się' nie działa" icon="link">
+    Zmień:
+    ```html
+    <!-- ❌ Źle -->
+    <a href="unsubscribeUrl">Wypisz się</a>
+
+    <!-- ✅ Dobrze -->
+    <a href="{{unsubscribeUrl}}">Wypisz się</a>
+    ```
+    Potrzebne są podwójne nawiasy klamrowe `{{ }}`.
+  </Accordion>
+</AccordionGroup>
+
+## Potrzebujesz więcej?
+
+<Card title="Dokumentacja API" icon="code" href="/api-reference/introduction">
+  Zintegruj Mailist z własną aplikacją przez REST API
+</Card>

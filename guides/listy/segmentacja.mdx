@@ -1,0 +1,110 @@
+---
+title: 'Segmentacja kontaktów'
+description: 'Podziel bazę kontaktów na precyzyjne grupy dla skuteczniejszych kampanii emailowych.'
+---
+
+# Segmentacja kontaktów
+
+Segmentacja to podział listy kontaktów na mniejsze grupy według wspólnych cech. Kampanie wysłane do segmentów mają nawet 3x wyższy click rate.
+
+## Dlaczego segmentować?
+
+<CardGroup cols={2}>
+  <Card title="Wyższa skuteczność" icon="chart-line">
+    Spersonalizowana treść = +760% wzrost revenue (badanie DMA)
+  </Card>
+  <Card title="Mniej wypisań" icon="user-check">
+    Trafna komunikacja = mniej "unsubscribe"
+  </Card>
+  <Card title="Lepszy delivery" icon="inbox">
+    Wysoki engagement = lepsza reputacja nadawcy
+  </Card>
+  <Card title="Oszczędność czasu" icon="clock">
+    Automatyczne segmenty = mniej pracy
+  </Card>
+</CardGroup>
+
+## Typy segmentacji
+
+### 1. Demograficzna
+
+Filtruj według danych osobowych:
+
+```yaml
+Lokalizacja: city = "Warszawa"
+Wiek: age >= 25 AND age <= 45
+Płeć: gender = "kobieta"
+Stanowisko: job_title zawiera "Manager"
+```
+
+### 2. Behawioralna
+
+Według zachowań w kampaniach:
+
+```yaml
+Otwarli last campaign: opened_campaign = "Newsletter styczeń"
+Kliknęli w link: clicked_url zawiera "produkt-a"
+Nie otworzyli 3 ostatnich: opens_last_3 = 0
+Kupili produkt: purchased = "premium"
+```
+
+### 3. Zaangażowanie
+
+Według aktywności:
+
+<Tabs>
+  <Tab title="Bardzo aktywni">
+    ```
+    Otwarł >50% kampanii w ostatnich 90 dni
+    ```
+    **Akcja:** Oferty premium, early access
+  </Tab>
+
+  <Tab title="Średnio aktywni">
+    ```
+    Otwarł 10-50% kampanii
+    ```
+    **Akcja:** Standardowe kampanie
+  </Tab>
+
+  <Tab title="Nieaktywni">
+    ```
+    0 otwarć w ostatnich 90 dni
+    ```
+    **Akcja:** Re-engagement lub usuń
+  </Tab>
+</Tabs>
+
+## Tworzenie segmentu
+
+<Steps>
+  <Step title="Otwórz listę">
+    Listy → wybierz listę → **Segmenty**
+  </Step>
+
+  <Step title="+ Nowy segment">
+    Kliknij **Stwórz segment**
+  </Step>
+
+  <Step title="Zdefiniuj warunki">
+    Użyj konstruktora:
+
+    ```
+    city = "Warszawa"
+    AND
+    opened_last_campaign = true
+    ```
+  </Step>
+
+  <Step title="Zapisz segment">
+    Nadaj nazwę: "Warszawa - Active"
+
+    Segment aktualizuje się automatycznie!
+  </Step>
+</Steps>
+
+## Następne kroki
+
+<Card title="Pola niestandardowe" href="/guides/listy/pola-niestandardowe">
+  Zbieraj więcej danych do zaawansowanej segmentacji
+</Card>

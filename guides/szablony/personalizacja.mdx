@@ -1,0 +1,132 @@
+---
+title: 'Personalizacja szablonów'
+description: 'Zaawansowana personalizacja emaili z logiką warunkową i dynamiczną treścią.'
+---
+
+# Personalizacja szablonów
+
+Personalizacja zwiększa engagement o 26%. Dowiedz się, jak używać zmiennych i logiki warunkowej w szablonach.
+
+## Podstawowa personalizacja
+
+```html
+<h1>Witaj, {{firstName}}!</h1>
+<p>Dziękujemy za zaufanie, {{firstName}} {{lastName}}.</p>
+```
+
+## Fallback values
+
+Jeśli pole jest puste, użyj wartości domyślnej:
+
+```html
+<!-- Jeśli brak imienia, wyświetli "Przyjacielu" -->
+Cześć {{firstName|Przyjacielu}},
+
+<!-- Dla firmy -->
+Dziękujemy firmie {{company|Twojej firmie}}
+```
+
+## Logika warunkowa
+
+### If/Else
+
+```liquid
+{% if vipCustomer %}
+  <p>Jako klient VIP otrzymujesz dodatkowe 10% rabatu!</p>
+{% else %}
+  <p>Zapisz się do programu VIP już dziś.</p>
+{% endif %}
+```
+
+### Porównania
+
+```liquid
+{% if totalSpent > 1000 %}
+  <h2>Gratulacje! Jesteś w top 10% klientów.</h2>
+{% elsif totalSpent > 500 %}
+  <h2>Dziękujemy za lojalność!</h2>
+{% else %}
+  <h2>Witaj w naszym sklepie!</h2>
+{% endif %}
+```
+
+## Pętle (loops)
+
+Wyświetl listę produktów:
+
+```liquid
+<h3>Twoje ostatnie zamówienia:</h3>
+<ul>
+{% for product in recentProducts %}
+  <li>{{product.name}} - {{product.price}} PLN</li>
+{% endfor %}
+</ul>
+```
+
+## Filtry
+
+Formatuj dane:
+
+```liquid
+<!-- Wielkie litery -->
+Witaj, {{firstName | upcase}}!  → WITAJ, JAN!
+
+<!-- Małe litery -->
+Email: {{email | downcase}}  → jan@example.com
+
+<!-- Data -->
+Zapis: {{signupDate | date: "%d.%m.%Y"}}  → 15.01.2025
+
+<!-- Skrócenie tekstu -->
+{{description | truncate: 100}}
+```
+
+## Przykłady użycia
+
+### E-commerce
+
+```html
+<h1>Dzień dobry, {{firstName}}!</h1>
+
+{% if lastPurchase %}
+  <p>Widzimy, że ostatnio kupiłeś: {{lastPurchase.name}}</p>
+  <p>Może zainteresują Cię podobne produkty?</p>
+{% else %}
+  <p>Czas na pierwsze zakupy! Oto nasza oferta:</p>
+{% endif %}
+
+{% if cartValue > 200 %}
+  <div style="background: #fef3c7; padding: 15px;">
+    <strong>Gratulacje!</strong> Masz darmową dostawę.
+  </div>
+{% endif %}
+```
+
+### SaaS
+
+```html
+<p>Cześć {{firstName}},</p>
+
+<p>Twój plan: <strong>{{planType | upcase}}</strong></p>
+
+{% if planType == "free" %}
+  <p>Odkryj pełną moc naszego narzędzia z planem Pro!</p>
+  <a href="{{upgradeUrl}}">Upgrade do Pro</a>
+{% elsif planType == "pro" %}
+  <p>Dziękujemy za zaufanie! Jesteś na planie Pro.</p>
+{% elsif planType == "enterprise" %}
+  <p>Witaj w gronie naszych najbardziej zaawansowanych klientów!</p>
+{% endif %}
+
+{% if trialEndsIn < 7 %}
+  <div style="background: #fef2f2; padding: 15px; border-left: 4px solid #ef4444;">
+    <strong>Uwaga!</strong> Twój trial kończy się za {{trialEndsIn}} dni.
+  </div>
+{% endif %}
+```
+
+## Następne kroki
+
+<Card title="Biblioteka szablonów" href="/guides/szablony/biblioteka">
+  Gotowe szablony z personalizacją do wykorzystania
+</Card>

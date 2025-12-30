@@ -1,0 +1,432 @@
+---
+title: 'Tworzenie list kontaktów'
+description: 'Dowiedz się, jak tworzyć i organizować listy kontaktów w Mailist dla maksymalnej skuteczności kampanii.'
+---
+
+# Tworzenie list kontaktów
+
+Lista to podstawowa jednostka organizacyjna w Mailist. Każda kampania emailowa wymaga listy odbiorców. Dowiedz się, jak skutecznie organizować bazę kontaktów.
+
+## Czym jest lista?
+
+**Lista** to grupa kontaktów połączonych wspólną cechą lub celem:
+
+<CardGroup cols={2}>
+  <Card title="Newsletter firmowy" icon="newspaper">
+    Wszyscy subskrybenci bloga i newslettera
+  </Card>
+  <Card title="Klienci VIP" icon="star">
+    Najbardziej zaangażowani odbiorcy
+  </Card>
+  <Card title="Webinar" icon="presentation">
+    Uczestnicy konkretnego wydarzenia
+  </Card>
+  <Card title="Abandoned Cart" icon="cart-shopping">
+    Osoby, które porzuciły koszyk
+  </Card>
+</CardGroup>
+
+<Note>
+  **Najlepsza praktyka:** Zamiast jednej dużej listy "Wszyscy kontakty", twórz osobne listy dla różnych segmentów. To zwiększa trafność komunikacji i zmniejsza wypisania.
+</Note>
+
+## Tworzenie nowej listy
+
+<Steps>
+  <Step title="Otwórz sekcję Listy">
+    W menu głównym kliknij **Listy**. Zobaczysz przegląd istniejących list z kluczowymi statystykami.
+  </Step>
+
+  <Step title="Kliknij + Nowa lista">
+    Otwiera się formularz tworzenia listy.
+  </Step>
+
+  <Step title="Wypełnij podstawowe informacje">
+    | Pole | Wymagane | Przykład |
+    |:-----|:---------|:---------|
+    | **Nazwa listy** | ✅ | "Newsletter Tech 2025" |
+    | **Opis** | ❌ | "Subskrybenci bloga technologicznego" |
+    | **Kategoria** | ❌ | Marketing, Transakcyjne, Edukacyjne |
+    | **Język domyślny** | ✅ | Polski |
+  </Step>
+
+  <Step title="Konfiguruj domyślnego nadawcę (opcjonalne)">
+    Te dane będą używane w kampaniach, chyba że nadpiszesz je ręcznie:
+
+    ```yaml
+    Imię nadawcy: "Jan Kowalski"
+    Email nadawcy: "jan@twojafirma.pl"
+    Email odpowiedzi (Reply-to): "kontakt@twojafirma.pl"
+    ```
+  </Step>
+
+  <Step title="Dodaj stopkę emaila">
+    <Warning>
+      **Wymagane przez RODO!** Każdy email komercyjny musi zawierać dane firmy i link do wypisania.
+    </Warning>
+
+    ```
+    Nazwa firmy: ABC Sp. z o.o.
+    Adres: ul. Przykładowa 123, 00-001 Warszawa
+    NIP: 123-456-78-90
+    Link do polityki prywatności: https://twojafirma.pl/privacy
+    ```
+  </Step>
+
+  <Step title="Zapisz listę">
+    Kliknij **Utwórz listę** - gotowe! Możesz teraz dodawać kontakty.
+  </Step>
+</Steps>
+
+## Typy list
+
+### Lista marketingowa
+
+Najczęstszy typ - newsletter, promocje, content marketing.
+
+**Cechy:**
+- Kontakty zapisują się dobrowolnie (opt-in)
+- Możliwość wypisania w każdym emailu
+- Zgodność z RODO
+- Metryki: open rate, click rate
+
+**Przykłady:**
+- Newsletter tygodniowy
+- Promocje i oferty specjalne
+- Blog updates
+
+### Lista transakcyjna
+
+Emaile związane z kontem użytkownika i transakcjami.
+
+**Cechy:**
+- Automatyczne triggery (zakup, rejestracja)
+- Wyższy priorytet dostarczania
+- Nie wymaga linku do wypisania (choć zalecany)
+- Metryki: delivery rate
+
+**Przykłady:**
+- Potwierdzenia zamówień
+- Reset hasła
+- Powiadomienia o koncie
+
+### Lista wydarzeń
+
+Kontakty związane z konkretnym wydarzeniem.
+
+**Cechy:**
+- Czasowa (przed/w trakcie/po wydarzeniu)
+- Segmentacja według statusu (zapisani, uczestniczący, nieobecni)
+- Automatyczne przypomnienia
+
+**Przykłady:**
+- Webinary
+- Konferencje
+- Warsztaty
+
+## Zarządzanie listami
+
+### Edycja listy
+
+<Steps>
+  <Step title="Otwórz listę">
+    Kliknij na nazwę listy w przegdzie.
+  </Step>
+
+  <Step title="Edytuj ustawienia">
+    W prawym górnym rogu kliknij **Edytuj listę**.
+
+    Możesz zmienić:
+    - Nazwę i opis
+    - Domyślnego nadawcę
+    - Stopkę emaila
+    - Język
+  </Step>
+
+  <Step title="Zapisz zmiany">
+    Kliknij **Zapisz** - zmiany zostaną zastosowane do przyszłych kampanii.
+  </Step>
+</Steps>
+
+<Note>
+  Edycja listy **nie wpływa** na już wysłane kampanie, tylko na nowe.
+</Note>
+
+### Duplikowanie listy
+
+Szybko stwórz nową listę na podstawie istniejącej:
+
+1. Otwórz listę → **Więcej** → **Duplikuj**
+2. System skopiuje ustawienia (ale **nie kontakty**)
+3. Zmień nazwę i dostosuj ustawienia
+4. Zapisz
+
+**Użycie:**
+- Tworzenie podobnych list (Newsletter Q1, Newsletter Q2)
+- Testowanie różnych konfiguracji
+
+### Archiwizacja listy
+
+Ukryj nieaktywną listę bez usuwania danych:
+
+```bash
+Lista → Więcej → Archiwizuj
+```
+
+**Efekt:**
+- Lista znika z głównego widoku
+- Nie możesz wysyłać do niej kampanii
+- Dane są zachowane
+- Możesz przywrócić w każdej chwili
+
+**Użycie:**
+- Zakończone wydarzenia
+- Sezonowe kampanie
+- Stare listy do ewentualnego przywrócenia
+
+### Usuwanie listy
+
+<Warning>
+  **Nieodwracalne!** Usunięcie listy kasuje wszystkie kontakty i historię kampanii.
+</Warning>
+
+```bash
+Lista → Więcej → Usuń → Potwierdź usunięcie
+```
+
+System poprosi o wpisanie nazwy listy dla potwierdzenia.
+
+**Alternatywa:** Zamiast usuwać, rozważ archiwizację.
+
+## Najlepsze praktyki
+
+### Nazewnictwo list
+
+<Tabs>
+  <Tab title="✅ Dobre nazwy">
+    ```
+    Newsletter Tech - Q1 2025
+    Klienci VIP - E-commerce
+    Webinar: AI w Marketingu - 15.01.2025
+    Onboarding - Nowi użytkownicy
+    Abandoned Cart - 24h
+    ```
+
+    **Dlaczego dobrze:**
+    - Opisowe i konkretne
+    - Zawierają datę/okres jeśli potrzeba
+    - Od razu wiadomo, kto jest na liście
+  </Tab>
+
+  <Tab title="❌ Złe nazwy">
+    ```
+    Lista 1
+    Nowa lista
+    Test
+    asdfgh
+    Wszyscy
+    ```
+
+    **Dlaczego źle:**
+    - Niejasne
+    - Nie wiadomo, kto jest na liście
+    - Trudne do znalezienia
+    - Brak kontekstu
+  </Tab>
+</Tabs>
+
+### Organizacja list
+
+**Strategia:** Jedna lista = jeden segment odbiorców
+
+<CardGroup cols={2}>
+  <Card title="Po źródle zapisu" icon="door-open">
+    - Landing page A
+    - Formularz na blogu
+    - Popup na stronie głównej
+    - Import z poprzedniego systemu
+  </Card>
+
+  <Card title="Po etapie klienta" icon="chart-line">
+    - Leads (cold)
+    - Prospects (warm)
+    - Klienci (aktywni)
+    - Klienci VIP
+  </Card>
+
+  <Card title="Po zainteresowaniach" icon="heart">
+    - Produkt A
+    - Produkt B
+    - Usługa premium
+    - Free tier
+  </Card>
+
+  <Card title="Po wydarzeniach" icon="calendar">
+    - Webinar #1
+    - Konferencja 2025
+    - Workshop - Warszawa
+  </Card>
+</CardGroup>
+
+### Ile list potrzebujesz?
+
+<AccordionGroup>
+  <Accordion title="Mała firma (do 5,000 kontaktów)" icon="building">
+    **Zalecane:** 3-5 list
+
+    ```
+    1. Newsletter główny
+    2. Klienci (kupili produkt)
+    3. Prospects (zainteresowani, nie kupili)
+    4. [Opcjonalnie] Wydarzenia
+    5. [Opcjonalnie] Transakcyjne
+    ```
+  </Accordion>
+
+  <Accordion title="Średnia firma (5,000-50,000)" icon="city">
+    **Zalecane:** 8-15 list
+
+    Dodatkowo podziel według:
+    - Źródła pozyskania
+    - Produktu/usługi
+    - Poziomu zaangażowania
+    - Geo (jeśli międzynarodowe)
+  </Accordion>
+
+  <Accordion title="Duża firma (50,000+)" icon="building-shield">
+    **Zalecane:** 20+ list
+
+    Zaawansowana segmentacja:
+    - Multi-brand (osobne listy per marka)
+    - Lifecycle stage
+    - Behavioral segments
+    - RFM (Recency, Frequency, Monetary)
+
+    **Wskazówka:** Użyj tagów i pól niestandardowych zamiast mnożyć listy.
+
+    [Dowiedz się więcej o segmentacji →](/guides/listy/segmentacja)
+  </Accordion>
+</AccordionGroup>
+
+## Double Opt-in
+
+**Double opt-in** to proces weryfikacji, gdzie nowy kontakt musi potwierdzić zapis emailem.
+
+### Jak działa?
+
+<Steps>
+  <Step title="Użytkownik zapisuje się">
+    Wypełnia formularz: email, imię, zgoda RODO
+  </Step>
+
+  <Step title="System wysyła email weryfikacyjny">
+    ```
+    Temat: Potwierdź zapis do newslettera
+    Treść: Kliknij link, aby potwierdzić zapis
+    ```
+  </Step>
+
+  <Step title="Użytkownik klika link">
+    Status zmienia się z "Pending" na "Active"
+  </Step>
+
+  <Step title="Kontakt jest aktywny">
+    Możesz wysyłać kampanie
+  </Step>
+</Steps>
+
+### Zalety Double Opt-in
+
+<Check>
+  **Zalecane dla zgodności z RODO**
+</Check>
+
+- **Wyższa jakość bazy** - tylko zainteresowani odbiorcy
+- **Lepszy delivery rate** - mniej bounced emails
+- **Zgodność prawna** - dowód zgody
+- **Niższy spam rate** - weryfikowane adresy
+
+### Wady Double Opt-in
+
+- **Mniejsza konwersja** - część osób nie potwierdzi
+- **Wolniejszy wzrost listy** - dodatkowy krok
+- **Możliwe problemy** - email weryfikacyjny w spam
+
+## Statystyki listy
+
+Każda lista pokazuje kluczowe metryki:
+
+<CardGroup cols={2}>
+  <Card title="Aktywne kontakty" icon="user-check">
+    Osoby, które mogą otrzymywać emaile
+
+    **Status:** Active
+  </Card>
+
+  <Card title="Wypisane" icon="user-xmark">
+    Osoby, które kliknęły "Unsubscribe"
+
+    **Status:** Unsubscribed
+  </Card>
+
+  <Card title="Bounced" icon="circle-exclamation">
+    Nieprawidłowe adresy email
+
+    **Typy:**
+    - Hard bounce (adres nie istnieje)
+    - Soft bounce (skrzynka pełna)
+  </Card>
+
+  <Card title="Wzrost listy" icon="chart-line">
+    Nowe kontakty w ostatnich 30 dniach
+
+    **Wykres:** Dzienny przyrost
+  </Card>
+</CardGroup>
+
+### Health Score listy
+
+Mailist oblicza "zdrowie" listy (0-100%):
+
+<Tabs>
+  <Tab title="90-100% - Doskonała">
+    - Wysoki engagement (>25% open rate)
+    - Niski bounce rate (<2%)
+    - Niski unsubscribe (<1%)
+    - Regularna aktywność
+  </Tab>
+
+  <Tab title="70-89% - Dobra">
+    - Średni engagement (15-25%)
+    - Umiarkowany bounce (2-5%)
+    - Normalny unsubscribe (1-2%)
+  </Tab>
+
+  <Tab title="<70% - Wymaga czyszczenia">
+    - Niski engagement (<15%)
+    - Wysoki bounce (>5%)
+    - Wysoki unsubscribe (>3%)
+
+    **Akcja:** Usuń nieaktywne kontakty, wyślij re-engagement campaign
+  </Tab>
+</Tabs>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Dodaj kontakty" icon="user-plus" href="/guides/listy/import-kontaktow">
+    Zaimportuj CSV lub dodaj ręcznie
+  </Card>
+
+  <Card title="Segmentacja" icon="filter" href="/guides/listy/segmentacja">
+    Podziel listę na precyzyjne grupy
+  </Card>
+
+  <Card title="Pola niestandardowe" icon="square-plus" href="/guides/listy/pola-niestandardowe">
+    Zbieraj dodatkowe dane o kontaktach
+  </Card>
+
+  <Card title="Stwórz kampanię" icon="paper-plane" href="/guides/kampanie/tworzenie-kampanii">
+    Wyślij email do swojej listy
+  </Card>
+</CardGroup>

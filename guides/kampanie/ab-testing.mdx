@@ -1,0 +1,124 @@
+---
+title: 'A/B Testing kampanii'
+description: 'Testuj różne wersje kampanii i zwiększ skuteczność o 20-30% dzięki danym, nie domysłom.'
+---
+
+# A/B Testing kampanii
+
+A/B testing pozwala porównać dwie wersje kampanii i automatycznie wybrać lepszą. Zwiększ open rate o 20-30% testując temat emaila!
+
+## Co możesz testować?
+
+<CardGroup cols={2}>
+  <Card title="Temat emaila" icon="heading">
+    Najczęściej testowane (biggest impact na open rate)
+  </Card>
+  <Card title="Nadawca" icon="user">
+    "Jan Kowalski" vs "Zespół Mailist"
+  </Card>
+  <Card title="Treść emaila" icon="file-lines">
+    Długa vs krótka, formalna vs swobodna
+  </Card>
+  <Card title="CTA" icon="hand-pointer">
+    Tekst przycisku, kolor, umiejscowienie
+  </Card>
+</CardGroup>
+
+## Jak działa A/B test?
+
+<Steps>
+  <Step title="Podziel listę">
+    50% dostaje wersję A, 50% wersję B
+  </Step>
+
+  <Step title="Wyślij obie wersje">
+    Równocześnie, w tym samym czasie
+  </Step>
+
+  <Step title="Zmierz wyniki">
+    Po 2-4 godzinach sprawdź:
+    - Open rate
+    - Click rate
+    - Konwersje
+  </Step>
+
+  <Step title="Wybierz zwycięzcę">
+    Mailist automatycznie wybiera lepszą wersję dla przyszłych kampanii
+  </Step>
+</Steps>
+
+## Tworzenie A/B testu
+
+<Tabs>
+  <Tab title="Test tematu">
+    ```yaml
+    Wersja A: "Nowości stycznia dla Ciebie"
+    Wersja B: "{{firstName}}, sprawdź nasze nowości"
+
+    Split: 50% / 50%
+    Test time: 4 godziny
+    Winning metric: Open rate
+    ```
+
+    **Pytanie:** Czy personalizacja zwiększa otwarcia?
+  </Tab>
+
+  <Tab title="Test CTA">
+    ```html
+    <!-- Wersja A -->
+    <a>Pobierz bezpłatnie</a>
+
+    <!-- Wersja B -->
+    <a>Pobierz ebook teraz</a>
+    ```
+
+    **Pytanie:** Który CTA generuje więcej kliknięć?
+  </Tab>
+</Tabs>
+
+## Najlepsze praktyki
+
+<Check>
+  **Testuj tylko JEDNĄ zmienną naraz**
+</Check>
+
+- ✅ Dobry test: Tylko temat się różni
+- ❌ Zły test: Temat + treść + CTA są inne (nie wiesz, co zadziałało)
+
+<Note>
+  **Minimalna wielkość:** Do sensownego A/B testu potrzebujesz minimum 1,000 kontaktów (500 per wariant)
+</Note>
+
+## Przykładowe testy
+
+<AccordionGroup>
+  <Accordion title="Emoji w temacie" icon="face-smile">
+    **A:** "Nowości stycznia 2025"
+
+    **B:** "🎯 Nowości stycznia 2025"
+
+    **Wynik:** Emoji zwiększyło open rate o 12%
+  </Accordion>
+
+  <Accordion title="Pilność" icon="clock">
+    **A:** "Sprawdź naszą ofertę"
+
+    **B:** "Tylko dziś: Sprawdź naszą ofertę"
+
+    **Wynik:** Pilność zwiększyła open rate o 18%
+  </Accordion>
+
+  <Accordion title="Długość tematu" icon="text-width">
+    **A:** "Nowości stycznia" (17 znaków)
+
+    **B:** "Kompleksowy przewodnik po nowościach w naszej ofercie w styczniu 2025" (78 znaków)
+
+    **Wynik:** Krótki temat wygrał o 25% (lepsze wyświetlanie na mobile)
+  </Accordion>
+</AccordionGroup>
+
+## Następne kroki
+
+<Card title="Analityka kampanii" href="/guides/kampanie/analityka">
+  Zrozum wyniki A/B testów i optymalizuj dalej
+</Card>
