@@ -1,0 +1,107 @@
+---
+title: 'Get campaign'
+description: 'Retrieve a single campaign by ID'
+---
+
+## Endpoint
+
+```
+GET /campaigns/{id}
+```
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  Campaign ID
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="object">
+  <ResponseField name="id" type="string">
+    Unique campaign identifier
+  </ResponseField>
+  
+  <ResponseField name="name" type="string">
+    Campaign name
+  </ResponseField>
+  
+  <ResponseField name="subject" type="string">
+    Email subject line
+  </ResponseField>
+  
+  <ResponseField name="from_name" type="string">
+    Sender name
+  </ResponseField>
+  
+  <ResponseField name="from_email" type="string">
+    Sender email address
+  </ResponseField>
+  
+  <ResponseField name="reply_to" type="string">
+    Reply-to email address
+  </ResponseField>
+  
+  <ResponseField name="status" type="string">
+    Campaign status: `draft`, `scheduled`, `sending`, `sent`, `paused`
+  </ResponseField>
+  
+  <ResponseField name="list_ids" type="array">
+    Array of mailing list IDs targeted by campaign
+  </ResponseField>
+  
+  <ResponseField name="template_id" type="string">
+    Template ID used for campaign
+  </ResponseField>
+  
+  <ResponseField name="created_at" type="string">
+    ISO 8601 timestamp of creation
+  </ResponseField>
+  
+  <ResponseField name="scheduled_at" type="string">
+    ISO 8601 timestamp of scheduled send time
+  </ResponseField>
+  
+  <ResponseField name="sent_at" type="string">
+    ISO 8601 timestamp when campaign was sent
+  </ResponseField>
+  
+  <ResponseField name="stats" type="object">
+    Detailed campaign statistics
+  </ResponseField>
+</ResponseField>
+
+## Example request
+
+```bash
+curl https://api.mailist.com/v1/campaigns/camp_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Example response
+
+```json
+{
+  "data": {
+    "id": "camp_abc123",
+    "name": "December Newsletter",
+    "subject": "Year-end updates and special offers",
+    "from_name": "Mailist Team",
+    "from_email": "hello@mailist.com",
+    "reply_to": "support@mailist.com",
+    "status": "sent",
+    "list_ids": ["list_456def"],
+    "template_id": "tmpl_xyz789",
+    "created_at": "2025-12-01T10:00:00Z",
+    "sent_at": "2025-12-15T14:00:00Z",
+    "stats": {
+      "sent": 5000,
+      "delivered": 4950,
+      "bounced": 50,
+      "opened": 2475,
+      "clicked": 742,
+      "unsubscribed": 12
+    }
+  }
+}
+```
