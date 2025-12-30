@@ -1,0 +1,87 @@
+---
+title: 'Pobierz kampanię'
+description: 'Pobierz szczegółowe informacje o konkretnej kampanii'
+api: 'GET /api/v1/campaigns/{id}'
+---
+
+## Parametry ścieżki
+
+<ParamField path="id" type="integer" required>
+  ID kampanii
+</ParamField>
+
+## Odpowiedź
+
+<ResponseField name="success" type="boolean">
+  Wskazuje czy żądanie zakończyło się sukcesem
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  Obiekt kampanii
+
+  <Expandable title="Pola kampanii">
+    <ResponseField name="id" type="integer">
+      Unikalny identyfikator kampanii
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      Nazwa kampanii
+    </ResponseField>
+
+    <ResponseField name="subject" type="string">
+      Temat wiadomości email
+    </ResponseField>
+
+    <ResponseField name="status" type="string">
+      Status kampanii: DRAFT, SCHEDULED, SENDING, SENT, FAILED
+    </ResponseField>
+
+    <ResponseField name="total_recipients" type="integer">
+      Całkowita liczba odbiorców
+    </ResponseField>
+
+    <ResponseField name="created_at" type="string">
+      Znacznik czasu utworzenia w formacie ISO 8601
+    </ResponseField>
+
+    <ResponseField name="sent_at" type="string">
+      Znacznik czasu wysłania kampanii w formacie ISO 8601 (null jeśli jeszcze nie wysłano)
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Odpowiedź
+
+<ResponseExample>
+
+```json 200 Sukces
+{
+  "success": true,
+  "data": {
+    "id": 456,
+    "name": "Black Friday Sale 2024",
+    "subject": "50% OFF Everything - Limited Time!",
+    "status": "SENT",
+    "total_recipients": 10000,
+    "created_at": "2024-12-01T10:00:00",
+    "sent_at": "2024-12-01T14:30:00"
+  }
+}
+```
+
+```json 404 Nie znaleziono
+{
+  "success": false,
+  "error": {
+    "code": "CAMPAIGN_NOT_FOUND",
+    "message": "Nie znaleziono kampanii o ID: 456"
+  }
+}
+```
+
+</ResponseExample>
+
+## Uwagi
+
+- Ten endpoint wymaga uprawnienia `campaigns.read` dla klucza API
+- Użyj endpointu `/campaigns/{id}/statistics` aby uzyskać szczegółowe metryki wydajności

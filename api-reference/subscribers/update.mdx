@@ -1,0 +1,138 @@
+---
+title: 'Zaktualizuj kontakt'
+description: 'Zaktualizuj informacje o kontakcie po adresie email'
+api: 'PUT /api/v1/contacts/{email}'
+---
+
+## Parametry ścieżki
+
+<ParamField path="email" type="string" required>
+  Adres email kontaktu
+</ParamField>
+
+## Treść żądania
+
+<ParamField body="first_name" type="string">
+  Imię kontaktu
+</ParamField>
+
+<ParamField body="last_name" type="string">
+  Nazwisko kontaktu
+</ParamField>
+
+<ParamField body="phone" type="string">
+  Numer telefonu kontaktu
+</ParamField>
+
+<ParamField body="tags" type="array">
+  Tablica nazw tagów (zastępuje istniejące tagi)
+</ParamField>
+
+<ParamField body="list_id" type="integer">
+  ID listy mailingowej do której dodać kontakt
+</ParamField>
+
+<ParamField body="list_name" type="string">
+  Nazwa listy mailingowej do której dodać kontakt (alternatywa dla list_id)
+</ParamField>
+
+## Odpowiedź
+
+<ResponseField name="success" type="boolean">
+  Wskazuje czy żądanie zakończyło się sukcesem
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  Zaktualizowany obiekt kontaktu ze wszystkimi polami
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Komunikat sukcesu
+</ResponseField>
+
+## Przykład
+
+<CodeGroup>
+
+```bash cURL
+curl -X PUT https://api.mailist.com/api/v1/contacts/john@example.com \
+  -H "X-API-Key: TWOJ_KLUCZ_API" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "first_name": "Jonathan",
+    "phone": "+1987654321",
+    "tags": ["vip", "premium", "enterprise"]
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.mailist.com/api/v1/contacts/john@example.com', {
+  method: 'PUT',
+  headers: {
+    'X-API-Key': 'TWOJ_KLUCZ_API',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    first_name: 'Jonathan',
+    phone: '+1987654321',
+    tags: ['vip', 'premium', 'enterprise']
+  })
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+response = requests.put(
+    'https://api.mailist.com/api/v1/contacts/john@example.com',
+    headers={
+        'X-API-Key': 'TWOJ_KLUCZ_API',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'first_name': 'Jonathan',
+        'phone': '+1987654321',
+        'tags': ['vip', 'premium', 'enterprise']
+    }
+)
+
+data = response.json()
+```
+
+</CodeGroup>
+
+## Odpowiedź
+
+<ResponseExample>
+
+```json 200 Sukces
+{
+  "success": true,
+  "data": {
+    "id": 123,
+    "email": "john@example.com",
+    "first_name": "Jonathan",
+    "last_name": "Doe",
+    "phone": "+1987654321",
+    "tags": ["vip", "premium", "enterprise"],
+    "lead_score": 85,
+    "created_at": "2025-01-15T10:30:00",
+    "updated_at": "2025-12-30T10:00:00"
+  },
+  "message": "Kontakt zaktualizowany pomyślnie"
+}
+```
+
+```json 404 Nie znaleziono
+{
+  "success": false,
+  "error": {
+    "code": "CONTACT_NOT_FOUND",
+    "message": "Nie znaleziono kontaktu o adresie email: john@example.com"
+  }
+}
+```
+
+</ResponseExample>

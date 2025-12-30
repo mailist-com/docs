@@ -1,0 +1,110 @@
+---
+title: 'List subscribers'
+description: 'Retrieve a list of all subscribers'
+---
+
+## Endpoint
+
+```
+GET /subscribers
+```
+
+## Query parameters
+
+<ParamField query="page" type="integer" default="1">
+  Page number for pagination
+</ParamField>
+
+<ParamField query="limit" type="integer" default="50">
+  Number of subscribers per page (max 100)
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filter by subscriber status: `active`, `unsubscribed`, `bounced`
+</ParamField>
+
+<ParamField query="list_id" type="string">
+  Filter by specific mailing list ID
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array">
+  Array of subscriber objects
+  
+  <Expandable title="Subscriber object">
+    <ResponseField name="id" type="string">
+      Unique subscriber identifier
+    </ResponseField>
+    
+    <ResponseField name="email" type="string">
+      Subscriber email address
+    </ResponseField>
+    
+    <ResponseField name="first_name" type="string">
+      Subscriber first name
+    </ResponseField>
+    
+    <ResponseField name="last_name" type="string">
+      Subscriber last name
+    </ResponseField>
+    
+    <ResponseField name="status" type="string">
+      Subscriber status: `active`, `unsubscribed`, `bounced`
+    </ResponseField>
+    
+    <ResponseField name="subscribed_at" type="string">
+      ISO 8601 timestamp of subscription
+    </ResponseField>
+    
+    <ResponseField name="custom_fields" type="object">
+      Custom field values
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+  <ResponseField name="total" type="integer">
+    Total number of subscribers
+  </ResponseField>
+  
+  <ResponseField name="page" type="integer">
+    Current page number
+  </ResponseField>
+  
+  <ResponseField name="limit" type="integer">
+    Items per page
+  </ResponseField>
+</ResponseField>
+
+## Example request
+
+```bash
+curl https://api.mailist.com/v1/subscribers?page=1&limit=50&status=active \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Example response
+
+```json
+{
+  "data": [
+    {
+      "id": "sub_123abc",
+      "email": "john@example.com",
+      "first_name": "John",
+      "last_name": "Doe",
+      "status": "active",
+      "subscribed_at": "2025-01-15T10:30:00Z",
+      "custom_fields": {
+        "company": "Acme Inc"
+      }
+    }
+  ],
+  "meta": {
+    "total": 1250,
+    "page": 1,
+    "limit": 50
+  }
+}
+```

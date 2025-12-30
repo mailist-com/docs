@@ -1,0 +1,193 @@
+---
+title: 'Utwórz kontakt'
+description: 'Dodaj nowy kontakt i opcjonalnie przypisz do listy mailingowej'
+api: 'POST /api/v1/contacts'
+---
+
+## Treść żądania
+
+<ParamField body="email" type="string" required>
+  Adres email kontaktu (wymagany i musi być prawidłowy)
+</ParamField>
+
+<ParamField body="first_name" type="string">
+  Imię kontaktu
+</ParamField>
+
+<ParamField body="last_name" type="string">
+  Nazwisko kontaktu
+</ParamField>
+
+<ParamField body="phone" type="string">
+  Numer telefonu kontaktu
+</ParamField>
+
+<ParamField body="tags" type="array">
+  Tablica nazw tagów do przypisania kontaktowi
+</ParamField>
+
+<ParamField body="list_id" type="integer">
+  ID listy mailingowej do której dodać kontakt (opcjonalne)
+</ParamField>
+
+<ParamField body="list_name" type="string">
+  Nazwa listy mailingowej do której dodać kontakt (alternatywa dla list_id)
+</ParamField>
+
+## Odpowiedź
+
+<ResponseField name="success" type="boolean">
+  Wskazuje czy żądanie zakończyło się sukcesem
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  Obiekt kontaktu
+
+  <Expandable title="Pola kontaktu">
+    <ResponseField name="id" type="integer">
+      Unikalny identyfikator kontaktu
+    </ResponseField>
+
+    <ResponseField name="email" type="string">
+      Adres email kontaktu
+    </ResponseField>
+
+    <ResponseField name="first_name" type="string">
+      Imię kontaktu
+    </ResponseField>
+
+    <ResponseField name="last_name" type="string">
+      Nazwisko kontaktu
+    </ResponseField>
+
+    <ResponseField name="phone" type="string">
+      Numer telefonu kontaktu
+    </ResponseField>
+
+    <ResponseField name="tags" type="array">
+      Tablica nazw tagów przypisanych do kontaktu
+    </ResponseField>
+
+    <ResponseField name="lead_score" type="integer">
+      Ocena potencjalnego klienta
+    </ResponseField>
+
+    <ResponseField name="created_at" type="string">
+      Znacznik czasu utworzenia w formacie ISO 8601
+    </ResponseField>
+
+    <ResponseField name="updated_at" type="string">
+      Znacznik czasu ostatniej aktualizacji w formacie ISO 8601
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Komunikat sukcesu
+</ResponseField>
+
+## Przykład
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST https://api.mailist.com/api/v1/contacts \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "jane@example.com",
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "phone": "+1234567890",
+    "tags": ["customer", "vip"],
+    "list_id": 123
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.mailist.com/api/v1/contacts', {
+  method: 'POST',
+  headers: {
+    'X-API-Key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    email: 'jane@example.com',
+    first_name: 'Jane',
+    last_name: 'Smith',
+    phone: '+1234567890',
+    tags: ['customer', 'vip'],
+    list_id: 123
+  })
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+response = requests.post(
+    'https://api.mailist.com/api/v1/contacts',
+    headers={
+        'X-API-Key': 'YOUR_API_KEY',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'email': 'jane@example.com',
+        'first_name': 'Jane',
+        'last_name': 'Smith',
+        'phone': '+1234567890',
+        'tags': ['customer', 'vip'],
+        'list_id': 123
+    }
+)
+
+data = response.json()
+```
+
+</CodeGroup>
+
+## Odpowiedź
+
+<ResponseExample>
+
+```json 200 Sukces
+{
+  "success": true,
+  "data": {
+    "id": 456,
+    "email": "jane@example.com",
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "phone": "+1234567890",
+    "tags": ["customer", "vip"],
+    "lead_score": 0,
+    "created_at": "2025-12-30T09:00:00",
+    "updated_at": "2025-12-30T09:00:00"
+  },
+  "message": "Contact created successfully"
+}
+```
+
+```json 400 Nieprawidłowe żądanie
+{
+  "success": false,
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "Adres email jest wymagany"
+  }
+}
+```
+
+```json 403 Brak uprawnień
+{
+  "success": false,
+  "error": {
+    "code": "PERMISSION_DENIED",
+    "message": "Klucz API nie posiada uprawnienia 'contacts.write'"
+  }
+}
+```
+
+</ResponseExample>

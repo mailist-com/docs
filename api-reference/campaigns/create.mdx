@@ -1,0 +1,91 @@
+---
+title: 'Create campaign'
+description: 'Create a new email campaign'
+---
+
+## Endpoint
+
+```
+POST /campaigns
+```
+
+## Request body
+
+<ParamField body="name" type="string" required>
+  Campaign name for internal reference
+</ParamField>
+
+<ParamField body="subject" type="string" required>
+  Email subject line
+</ParamField>
+
+<ParamField body="from_name" type="string" required>
+  Sender name
+</ParamField>
+
+<ParamField body="from_email" type="string" required>
+  Sender email address (must be verified)
+</ParamField>
+
+<ParamField body="reply_to" type="string">
+  Reply-to email address
+</ParamField>
+
+<ParamField body="list_ids" type="array" required>
+  Array of mailing list IDs to send campaign to
+</ParamField>
+
+<ParamField body="template_id" type="string">
+  Template ID to use for campaign content
+</ParamField>
+
+<ParamField body="html_content" type="string">
+  HTML email content (required if template_id not provided)
+</ParamField>
+
+<ParamField body="text_content" type="string">
+  Plain text email content
+</ParamField>
+
+<ParamField body="scheduled_at" type="string">
+  ISO 8601 timestamp to schedule campaign send
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="object">
+  Created campaign object with status `draft`
+</ResponseField>
+
+## Example request
+
+```bash
+curl -X POST https://api.mailist.com/v1/campaigns \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "January Newsletter",
+    "subject": "New year, new features!",
+    "from_name": "Mailist Team",
+    "from_email": "hello@mailist.com",
+    "reply_to": "support@mailist.com",
+    "list_ids": ["list_456def"],
+    "template_id": "tmpl_xyz789",
+    "scheduled_at": "2026-01-15T10:00:00Z"
+  }'
+```
+
+## Example response
+
+```json
+{
+  "data": {
+    "id": "camp_new123",
+    "name": "January Newsletter",
+    "subject": "New year, new features!",
+    "status": "scheduled",
+    "created_at": "2025-12-30T09:00:00Z",
+    "scheduled_at": "2026-01-15T10:00:00Z"
+  }
+}
+```

@@ -1,0 +1,31 @@
+---
+title: 'Delete subscriber'
+description: 'Permanently delete a subscriber'
+---
+
+## Endpoint
+
+```
+DELETE /subscribers/{id}
+```
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  Subscriber ID or email address
+</ParamField>
+
+## Response
+
+Returns a `204 No Content` status code on success with no response body.
+
+## Example request
+
+```bash
+curl -X DELETE https://api.mailist.com/v1/subscribers/sub_123abc \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+<Note>
+  This action is permanent and cannot be undone. Consider unsubscribing users instead of deleting them to maintain historical data.
+</Note>

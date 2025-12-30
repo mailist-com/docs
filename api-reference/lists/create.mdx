@@ -1,0 +1,114 @@
+---
+title: 'Utwórz listę kontaktów'
+description: 'Utwórz nową listę kontaktów'
+api: 'POST /api/v1/lists'
+---
+
+## Treść żądania
+
+<ParamField body="name" type="string" required>
+  Nazwa listy (1-255 znaków, wymagane)
+</ParamField>
+
+<ParamField body="description" type="string">
+  Opis listy (max 1000 znaków, opcjonalne)
+</ParamField>
+
+<ParamField body="is_active" type="boolean" default="true">
+  Czy lista jest aktywna
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  Created contact list object
+
+  <Expandable title="List fields">
+    <ResponseField name="id" type="integer">
+      Unique list identifier
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      List name
+    </ResponseField>
+
+    <ResponseField name="description" type="string">
+      List description
+    </ResponseField>
+
+    <ResponseField name="is_active" type="boolean">
+      Whether the list is active
+    </ResponseField>
+
+    <ResponseField name="contact_count" type="integer">
+      Number of contacts in this list (0 for new lists)
+    </ResponseField>
+
+    <ResponseField name="created_at" type="string">
+      ISO 8601 timestamp of creation
+    </ResponseField>
+
+    <ResponseField name="updated_at" type="string">
+      ISO 8601 timestamp of last update
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+## Example request
+
+```bash
+curl -X POST https://api.mailist.com/api/v1/lists \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Product Updates",
+    "description": "Subscribers interested in product announcements",
+    "is_active": true
+  }'
+```
+
+## Example response
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": 125,
+    "name": "Product Updates",
+    "description": "Subscribers interested in product announcements",
+    "is_active": true,
+    "contact_count": 0,
+    "created_at": "2025-12-30T09:00:00",
+    "updated_at": "2025-12-30T09:00:00"
+  },
+  "message": "Contact list created successfully"
+}
+```
+
+## Error responses
+
+### Invalid request
+
+```json
+{
+  "success": false,
+  "error": {
+    "message": "List name is required",
+    "code": "INVALID_REQUEST"
+  }
+}
+```
+
+## Uwagi
+
+- Ten endpoint wymaga uprawnienia `lists.write` dla klucza API
+- Nazwy list muszą być unikalne w ramach konta
+- Nowe listy zaczynają z 0 kontaktami - użyj POST /lists/{id}/contacts aby dodać kontakty

@@ -1,0 +1,55 @@
+---
+title: 'Send campaign'
+description: 'Send a campaign immediately'
+---
+
+## Endpoint
+
+```
+POST /campaigns/{id}/send
+```
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  Campaign ID
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="object">
+  <ResponseField name="id" type="string">
+    Campaign ID
+  </ResponseField>
+  
+  <ResponseField name="status" type="string">
+    Updated status: `sending`
+  </ResponseField>
+  
+  <ResponseField name="sent_at" type="string">
+    ISO 8601 timestamp when send was initiated
+  </ResponseField>
+</ResponseField>
+
+## Example request
+
+```bash
+curl -X POST https://api.mailist.com/v1/campaigns/camp_abc123/send \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Example response
+
+```json
+{
+  "data": {
+    "id": "camp_abc123",
+    "status": "sending",
+    "sent_at": "2025-12-30T09:15:00Z"
+  }
+}
+```
+
+<Warning>
+  This action cannot be undone. Ensure your campaign is properly configured before sending.
+</Warning>

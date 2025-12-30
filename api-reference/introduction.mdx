@@ -1,33 +1,125 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'Wprowadzenie'
+description: 'Dokumentacja REST API platformy email marketingowej Mailist'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Przegląd
 
-## Welcome
+API Mailist jest zorganizowane według zasad REST. Nasze API posiada przewidywalne, zorientowane na zasoby adresy URL, przyjmuje żądania zakodowane w JSON, zwraca odpowiedzi w formacie JSON oraz wykorzystuje standardowe kody odpowiedzi HTTP, autentykację i metody HTTP.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+Za pomocą API Mailist możesz programowo zarządzać kontaktami, listami, kampaniami oraz śledzić wydajność wiadomości email.
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## Bazowy URL
 
-## Authentication
+```
+https://api.mailist.com/api/v1
+```
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+## Autentykacja
+
+API Mailist wykorzystuje klucze API do uwierzytelniania żądań. Możesz przeglądać i zarządzać swoimi kluczami API w Panelu Mailist.
+
+Twoje klucze API posiadają wiele uprawnień, dlatego upewnij się, że są bezpieczne! Nie udostępniaj swoich tajnych kluczy API w publicznie dostępnych miejscach takich jak GitHub, kod po stronie klienta, itp.
+
+Uwierzytelnianie w API odbywa się poprzez nagłówek HTTP. Podaj swój klucz API jako wartość nagłówka `X-API-Key`:
+
+```bash
+X-API-Key: TWOJ_KLUCZ_API
+```
+
+Wszystkie żądania API muszą być wykonywane przez HTTPS. Wywołania przez zwykły HTTP zakończą się niepowodzeniem. Żądania API bez uwierzytelnienia również zakończą się niepowodzeniem.
+
+### Uprawnienia
+
+Każdy klucz API może być skonfigurowany ze szczegółowymi uprawnieniami:
+
+- `contacts.read` - Odczyt informacji o kontaktach
+- `contacts.write` - Tworzenie i aktualizacja kontaktów
+- `lists.read` - Odczyt informacji o listach
+- `lists.write` - Tworzenie, aktualizacja i zarządzanie listami
+- `campaigns.read` - Odczyt informacji o kampaniach i statystykach
+
+## Odpowiedzi
+
+API Mailist wykorzystuje konwencjonalne kody odpowiedzi HTTP, aby wskazać sukces lub niepowodzenie żądania API. Ogólnie: Kody z zakresu `2xx` oznaczają sukces. Kody z zakresu `4xx` oznaczają błąd wynikający z podanych informacji (np. pominięto wymagany parametr, zasób nie został znaleziony, itp.). Kody z zakresu `5xx` oznaczają błąd po stronie serwerów Mailist.
+
+### Kody statusu HTTP
+
+| Kod statusu | Opis |
+|------------|-------------|
+| `200 OK` | Wszystko przebiegło zgodnie z oczekiwaniami |
+| `201 Created` | Zasób został pomyślnie utworzony |
+| `400 Bad Request` | Żądanie było niedopuszczalne, często z powodu braku wymaganego parametru |
+| `401 Unauthorized` | Nie podano prawidłowego klucza API |
+| `403 Forbidden` | Klucz API nie ma uprawnień do wykonania żądania |
+| `404 Not Found` | Żądany zasób nie istnieje |
+| `429 Too Many Requests` | Zbyt wiele żądań wysłanych zbyt szybko |
+| `500 Internal Server Error` | Coś poszło nie tak po stronie Mailist |
+
+### Struktura odpowiedzi
+
+Wszystkie odpowiedzi API mają spójną strukturę z wartością logiczną `success` oraz obiektem `data` lub `error`.
+
+#### Odpowiedź sukcesu
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "success": true,
+  "data": {
+    "id": 123,
+    "email": "user@example.com"
+  },
+  "message": "Kontakt utworzony pomyślnie"
+}
 ```
+
+#### Odpowiedź błędu
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "Adres email jest wymagany"
+  }
+}
+```
+
+### Kody błędów
+
+| Kod błędu | Opis |
+|-----------|-------------|
+| `INVALID_REQUEST` | Żądanie zawierało nieprawidłowe parametry |
+| `CONTACT_NOT_FOUND` | Określony kontakt nie istnieje |
+| `LIST_NOT_FOUND` | Określona lista nie istnieje |
+| `CAMPAIGN_NOT_FOUND` | Określona kampania nie istnieje |
+| `PERMISSION_DENIED` | Klucz API nie posiada wymaganych uprawnień |
+| `INTERNAL_ERROR` | Wystąpił błąd na serwerze |
+
+## Paginacja
+
+Endpointy listujące, które zwracają wiele elementów, są paginowane. Paginacja wykorzystuje następujące parametry:
+
+- `page` - Numer strony (indeksowany od 0, domyślnie: 0)
+- `size` - Liczba elementów na stronę (domyślnie: 20)
+
+Odpowiedzi paginowane zawierają:
+
+```json
+{
+  "success": true,
+  "data": {
+    "items": [...],
+    "page": 0,
+    "size": 20,
+    "totalElements": 150,
+    "totalPages": 8
+  }
+}
+```
+
+## Limity częstotliwości
+
+API posiada limity częstotliwości, aby zapobiec nadużyciom, które mogłyby pogorszyć naszą zdolność do utrzymania stałej wydajności API dla wszystkich użytkowników. Domyślnie każdy klucz API jest ograniczony do **1000 żądań na godzinę**.
+
+Gdy przekroczysz limit częstotliwości, API zwróci kod statusu `429 Too Many Requests`.

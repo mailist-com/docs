@@ -1,0 +1,186 @@
+---
+title: 'Lista kampanii'
+description: 'Pobierz stronicowaną listę kampanii email'
+api: 'GET /api/v1/campaigns'
+---
+
+## Parametry zapytania
+
+<ParamField query="status" type="string">
+  Filtruj po statusie kampanii: `DRAFT`, `SCHEDULED`, `SENDING`, `SENT`, `FAILED`
+</ParamField>
+
+<ParamField query="page" type="integer" default="0">
+  Numer strony dla paginacji (indeksowany od 0)
+</ParamField>
+
+<ParamField query="size" type="integer" default="20">
+  Liczba kampanii na stronę
+</ParamField>
+
+## Odpowiedź
+
+<ResponseField name="success" type="boolean">
+  Wskazuje czy żądanie zakończyło się sukcesem
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  Stronicowane dane kampanii
+
+  <Expandable title="Struktura odpowiedzi">
+    <ResponseField name="campaigns" type="array">
+      Tablica obiektów kampanii
+
+      <Expandable title="Obiekt kampanii">
+        <ResponseField name="id" type="integer">
+          Unikalny identyfikator kampanii
+        </ResponseField>
+
+        <ResponseField name="name" type="string">
+          Nazwa kampanii
+        </ResponseField>
+
+        <ResponseField name="subject" type="string">
+          Temat wiadomości email
+        </ResponseField>
+
+        <ResponseField name="status" type="string">
+          Status kampanii: DRAFT, SCHEDULED, SENDING, SENT, FAILED
+        </ResponseField>
+
+        <ResponseField name="total_recipients" type="integer">
+          Całkowita liczba odbiorców
+        </ResponseField>
+
+        <ResponseField name="created_at" type="string">
+          Znacznik czasu utworzenia w formacie ISO 8601
+        </ResponseField>
+
+        <ResponseField name="sent_at" type="string">
+          Znacznik czasu wysłania kampanii w formacie ISO 8601 (null jeśli jeszcze nie wysłano)
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="page" type="integer">
+      Bieżący numer strony (indeksowany od 0)
+    </ResponseField>
+
+    <ResponseField name="size" type="integer">
+      Rozmiar strony
+    </ResponseField>
+
+    <ResponseField name="totalElements" type="integer">
+      Całkowita liczba kampanii spełniających kryteria filtrowania
+    </ResponseField>
+
+    <ResponseField name="totalPages" type="integer">
+      Całkowita liczba stron
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Przykład
+
+<CodeGroup>
+
+```bash cURL
+curl https://api.mailist.com/api/v1/campaigns?status=SENT&page=0&size=20 \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+
+```javascript JavaScript
+const params = new URLSearchParams({
+  status: 'SENT',
+  page: 0,
+  size: 20
+});
+
+const response = await fetch(`https://api.mailist.com/api/v1/campaigns?${params}`, {
+  headers: {
+    'X-API-Key': 'YOUR_API_KEY'
+  }
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+response = requests.get(
+    'https://api.mailist.com/api/v1/campaigns',
+    headers={'X-API-Key': 'YOUR_API_KEY'},
+    params={
+        'status': 'SENT',
+        'page': 0,
+        'size': 20
+    }
+)
+
+data = response.json()
+```
+
+</CodeGroup>
+
+## Odpowiedź
+
+<ResponseExample>
+
+```json 200 Sukces
+{
+  "success": true,
+  "data": {
+    "campaigns": [
+      {
+        "id": 456,
+        "name": "Black Friday Sale 2024",
+        "subject": "50% OFF Everything - Limited Time!",
+        "status": "SENT",
+        "total_recipients": 10000,
+        "created_at": "2024-12-01T10:00:00",
+        "sent_at": "2024-12-01T14:30:00"
+      },
+      {
+        "id": 455,
+        "name": "December Newsletter",
+        "subject": "Year-end updates and special offers",
+        "status": "SENT",
+        "total_recipients": 5000,
+        "created_at": "2025-12-01T10:00:00",
+        "sent_at": "2025-12-15T14:00:00"
+      }
+    ],
+    "page": 0,
+    "size": 20,
+    "totalElements": 45,
+    "totalPages": 3
+  }
+}
+```
+
+```json 403 Brak uprawnień
+{
+  "success": false,
+  "error": {
+    "code": "PERMISSION_DENIED",
+    "message": "Klucz API nie posiada uprawnienia 'campaigns.read'"
+  }
+}
+```
+
+</ResponseExample>
+
+## Statusy kampanii
+
+- **DRAFT**: Kampania jest tworzona
+- **SCHEDULED**: Kampania jest zaplanowana do wysłania w przyszłości
+- **SENDING**: Kampania jest obecnie wysyłana
+- **SENT**: Kampania została pomyślnie wysłana
+- **FAILED**: Wysyłanie kampanii nie powiodło się
+
+## Uwagi
+
+- Kampanie są sortowane według daty utworzenia (najnowsze pierwsze)
+- Ten endpoint wymaga uprawnienia `campaigns.read` dla klucza API
+- Użyj parametrów paginacji aby nawigować przez duże zestawy wyników

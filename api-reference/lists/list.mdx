@@ -1,0 +1,124 @@
+---
+title: 'Lista list kontaktów'
+description: 'Pobierz wszystkie listy kontaktów z paginacją'
+api: 'GET /api/v1/lists'
+---
+
+## Parametry zapytania
+
+<ParamField query="page" type="integer" default="0">
+  Numer strony dla paginacji (indeksowany od 0)
+</ParamField>
+
+<ParamField query="size" type="integer" default="20">
+  Liczba list na stronę
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  Paginated lists data
+
+  <Expandable title="Response structure">
+    <ResponseField name="lists" type="array">
+      Array of contact list objects
+
+      <Expandable title="List object">
+        <ResponseField name="id" type="integer">
+          Unique list identifier
+        </ResponseField>
+
+        <ResponseField name="name" type="string">
+          List name
+        </ResponseField>
+
+        <ResponseField name="description" type="string">
+          List description
+        </ResponseField>
+
+        <ResponseField name="is_active" type="boolean">
+          Whether the list is active
+        </ResponseField>
+
+        <ResponseField name="contact_count" type="integer">
+          Number of contacts in this list
+        </ResponseField>
+
+        <ResponseField name="created_at" type="string">
+          ISO 8601 timestamp of creation
+        </ResponseField>
+
+        <ResponseField name="updated_at" type="string">
+          ISO 8601 timestamp of last update
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="page" type="integer">
+      Current page number (0-indexed)
+    </ResponseField>
+
+    <ResponseField name="size" type="integer">
+      Page size
+    </ResponseField>
+
+    <ResponseField name="totalElements" type="integer">
+      Total number of lists
+    </ResponseField>
+
+    <ResponseField name="totalPages" type="integer">
+      Total number of pages
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Example request
+
+```bash
+curl https://api.mailist.com/api/v1/lists?page=0&size=20 \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+
+## Example response
+
+```json
+{
+  "success": true,
+  "data": {
+    "lists": [
+      {
+        "id": 123,
+        "name": "Newsletter Subscribers",
+        "description": "Main newsletter subscription list",
+        "is_active": true,
+        "contact_count": 1250,
+        "created_at": "2024-01-15T10:30:00",
+        "updated_at": "2024-12-23T14:20:00"
+      },
+      {
+        "id": 124,
+        "name": "VIP Customers",
+        "description": "Premium tier customers",
+        "is_active": true,
+        "contact_count": 87,
+        "created_at": "2024-03-20T09:15:00",
+        "updated_at": "2024-12-20T11:45:00"
+      }
+    ],
+    "page": 0,
+    "size": 20,
+    "totalElements": 8,
+    "totalPages": 1
+  }
+}
+```
+
+## Uwagi
+
+- Listy są sortowane według daty utworzenia
+- Ten endpoint wymaga uprawnienia `lists.read` dla klucza API
+- Nieaktywne listy (is_active: false) nadal są zwracane w wynikach

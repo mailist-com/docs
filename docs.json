@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Mailist Documentation",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -51,18 +51,32 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Getting started",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Contacts",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/subscribers/create",
+              "api-reference/subscribers/get",
+              "api-reference/subscribers/update"
+            ]
+          },
+          {
+            "group": "Contact Lists",
+            "pages": [
+              "api-reference/lists/list",
+              "api-reference/lists/create"
+            ]
+          },
+          {
+            "group": "Campaigns",
+            "pages": [
+              "api-reference/campaigns/list",
+              "api-reference/campaigns/get",
+              "api-reference/analytics/campaign-stats"
             ]
           }
         ]
@@ -71,14 +85,14 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Dashboard",
+          "href": "https://app.mailist.com",
+          "icon": "grid-2"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Support",
+          "href": "https://mailist.com/support",
+          "icon": "life-ring"
         }
       ]
     }
@@ -90,14 +104,14 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Contact",
+        "href": "mailto:support@mailist.com"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Get Started",
+      "href": "https://app.mailist.com/signup"
     }
   },
   "contextual": {
@@ -114,9 +128,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/mailist",
+      "github": "https://github.com/mailist-com",
+      "linkedin": "https://linkedin.com/company/110314301"
     }
   }
 }
