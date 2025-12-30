@@ -14,6 +14,7 @@
         {
           "anchor": "Portal",
           "icon": "grid-2",
+          "hidden": true,
           "href": "https://app.mailist.pl"
         },
         {
@@ -133,12 +134,7 @@
   },
   "logo": "/images/mailist-gemini-transparent.png",
   "navbar": {
-    "links": [
-      {
-        "label": "Contact",
-        "href": "mailto:support@mailist.com"
-      }
-    ],
+    "links": [],
     "primary": {
       "type": "button",
       "label": "Get Started",
