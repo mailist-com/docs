@@ -1,0 +1,116 @@
+---
+title: 'Campaign statistics'
+description: 'Get detailed analytics for a campaign'
+---
+
+## Endpoint
+
+```
+GET /campaigns/{id}/stats
+```
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  Campaign ID
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="object">
+  <ResponseField name="campaign_id" type="string">
+    Campaign identifier
+  </ResponseField>
+  
+  <ResponseField name="sent" type="integer">
+    Total emails sent
+  </ResponseField>
+  
+  <ResponseField name="delivered" type="integer">
+    Successfully delivered emails
+  </ResponseField>
+  
+  <ResponseField name="bounced" type="integer">
+    Bounced emails
+  </ResponseField>
+  
+  <ResponseField name="opened" type="integer">
+    Unique opens
+  </ResponseField>
+  
+  <ResponseField name="open_rate" type="number">
+    Open rate percentage
+  </ResponseField>
+  
+  <ResponseField name="clicked" type="integer">
+    Unique clicks
+  </ResponseField>
+  
+  <ResponseField name="click_rate" type="number">
+    Click rate percentage
+  </ResponseField>
+  
+  <ResponseField name="unsubscribed" type="integer">
+    Unsubscribe count
+  </ResponseField>
+  
+  <ResponseField name="complained" type="integer">
+    Spam complaint count
+  </ResponseField>
+  
+  <ResponseField name="links" type="array">
+    Click statistics per link
+    
+    <Expandable title="Link object">
+      <ResponseField name="url" type="string">
+        Link URL
+      </ResponseField>
+      
+      <ResponseField name="clicks" type="integer">
+        Total clicks on this link
+      </ResponseField>
+      
+      <ResponseField name="unique_clicks" type="integer">
+        Unique clicks on this link
+      </ResponseField>
+    </Expandable>
+  </ResponseField>
+</ResponseField>
+
+## Example request
+
+```bash
+curl https://api.mailist.com/v1/campaigns/camp_abc123/stats \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Example response
+
+```json
+{
+  "data": {
+    "campaign_id": "camp_abc123",
+    "sent": 5000,
+    "delivered": 4950,
+    "bounced": 50,
+    "opened": 2475,
+    "open_rate": 50.0,
+    "clicked": 742,
+    "click_rate": 15.0,
+    "unsubscribed": 12,
+    "complained": 2,
+    "links": [
+      {
+        "url": "https://example.com/product",
+        "clicks": 450,
+        "unique_clicks": 380
+      },
+      {
+        "url": "https://example.com/blog",
+        "clicks": 320,
+        "unique_clicks": 280
+      }
+    ]
+  }
+}
+```
