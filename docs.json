@@ -51,18 +51,49 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Getting started",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Subscribers",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/subscribers/list",
+              "api-reference/subscribers/get",
+              "api-reference/subscribers/create",
+              "api-reference/subscribers/update",
+              "api-reference/subscribers/delete"
+            ]
+          },
+          {
+            "group": "Campaigns",
+            "pages": [
+              "api-reference/campaigns/list",
+              "api-reference/campaigns/get",
+              "api-reference/campaigns/create",
+              "api-reference/campaigns/send",
+              "api-reference/campaigns/delete"
+            ]
+          },
+          {
+            "group": "Mailing lists",
+            "pages": [
+              "api-reference/lists/list",
+              "api-reference/lists/create"
+            ]
+          },
+          {
+            "group": "Templates",
+            "pages": [
+              "api-reference/templates/list",
+              "api-reference/templates/create"
+            ]
+          },
+          {
+            "group": "Analytics",
+            "pages": [
+              "api-reference/analytics/campaign-stats"
             ]
           }
         ]
