@@ -32,7 +32,7 @@
           {
             "group": "Pierwsze kroki",
             "pages": [
-              "guides/wprowadzenie",
+              "index",
               "guides/pierwsze-kampanie",
               "guides/quick-start"
             ]
@@ -134,16 +134,11 @@
   },
   "logo": "/images/mailist-gemini-transparent.png",
   "navbar": {
-    "links": [
-      {
-        "label": "Get Started",
-        "href": "https://app.mailist.pl"
-      }
-    ],
+    "links": [],
     "primary": {
       "type": "button",
       "label": "Rozpocznij",
-      "href": "https://app.mailist.com"
+      "href": "https://app.mailist.pl"
     }
   },
   "contextual": {

@@ -1,97 +1,178 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Witaj w Mailist"
+sidebarTitle: "Witaj w Mailist"
+description: "Poznaj platformę Mailist - kompleksowe narzędzie do email marketingu i automatyzacji komunikacji z klientami."
 ---
 
-## Setting up
+# Witaj w Mailist 👋
 
-Get your documentation site up and running in minutes.
+Mailist to zaawansowana platforma email marketingu, która pomaga firmom budować relacje z klientami poprzez skuteczne kampanie emailowe, inteligentną automatyzację i precyzyjne zarządzanie bazą kontaktów.
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+<Info>
+  **Nowy użytkownik?** Ten przewodnik pomoże Ci w 5 minut stworzyć i wysłać pierwszą kampanię.
+</Info>
 
-## Make it yours
+## Kluczowe funkcje platformy
 
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="Listy i kontakty" icon="address-book" href="/guides/listy/tworzenie-list">
+    Organizuj bazę odbiorców, importuj kontakty CSV i twórz segmenty
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Kampanie emailowe" icon="paper-plane" href="/guides/kampanie/tworzenie-kampanii">
+    Twórz skuteczne kampanie z A/B testingiem i zaawansowaną analityką
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Szablony HTML" icon="palette" href="/guides/szablony/edytor-html">
+    Projektuj profesjonalne emaile z edytorem HTML i personalizacją
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Automatyzacja" icon="robot" href="/guides/automatyzacja/workflow">
+    Automatyczne kampanie, workflow i triggery oparte na zachowaniach
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## Szybki start - 5 kroków do sukcesu
 
-Everything you need to create world-class documentation.
+<Steps>
+  <Step title="Stwórz pierwszą listę kontaktów">
+    Lista to grupa odbiorców, do której wysyłasz kampanie. Przejdź do sekcji **Listy** i kliknij **+ Nowa lista**.
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+    [Dowiedz się więcej o listach →](/guides/listy/tworzenie-list)
+  </Step>
 
-## Need inspiration?
+  <Step title="Dodaj kontakty">
+    Dodaj odbiorców ręcznie lub zaimportuj plik CSV z istniejącej bazy danych.
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+    [Jak importować kontakty →](/guides/listy/import-kontaktow)
+  </Step>
+
+  <Step title="Zaprojektuj szablon emaila">
+    Użyj edytora HTML do stworzenia profesjonalnego szablonu z personalizacją.
+
+    [Tworzenie szablonów →](/guides/szablony/edytor-html)
+  </Step>
+
+  <Step title="Stwórz kampanię">
+    Wybierz listę, szablon i zaplanuj wysyłkę swojej pierwszej kampanii.
+
+    [Tworzenie kampanii →](/guides/kampanie/tworzenie-kampanii)
+  </Step>
+
+  <Step title="Analizuj wyniki">
+    Śledź otwarcia, kliknięcia i konwersje w czasie rzeczywistym.
+
+    [Analityka kampanii →](/guides/kampanie/analityka)
+  </Step>
+</Steps>
+
+## Główne sekcje platformy
+
+<AccordionGroup>
+  <Accordion title="Dashboard" icon="chart-line">
+    Centralny panel z przeglądem statystyk:
+    - Liczba wysłanych emaili w tym miesiącu
+    - Wskaźniki otwarć (open rate) i kliknięć (click rate)
+    - Ostatnie kampanie i ich wyniki
+    - Wzrost bazy kontaktów
+  </Accordion>
+
+  <Accordion title="Listy i Kontakty" icon="users">
+    Zarządzanie bazą odbiorców:
+    - Tworzenie i organizacja list
+    - Import/export CSV
+    - Segmentacja i filtrowanie
+    - Pola niestandardowe
+    - Status kontaktów (aktywni, wypisani, bounced)
+  </Accordion>
+
+  <Accordion title="Kampanie" icon="envelope">
+    Tworzenie i zarządzanie kampaniami:
+    - Jednorazowe wysyłki
+    - Kampanie cykliczne
+    - A/B testing
+    - Planowanie wysyłki
+    - Szczegółowa analityka
+  </Accordion>
+
+  <Accordion title="Szablony" icon="file-code">
+    Biblioteka szablonów emaili:
+    - Edytor HTML
+    - Gotowe szablony
+    - Personalizacja ({{firstName}}, {{company}})
+    - Preview na różnych urządzeniach
+  </Accordion>
+
+  <Accordion title="Automatyzacja" icon="gears">
+    Inteligentne workflow marketingowe:
+    - Welcome series dla nowych kontaktów
+    - Drip campaigns
+    - Triggery oparte na zachowaniach
+    - Warunkowa logika (if/then)
+  </Accordion>
+
+  <Accordion title="Ustawienia" icon="sliders">
+    Konfiguracja platformy:
+    - Profil firmy i dane kontaktowe
+    - Weryfikacja domen (SPF/DKIM)
+    - Zarządzanie zespołem
+    - Zgodność z RODO
+  </Accordion>
+</AccordionGroup>
+
+## Najlepsze praktyki
+
+<Warning>
+  **Ważne:** Wysyłaj emaile tylko do osób, które wyraziły zgodę na otrzymywanie wiadomości. Zgodność z RODO jest kluczowa.
+</Warning>
+
+### Budowanie listy kontaktów
+- **Jakość przed ilością** - 100 zaangażowanych kontaktów jest lepsze niż 10,000 niezainteresowanych
+- **Double opt-in** - zawsze weryfikuj adresy email
+- **Regularnie czyść bazę** - usuń nieaktywne kontakty co 6 miesięcy
+
+### Skuteczne kampanie
+- **Testuj temat emaila** - A/B testing zwiększa open rate o 15-30%
+- **Personalizuj treść** - użyj {{firstName}} i segmentacji
+- **Optymalizuj dla mobile** - 60% emaili jest otwieranych na telefonach
+- **Dodaj wyraźny CTA** - jeden, konkretny przycisk akcji
+
+### Timing wysyłki
+- **Najlepsze dni**: Wtorek-Czwartek
+- **Najlepsze godziny**: 9:00-11:00 lub 14:00-16:00
+- **Unikaj**: Weekendy i późne wieczory
+- **Testuj** - każda baza jest inna, sprawdź co działa u Ciebie
+
+## Wsparcie techniczne
+
+<CardGroup cols={3}>
+  <Card title="Email Support" icon="envelope">
+    support@mailist.com
+
+    Odpowiedź w ciągu 24h
+  </Card>
+  <Card title="Live Chat" icon="comments">
+    W aplikacji
+
+    Pon-Pt, 9:00-17:00
+  </Card>
+  <Card title="Dokumentacja API" icon="code">
+    REST API
+
+    [Przejdź do API →](/api-reference/introduction)
+  </Card>
+</CardGroup>
+
+## Następne kroki
+
+<CardGroup cols={2}>
+  <Card title="Stwórz pierwszą listę" icon="list-check" href="/guides/listy/tworzenie-list">
+    Zacznij od organizacji bazy kontaktów
+  </Card>
+  <Card title="Zaimportuj kontakty" icon="file-import" href="/guides/listy/import-kontaktow">
+    Przenieś istniejącą bazę do Mailist
+  </Card>
+  <Card title="Pierwsza kampania" icon="rocket" href="/guides/pierwsze-kampanie">
+    Przewodnik krok po kroku
+  </Card>
+  <Card title="Automatyzacja" icon="wand-magic-sparkles" href="/guides/automatyzacja/workflow">
+    Postaw pierwszego bota marketingowego
+  </Card>
+</CardGroup>
