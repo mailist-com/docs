@@ -136,14 +136,14 @@
   "navbar": {
     "links": [
       {
-        "label": "Rozpocznij",
+        "label": "Get Started",
         "href": "https://app.mailist.pl"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Get Started",
-      "href": "https://app.mailist.com/signup"
+      "label": "Rozpocznij",
+      "href": "https://app.mailist.com"
     }
   },
   "contextual": {
