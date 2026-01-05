@@ -160,5 +160,13 @@
   },
   "appearance": {
     "default": "system"
+  },
+  "integrations": {
+    "gtm": {
+      "tagId": "G-S9LY0LWVG2"
+    },
+    "clarity": {
+      "projectId": "uu3xmx3vwv"
+    }
   }
 }
