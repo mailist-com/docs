@@ -134,7 +134,12 @@
   },
   "logo": "/images/mailist-gemini-transparent.png",
   "navbar": {
-    "links": [],
+    "links": [
+      {
+        "label": "Rozpocznij",
+        "href": "https://app.mailist.pl"
+      }
+    ],
     "primary": {
       "type": "button",
       "label": "Get Started",
@@ -159,7 +164,8 @@
     }
   },
   "appearance": {
-    "default": "system"
+    "default": "system",
+    "strict": false
   },
   "integrations": {
     "gtm": {
